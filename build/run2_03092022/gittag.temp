@@ -1,0 +1,23 @@
+commit 2f59ff491950e01a3550ab70df207121e77152c7
+Author: Psasanka1729 <31107620+Psasanka1729@users.noreply.github.com>
+Date:   Sat Sep 3 11:52:30 2022 -0500
+
+    creates grover operator for L and saves it to jld file
+
+commit e2e2924dba34b69546370cb1716abab89807d7d8
+Author: Psasanka1729 <31107620+Psasanka1729@users.noreply.github.com>
+Date:   Wed Aug 31 23:09:14 2022 -0500
+
+    julia code for producing plot data
+
+commit aecf6170f9f95670c41b3b3ad56475701c53f4f4
+Author: Psasanka1729 <31107620+Psasanka1729@users.noreply.github.com>
+Date:   Wed Aug 31 23:08:19 2022 -0500
+
+    Add files via upload
+
+commit 44a09e75a7098897fe9b755925a551202edf6349
+Author: Psasanka1729 <31107620+Psasanka1729@users.noreply.github.com>
+Date:   Wed Aug 31 22:59:02 2022 -0500
+
+    Create test_runs.jl
