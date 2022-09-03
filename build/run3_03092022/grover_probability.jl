@@ -3,7 +3,7 @@ using LinearAlgebra
 using Random
 using PyCall
 
-L = 12;
+L = 16;
 Random.seed!(4000)
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
@@ -382,7 +382,7 @@ Delta = parse(Float64,ARGS[1])
 
 U =Grover(Delta)
 
-for i=1:60
+for i=1:210
     if i==0
         p1 = Psi[1]*conj.(Psi[1])
         p2 = Pxbar(Psi[2:length(Psi)])
