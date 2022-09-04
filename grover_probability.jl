@@ -1,7 +1,7 @@
 using SparseArrays
 using LinearAlgebra
 using Random
-
+using PyCall
 
 L = 12;
 Random.seed!(4000)
@@ -355,10 +355,10 @@ end;
 
 Grover(DELTA) = U_x * U0_reconstructed(DELTA);
 
-Normalized(Psi) = Array/norm(Psi);
+Normalized(Wavefunction) = Wavefunction/norm(Wavefunction);
 
-function Pxbar(Psi)
-    s = sum(Psi[2:length(x)])
+function Pxbar(Wavefunction)
+    s = sum(Wavefunction[2:length(Wavefunction)])
     return s*(conj.(s))/(2^L-1)
 end
 
@@ -375,22 +375,26 @@ def Write_file(p1, p2, i):
 p0 = [];
 pxbar = [];
 
-Psi = Psi_0(L)
+psi = Psi_0(L)
 
 
-Delta = parse(Float64,ARGS[1])
+Delta = 0.0#parse(Float64,ARGS[1])
 
 U =Grover(Delta)
 
-for i=1:40
-    if i==0
-        p1 = Psi[0]*conj.(Psi[0])
-        p2 = Pxbar(Psi[1:2^L])
-        py"Write_file"(p1,p2,i)
+for i=1:30
+    if i == 0
+        p1 = psi[1]
+        p2 = Pxbar(psi[2:length(psi)])
+        py"Write_file"(real(p1),real(p2),i)
     else
-        Psi = U*Psi
-        Psi = Normalized(Psi)
-        p1 = Psi[0]*conj.(Psi[0])
+        global psi = U*psi
+        global psi = Normalized(psi)
+        p1 = psi[1]*conj.(psi[1])
+        p2 = Pxbar(psi[2:length(psi)])
+        py"Write_file"(real(p1),real(p2),i)
+    end
+end
         
 
 
