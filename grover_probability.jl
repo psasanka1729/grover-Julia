@@ -3,8 +3,8 @@ using LinearAlgebra
 using Random
 using PyCall
 
-L = 12;
-Random.seed!(4000)
+L = 10;
+Random.seed!(2000)
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
 #Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
@@ -378,7 +378,7 @@ pxbar = [];
 psi = Psi_0(L)
 
 
-Delta = 0.0#parse(Float64,ARGS[1])
+Delta = parse(Float64,ARGS[1])
 
 U =Grover(Delta)
 
