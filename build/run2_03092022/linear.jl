@@ -166,8 +166,7 @@ the number of gates required to convert the MCX into a MCZ gate.
 Number_Of_Noise = 2*L^2-6*L+5 + 2*(L+1);
 
 
-SEED = parse(Int64,ARGS[1])
-Random.seed!(SEED)
+Random.seed!(6000)
 
 #=
 Required number of random numbers between [-1,1] are generated.
@@ -716,7 +715,7 @@ def Write_file(Noise, Energy, Entropy):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
-Num = 30;
+Num = 10;
 Delta_lst = [];
 Energy_lst = [];
 Entropy_lst = [];

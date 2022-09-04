@@ -1,6 +1,6 @@
 #!/bin/bash
 # Job name:
-#SBATCH --job-name=run2_03092022
+#SBATCH --job-name=run5_03092022
 #
 # Partition:
 #SBATCH --partition=CMT
@@ -17,18 +17,18 @@
 #SBATCH --mail-type=END
 #
 # Specify output files:
-#SBATCH -o run2_03092022.o%j
+#SBATCH -o run5_03092022.o%j
 #------------------------------------------------------
 
-echo "Starting job run2_03092022"
+echo "Starting job run5_03092022"
 
 module load launcher
 
 export LAUNCHER_PLUGIN_DIR=$LAUNCHER_DIR/plugins
 export LAUNCHER_RMI=SLURM
-export LAUNCHER_JOB_FILE=run2_03092022.task
+export LAUNCHER_JOB_FILE=run5_03092022.task
 export LAUNCHER_SCHED=interleaved
 
 $LAUNCHER_DIR/paramrun
 
-echo "Job run2_03092022 complete"
+echo "Job run5_03092022 complete"
