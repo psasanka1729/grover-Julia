@@ -157,7 +157,6 @@ function MCU(c,t,U)
     return Identity(2^L) - PI_0_matrix + PI_1_matrix     
 end;             
 
-L = 10
 #=
 The number of noise is total number of gates in the linear decomposition plus
 the number of gates required to convert the MCX into a MCZ gate.
