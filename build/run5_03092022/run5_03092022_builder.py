@@ -41,13 +41,14 @@ template_contents=open(template_file,'r').read()
 
 vnum=0
 
+deltas = [0.0,0.05,0.1,0.15,0.16,0.17,0.19,0.2,0.25,0.3]
 for L in xrange(10):
 	qsub_file=template_file.replace('.template','_'+str(vnum)+'.qsub')
 	fout=open(qsub_file,'w')
 
 	contents=template_contents.replace('###',str(vnum))
         contents=contents.replace('*project*',project_name)
-	contents=contents.replace('*111*',str(L/10.0))
+	contents=contents.replace('*111*',str(deltas[L]))
 	out_file_base = 'data_'+str(L)+'_*lll*.out'
 	contents=contents.replace('*ppp*',out_file_base.replace('*lll*','julia'))
 	vmap_file.write(str(vnum)+'\t'+str(L)+'\n')

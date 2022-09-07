@@ -3,6 +3,7 @@ using LinearAlgebra
 using Random
 
 L = 12;
+Random.seed!(4000)
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
 #Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
@@ -166,7 +167,6 @@ the number of gates required to convert the MCX into a MCZ gate.
 Number_Of_Noise = 2*L^2-6*L+5 + 2*(L+1);
 
 
-Random.seed!(6000)
 
 #=
 Required number of random numbers between [-1,1] are generated.
@@ -715,7 +715,7 @@ def Write_file(Noise, Energy, Entropy):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
-Num = 10;
+Num = 30;
 Delta_lst = [];
 Energy_lst = [];
 Entropy_lst = [];
@@ -723,7 +723,7 @@ Entropy_lst = [];
 x = parse(Float64,ARGS[1])
 
 for i=0:Num
-    delta = x/160.0+(1/160.0)*i/Num
+    delta = x/160.0+(1/160.0)*i/Num+0.2
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
