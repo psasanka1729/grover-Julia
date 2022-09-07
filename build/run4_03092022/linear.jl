@@ -4,7 +4,7 @@ using Random
 using PyCall
 
 L = 12;
-
+Random.seed!(6000)
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
 #Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
@@ -167,8 +167,6 @@ the number of gates required to convert the MCX into a MCZ gate.
 =#
 Number_Of_Noise = 2*L^2-6*L+5 + 2*(L+1);
 
-SEED = 4000;
-Random.seed!(SEED)
 
 #=
 Required number of random numbers between [-1,1] are generated.
@@ -722,9 +720,9 @@ Delta_lst = [];
 Energy_lst = [];
 Entropy_lst = [];
 
-Num = 30;
+Num = 20;
 for i=0:Num
-    delta = (x/160.0)+(1/160.0)*(i/Num)+0.1
+    delta = (x/160.0)+(1/160.0)*(i/Num)
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
