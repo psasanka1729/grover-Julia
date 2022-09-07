@@ -2,7 +2,7 @@ using SparseArrays
 using LinearAlgebra
 using Random
 
-L = 12;
+L = 14;
 Random.seed!(4000)
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
@@ -723,7 +723,7 @@ Entropy_lst = [];
 x = parse(Float64,ARGS[1])
 
 for i=0:Num
-    delta = x/160.0+(1/160.0)*i/Num+0.2
+    delta = x/160.0+(1/160.0)*i/Num
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
