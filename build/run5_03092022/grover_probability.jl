@@ -384,14 +384,14 @@ U =Grover(Delta)
 
 for i=1:30
     if i == 0
-        p1 = psi[1]
-        p2 = Pxbar(psi[2:length(psi)])
+        p1 = psi[1]*conj.(psi[1])
+        p2 = Pxbar(psi)
         py"Write_file"(real(p1),real(p2),i)
     else
         global psi = U*psi
-        global psi = Normalized(psi)
+        #global psi = Normalized(psi)
         p1 = psi[1]*conj.(psi[1])
-        p2 = Pxbar(psi[2:length(psi)])
+        p2 = Pxbar(psi)
         py"Write_file"(real(p1),real(p2),i)
     end
 end
