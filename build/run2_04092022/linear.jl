@@ -1,9 +1,7 @@
 using SparseArrays
 using LinearAlgebra
 using Random
-
-L = 14;
-Random.seed!(4000)
+using PyCall
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
 #Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
@@ -160,13 +158,14 @@ function MCU(c,t,U)
     return Identity(2^L) - PI_0_matrix + PI_1_matrix     
 end;             
 
+L = 10
 #=
 The number of noise is total number of gates in the linear decomposition plus
 the number of gates required to convert the MCX into a MCZ gate.
 =#
 Number_Of_Noise = 2*L^2-6*L+5 + 2*(L+1);
 
-
+Random.seed!(2000)
 
 #=
 Required number of random numbers between [-1,1] are generated.
@@ -708,22 +707,27 @@ end;
 py"""
 Num = 10
 L = 10
-f = open('plot_data'+'.txt', 'w')
-def Write_file(Noise, Energy, Entropy):
-    f = open('plot_data'+'.txt', 'a')
-    #for i in range(2**L*Num):
-    f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
+f = open('sorted_entropy'+'.txt', 'w')
+def Write_file(Index, Energy, Entropy):
+    f = open('sorted_entropy'+'.txt', 'a')
+    f.write(str(Index) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
-Num = 10;
+Op = Grover(delta)
+EIGU = py"eigu"(Op)
+Eigenvalues = real(1im*log.(EIGU[1]))
+Eigenvalues_sorted = sort(
+
+L = 10
+Num = 150;
 Delta_lst = [];
 Energy_lst = [];
 Entropy_lst = [];
 
-x = parse(Float64,ARGS[1])
+delta = 0.1
 
 for i=0:Num
-    delta = x/160.0+(1/160.0)*i/Num
+    delta = 0.5*i/Num
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
