@@ -19,7 +19,7 @@ Pauli_Z = [1 0;0 -1];
 
 Hadamard(noise) = Ry(pi/2+noise)*Pauli_Z;
 
-X = [0 1;1 0];
+global X = [0 1;1 0];
 
 """
 
@@ -711,7 +711,6 @@ L = 10
 f = open('plot_data'+'.txt', 'w')
 def Write_file(Noise, Energy, Entropy):
     f = open('plot_data'+'.txt', 'a')
-    #for i in range(2**L*Num):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
@@ -722,7 +721,7 @@ Entropy_lst = [];
 
 Num = 20;
 for i=0:Num
-    delta = (x/160.0)+(1/160.0)*(i/Num)
+    delta = (x/160.0)+(1/160.0)*(i/Num)+0.1
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
