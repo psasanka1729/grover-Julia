@@ -704,12 +704,9 @@ end;
 #Psi_Roll([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16])
 
 py"""
-Num = 10
-L = 10
 f = open('plot_data'+'.txt', 'w')
 def Write_file(Noise, Energy, Entropy):
     f = open('plot_data'+'.txt', 'a')
-    #for i in range(2**L*Num):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
