@@ -721,7 +721,7 @@ Entropy_lst = [];
 
 Num = 20;
 for i=0:Num
-    delta = (x/160.0)+(1/160.0)*(i/Num)+0.2
+    delta = (x/160.0)+(1/160.0)*(i/Num)+0.3
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
