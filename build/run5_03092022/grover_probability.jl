@@ -373,8 +373,6 @@ def Write_file(p1, p2, i):
     f.write(str(p1) +'\t'+ str(p2)+ '\t' + str(i) +'\n')
 """
 
-p0 = [];
-pxbar = [];
 
 psi = Psi_0(L)
 
