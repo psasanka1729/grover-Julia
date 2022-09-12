@@ -4,7 +4,7 @@ using Random
 using PyCall
 
 L = 12;
-SEED = 7000;
+SEED = 3000;
 Random.seed!(SEED)
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
@@ -381,7 +381,7 @@ Delta = parse(Float64,ARGS[1])
 
 U =Grover(Delta)
 
-for i=1:1000
+for i=0:1000
     if i == 0
         p1 = psi[1]*conj.(psi[1])
         p2 = Pxbar(psi)
