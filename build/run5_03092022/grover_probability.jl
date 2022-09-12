@@ -382,7 +382,7 @@ Delta = parse(Float64,ARGS[1])
 
 U =Grover(Delta)
 
-for i=1:30
+for i=1:200
     if i == 0
         p1 = psi[1]*conj.(psi[1])
         p2 = Pxbar(psi)
