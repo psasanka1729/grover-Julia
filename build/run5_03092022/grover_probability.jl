@@ -3,8 +3,8 @@ using LinearAlgebra
 using Random
 using PyCall
 
-L = 12;
-SEED = 3000;
+L = 14;
+SEED = 6000;
 Random.seed!(SEED)
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
