@@ -715,7 +715,7 @@ def Write_file(Noise, Energy, Entropy):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
-Num = 10;
+Num = 1;
 Delta_lst = [];
 Energy_lst = [];
 Entropy_lst = [];
