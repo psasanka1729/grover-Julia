@@ -42,3 +42,53 @@ Launcher: Task 7 running job 8 on compute-2-6-13 (bash run4_03092022_7.qsub)
 Launcher: Task 15 running job 16 on compute-2-6-13 (bash run4_03092022_15.qsub)
 Launcher: Task 3 running job 4 on compute-2-6-13 (bash run4_03092022_3.qsub)
 Launcher: Task 11 running job 12 on compute-2-6-13 (bash run4_03092022_11.qsub)
+Removing files
+Launcher: Job 8 completed in 100215 seconds.
+Launcher: Task 7 done. Exiting.
+Removing files
+Launcher: Job 15 completed in 100380 seconds.
+Launcher: Task 14 done. Exiting.
+Removing files
+Launcher: Job 13 completed in 100390 seconds.
+Launcher: Task 12 done. Exiting.
+Removing files
+Launcher: Job 4 completed in 100552 seconds.
+Launcher: Task 3 done. Exiting.
+Removing files
+Launcher: Job 7 completed in 100725 seconds.
+Launcher: Task 6 done. Exiting.
+Removing files
+Launcher: Job 14 completed in 100742 seconds.
+Launcher: Task 13 done. Exiting.
+Removing files
+Launcher: Job 6 completed in 100828 seconds.
+Launcher: Task 5 done. Exiting.
+Removing files
+Launcher: Job 9 completed in 100870 seconds.
+Launcher: Task 8 done. Exiting.
+Removing files
+Launcher: Job 12 completed in 100879 seconds.
+Launcher: Task 11 done. Exiting.
+Removing files
+Launcher: Job 11 completed in 100884 seconds.
+Launcher: Task 10 done. Exiting.
+Removing files
+Launcher: Job 3 completed in 100890 seconds.
+Launcher: Task 2 done. Exiting.
+Removing files
+Launcher: Job 1 completed in 100974 seconds.
+Launcher: Task 0 done. Exiting.
+Removing files
+Launcher: Job 5 completed in 101077 seconds.
+Launcher: Task 4 done. Exiting.
+Removing files
+Launcher: Job 2 completed in 101085 seconds.
+Launcher: Task 1 done. Exiting.
+Removing files
+Launcher: Job 10 completed in 101169 seconds.
+Launcher: Task 9 done. Exiting.
+Removing files
+Launcher: Job 16 completed in 101416 seconds.
+Launcher: Task 15 done. Exiting.
+Launcher: Done. Job exited without errors
+Job run4_03092022 complete
