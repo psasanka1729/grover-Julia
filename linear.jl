@@ -1,6 +1,10 @@
 using SparseArrays
 using LinearAlgebra
 using Random
+using PyCall
+
+L = 12;
+Random.seed!(7000)
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
 #Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
@@ -15,17 +19,14 @@ Pauli_Z = [1 0;0 -1];
 
 Hadamard(noise) = Ry(pi/2+noise)*Pauli_Z;
 
-X = [0 1;1 0];
+global X = [0 1;1 0];
 
 """
-
 Following function takes a 2x2 matrix (Gate) and qubit position (Qubit) and
 returns the resultant matrix.
-
 For example, the matrix for the gate U acting on the 3-rd qubit for N=5
 qubit system is given by   I (x) I (x) U (x) I (x) I; where (x) is the
 tensor product.
-
 """
 
 function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
@@ -59,12 +60,9 @@ Identity(dimension) = 1* Matrix(I, dimension, dimension);
 #Identity(3)
 
 """
-
 The following function returns a controlled U gate matrix.
-
 Input  : c (integer), t(integer), U (unitary operator).
 Output : Matrix of the multicontrolled U gate with control qubit c and target qubit t.
-
 """
 
 function CU(U,c,t)
@@ -106,12 +104,9 @@ function CU(U,c,t)
 end;               
 
 """
-
 The following returns a multicontrolled U gate matrix.
-
 Input  : c (list), t(integer), U (unitary operator).
 Output : Matrix of the multicontrolled U gate with control qubits c and target qubit t.
-
 """
 
 function MCU(c,t,U)
@@ -157,14 +152,12 @@ function MCU(c,t,U)
     return Identity(2^L) - PI_0_matrix + PI_1_matrix     
 end;             
 
-L = 10
 #=
 The number of noise is total number of gates in the linear decomposition plus
 the number of gates required to convert the MCX into a MCZ gate.
 =#
 Number_Of_Noise = 2*L^2-6*L+5 + 2*(L+1);
 
-Random.seed!(2000)
 
 #=
 Required number of random numbers between [-1,1] are generated.
@@ -176,7 +169,6 @@ U_x = (2/2^L)*A-Identity(2^L);
 
 #=
 The following function creates a multicontrolled X gate.
-
 Input: DELTA (noise).
 Output: Matrix of MCX.
 =#
@@ -268,13 +260,12 @@ function MCX_Reconstructed(DELTA)
 end    ;
 
 # Total number of gates.
-print("Total number of gates = ",2*L^2-6*L+5)
+#print("Total number of gates = ",2*L^2-6*L+5)
 
 #MCX[2^L,2^L-1],MCX[2^L-1,2^L]
 #length(C_1)+length(C_2)+length(C_3)+length(C_4)+length(C_5)+length(C_6)
 
 #=
-
 MCZ = X^(1) X^(2)...X^(L-1) H^(t) MCX X^(1) X^(2)...X^(L-1) H^(t) = MCZ.
 Creating a list for the gates on the left hand side of MCX gate.
 =#
@@ -437,38 +428,29 @@ using PyCall
 py"""
 import numpy
 import numpy.linalg
-
-
 def adjoint(psi):
     return psi.conjugate().transpose()
-
 def psi_to_rho(psi):
     return numpy.outer(psi,psi.conjugate())
-
 def exp_val(psi, op):
     return numpy.real(numpy.dot(adjoint(psi),op.dot(psi)))
-
 def norm_sq(psi):
     return numpy.real(numpy.dot(adjoint(psi),psi))
-
 def normalize(psi,tol=1e-9):
     ns=norm_sq(psi)**0.5
     if ns < tol:
         raise ValueError
     return psi/ns
-
 def is_herm(M,tol=1e-9):
     if M.shape[0]!=M.shape[1]:
         return False
     diff=M-adjoint(M)
     return max(numpy.abs(diff.flatten())) < tol
-
 def is_unitary(M,tol=1e-9):
     if M.shape[0]!=M.shape[1]:
         return False
     diff=M.dot(adjoint(M))-numpy.identity((M.shape[0]))
     return max(numpy.abs(diff.flatten())) < tol
-
 def eigu(U,tol=1e-9):
     (E_1,V_1)=numpy.linalg.eigh(U+adjoint(U))
     U_1=adjoint(V_1).dot(U).dot(V_1)
@@ -494,11 +476,9 @@ def eigu(U,tol=1e-9):
             V_2[non_diag_lst[j],non_diag_lst]=V_2_cut[j,:]
         V_1=V_1.dot(V_2)
         U_1=adjoint(V_2).dot(U_1).dot(V_2)
-
     # Sort by phase
     U_1=numpy.diag(U_1)
     inds=numpy.argsort(numpy.imag(numpy.log(U_1)))
-
     return (U_1[inds],V_1[:,inds]) # = (U_d,V) s.t. U=V*U_d*V^\dagger
 """
 #G = py"eigu"(Grover(0.0));
@@ -580,10 +560,8 @@ Dec2Bin(DecimalNumber) = string(DecimalNumber, base=2);
 List = [i for i=0:2^L-1]; # List with numbers from 0 to 2^L-1.
 
 #=
-
 The following function converts all numbers in decimals in the above list 
  from 0 to 2^L -1 to binary.
-
 =#
 
 function List_Bin(Lst)
@@ -704,20 +682,22 @@ end;
 #Psi_Roll([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16])
 
 py"""
+Num = 10
+L = 10
 f = open('plot_data'+'.txt', 'w')
 def Write_file(Noise, Energy, Entropy):
     f = open('plot_data'+'.txt', 'a')
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
-L = 10
-Num = 150;
+x = parse(Float64,ARGS[1]);
 Delta_lst = [];
 Energy_lst = [];
 Entropy_lst = [];
 
+Num = 10;
 for i=0:Num
-    delta = 0.5*i/Num
+    delta = (x/160.0)+(1/160.0)*(i/Num)
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
