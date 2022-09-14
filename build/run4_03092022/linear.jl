@@ -4,7 +4,7 @@ using Random
 using PyCall
 
 L = 12;
-Random.seed!(6000)
+Random.seed!(7000)
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
 #Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
@@ -719,9 +719,9 @@ Delta_lst = [];
 Energy_lst = [];
 Entropy_lst = [];
 
-Num = 20;
+Num = 10;
 for i=0:Num
-    delta = (x/160.0)+(1/160.0)*(i/Num)+0.4
+    delta = (x/160.0)+(1/160.0)*(i/Num)
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
