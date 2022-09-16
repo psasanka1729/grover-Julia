@@ -1,34 +1,34 @@
 #!/bin/bash
 # Job name:
-#SBATCH --job-name=run5_03092022
+#SBATCH --job-name=energy_noise_5
 #
 # Partition:
-#SBATCH --partition=normal
+#SBATCH --partition=*partition*
 #
 # Processors:
-#SBATCH --ntasks=16
-#SBATCH --nodes=1
+#SBATCH --ntasks=*nnn*
+#SBATCH --nodes=*NNN*
 #
 # Wall clock limit:
-#SBATCH --time=96:00:00
+#SBATCH --time=*ttt*
 #
 # Email at end:
-#SBATCH --mail-user=sxd190113@utdallas.edu
+#SBATCH --mail-user=*myemail*
 #SBATCH --mail-type=END
 #
 # Specify output files:
-#SBATCH -o run5_03092022.o%j
+#SBATCH -o energy_noise_5.o%j
 #------------------------------------------------------
 
-echo "Starting job run5_03092022"
+echo "Starting job energy_noise_5"
 
 module load launcher
 
 export LAUNCHER_PLUGIN_DIR=$LAUNCHER_DIR/plugins
 export LAUNCHER_RMI=SLURM
-export LAUNCHER_JOB_FILE=run5_03092022.task
+export LAUNCHER_JOB_FILE=energy_noise_5.task
 export LAUNCHER_SCHED=interleaved
 
 $LAUNCHER_DIR/paramrun
 
-echo "Job run5_03092022 complete"
+echo "Job energy_noise_5 complete"
