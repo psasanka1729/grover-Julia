@@ -8,9 +8,9 @@ bash run5_03092022_6.qsub
 bash run5_03092022_7.qsub
 bash run5_03092022_8.qsub
 bash run5_03092022_9.qsub
-echo "Fake run"
-echo "Fake run"
-echo "Fake run"
-echo "Fake run"
-echo "Fake run"
-echo "Fake run"
+bash run5_03092022_10.qsub
+bash run5_03092022_11.qsub
+bash run5_03092022_12.qsub
+bash run5_03092022_13.qsub
+bash run5_03092022_14.qsub
+bash run5_03092022_15.qsub
