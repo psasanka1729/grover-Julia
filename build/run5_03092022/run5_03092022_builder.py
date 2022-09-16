@@ -41,8 +41,8 @@ template_contents=open(template_file,'r').read()
 
 vnum=0
 
-deltas = [0.3,0.35,0.4,0.45,0.5,0.55,0.6,1,1.5,2]
-for L in xrange(10):
+deltas = [0.1,0.12,0.13,0.14,0.15,0.16,0.17,0.18,0.19,0.2,0.22,0.24,0.26,0.28,0.3,0.4]
+for L in xrange(16):
 	qsub_file=template_file.replace('.template','_'+str(vnum)+'.qsub')
 	fout=open(qsub_file,'w')
 

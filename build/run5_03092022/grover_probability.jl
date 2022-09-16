@@ -3,7 +3,7 @@ using LinearAlgebra
 using Random
 using PyCall
 
-L = 12;
+L = 14;
 SEED = 7000;
 Random.seed!(SEED)
 
