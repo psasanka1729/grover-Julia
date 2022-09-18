@@ -3,7 +3,7 @@
 #SBATCH --job-name=1_energy_index
 #
 # Partition:
-#SBATCH --partition=normal
+#SBATCH --partition=CMT
 #
 # Processors:
 #SBATCH --ntasks=16
