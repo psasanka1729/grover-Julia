@@ -1,3 +1,40 @@
+commit 6782b6ebecc122135cea590f4c759cd148f34075
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Sep 18 00:03:44 2022 -0500
+
+    Commit before run 2_energy_index
+
+commit 4d42150c13a843b742c0fd1884d9cbec26a38ce6
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Sep 17 22:44:56 2022 -0500
+
+    cluster backup
+
+commit 69d5edb39c44134891010abae7feeab29b90e275
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Sep 17 21:57:02 2022 -0500
+
+    Commit before run 1_probability_time
+
+commit d893b971c6276f62db1ef5b3c8a40bec8ebae1ba
+Merge: e7f1553 615ca63
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Sep 17 21:53:20 2022 -0500
+
+    Merge https://github.com/Psasanka1729/grover-Julia into main
+
+commit 615ca63a1721a0a24480285c77a49255ecf74a1e
+Author: Psasanka1729 <31107620+Psasanka1729@users.noreply.github.com>
+Date:   Sat Sep 17 21:52:49 2022 -0500
+
+    Update grover_probability.jl
+
+commit e7f15534c21315e60e8641ab84b95dbd8df2b965
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Sep 17 19:24:44 2022 -0500
+
+    Commit before run run5_03092022
+
 commit 85c34b1672df473705463a6c4fcf4a3b0f11277a
 Author: Sasanka Dowarah <sasankadowarah@Sasankas-MacBook-Air.local>
 Date:   Sat Sep 17 11:54:53 2022 -0500
