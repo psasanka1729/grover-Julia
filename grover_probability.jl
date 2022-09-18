@@ -3,8 +3,9 @@ using LinearAlgebra
 using Random
 using PyCall
 
-L = 16;
-Random.seed!(2000)
+L = 14;
+SEED = 7000;
+Random.seed!(SEED)
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
 #Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
@@ -372,8 +373,6 @@ def Write_file(p1, p2, i):
     f.write(str(p1) +'\t'+ str(p2)+ '\t' + str(i) +'\n')
 """
 
-p0 = [];
-pxbar = [];
 
 psi = Psi_0(L)
 
@@ -382,16 +381,16 @@ Delta = parse(Float64,ARGS[1])
 
 U =Grover(Delta)
 
-for i=1:220
+for i=0:1000
     if i == 0
-        p1 = psi[1]
-        p2 = Pxbar(psi[2:length(psi)])
+        p1 = psi[1]*conj.(psi[1])
+        p2 = Pxbar(psi)
         py"Write_file"(real(p1),real(p2),i)
     else
         global psi = U*psi
-        global psi = Normalized(psi)
+        #global psi = Normalized(psi)
         p1 = psi[1]*conj.(psi[1])
-        p2 = Pxbar(psi[2:length(psi)])
+        p2 = Pxbar(psi)
         py"Write_file"(real(p1),real(p2),i)
     end
 end
