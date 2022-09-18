@@ -45,3 +45,50 @@ Launcher: Task 0 running job 1 on compute-7-3-12 (bash 1_energy_index_0.qsub)
 Removing files
 Launcher: Job 12 completed in 5358 seconds.
 Launcher: Task 11 done. Exiting.
+Removing files
+Launcher: Job 6 completed in 7526 seconds.
+Launcher: Task 5 done. Exiting.
+Removing files
+Launcher: Job 16 completed in 7731 seconds.
+Launcher: Task 15 done. Exiting.
+Removing files
+Launcher: Job 15 completed in 9288 seconds.
+Launcher: Task 14 done. Exiting.
+Removing files
+Launcher: Job 7 completed in 9545 seconds.
+Launcher: Task 6 done. Exiting.
+Removing files
+Launcher: Job 11 completed in 9547 seconds.
+Launcher: Task 10 done. Exiting.
+Removing files
+Launcher: Job 10 completed in 9553 seconds.
+Launcher: Task 9 done. Exiting.
+Removing files
+Launcher: Job 13 completed in 9568 seconds.
+Launcher: Task 12 done. Exiting.
+Removing files
+Launcher: Job 4 completed in 9580 seconds.
+Launcher: Task 3 done. Exiting.
+Removing files
+Launcher: Job 3 completed in 9586 seconds.
+Launcher: Task 2 done. Exiting.
+Removing files
+Launcher: Job 9 completed in 9623 seconds.
+Launcher: Task 8 done. Exiting.
+Removing files
+Launcher: Job 8 completed in 9639 seconds.
+Launcher: Task 7 done. Exiting.
+Removing files
+Launcher: Job 5 completed in 9645 seconds.
+Launcher: Task 4 done. Exiting.
+Removing files
+Launcher: Job 2 completed in 9645 seconds.
+Launcher: Task 1 done. Exiting.
+Removing files
+Launcher: Job 1 completed in 9650 seconds.
+Launcher: Task 0 done. Exiting.
+Removing files
+Launcher: Job 14 completed in 9672 seconds.
+Launcher: Task 13 done. Exiting.
+Launcher: Done. Job exited without errors
+Job 1_energy_index complete

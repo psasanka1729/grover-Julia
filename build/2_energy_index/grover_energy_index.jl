@@ -8,7 +8,7 @@ L = 12;
 SEED = parse(Int64,ARGS[1]);
 Random.seed!(SEED)
 
-delta = 0.01
+delta = 0.02
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
 #Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
