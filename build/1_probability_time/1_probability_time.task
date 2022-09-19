@@ -4,8 +4,8 @@ bash 1_probability_time_2.qsub
 bash 1_probability_time_3.qsub
 bash 1_probability_time_4.qsub
 bash 1_probability_time_5.qsub
-echo "Fake run"
-echo "Fake run"
+bash 1_probability_time_6.qsub
+bash 1_probability_time_7.qsub
 echo "Fake run"
 echo "Fake run"
 echo "Fake run"
