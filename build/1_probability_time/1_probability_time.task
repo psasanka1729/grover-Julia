@@ -4,13 +4,13 @@ bash 1_probability_time_2.qsub
 bash 1_probability_time_3.qsub
 bash 1_probability_time_4.qsub
 bash 1_probability_time_5.qsub
-bash 1_probability_time_6.qsub
-bash 1_probability_time_7.qsub
-bash 1_probability_time_8.qsub
-bash 1_probability_time_9.qsub
-bash 1_probability_time_10.qsub
-bash 1_probability_time_11.qsub
-bash 1_probability_time_12.qsub
-bash 1_probability_time_13.qsub
-bash 1_probability_time_14.qsub
-bash 1_probability_time_15.qsub
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
+echo "Fake run"
