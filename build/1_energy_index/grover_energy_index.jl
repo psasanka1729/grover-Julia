@@ -3,12 +3,12 @@ using LinearAlgebra
 using Random
 using PyCall
 
-L = 12;
+L = 14;
 
 SEED = parse(Int64,ARGS[1]);
 Random.seed!(SEED)
 
-delta = 0.25
+delta = 0.1
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
 #Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
