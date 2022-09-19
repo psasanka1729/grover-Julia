@@ -4,7 +4,7 @@ using Random
 using PyCall
 
 L = 12;
-SEED = 14;
+SEED = 7000;
 Random.seed!(SEED)
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
