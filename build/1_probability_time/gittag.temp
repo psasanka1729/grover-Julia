@@ -1,3 +1,101 @@
+commit 2b8482ed505b3df158d11f5cd48a4f942efa747d
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 11:29:37 2022 -0500
+
+    Commit before run 1_probability_time
+
+commit c75eba4d18bf8347cdd58209fbb481ecef3db794
+Merge: c2d8e21 c76951c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 11:28:24 2022 -0500
+
+    Merge https://github.com/Psasanka1729/grover-Julia into main
+
+commit c76951c4e08695bad8a035c2fd2f508eab7dd904
+Author: Psasanka1729 <31107620+Psasanka1729@users.noreply.github.com>
+Date:   Tue Sep 20 11:28:01 2022 -0500
+
+    Add files via upload
+
+commit c2d8e219448bbe29b8a6f53bbf7b6cb73e59939e
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 11:26:22 2022 -0500
+
+    Commit before run energy_noise_2
+
+commit a31c82f018a6ba01ab018f503f091e4926d80887
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 11:25:50 2022 -0500
+
+    Commit before run energy_noise_3
+
+commit 5593779ce4917f6727ff07c9938b9d1faa90a7b2
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 11:25:06 2022 -0500
+
+    Commit before run energy_noise_2
+
+commit adc6448a92b00954b83dc221e6605455f76ce3c8
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 11:24:20 2022 -0500
+
+    Commit before run energy_noise_1
+
+commit c8cfdc30ecd149921ef518569df50abf7535d1b0
+Merge: 72b0970 3c37c5f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 11:22:33 2022 -0500
+
+    Merge https://github.com/Psasanka1729/grover-Julia into main
+
+commit 3c37c5f584965a6e4a02e5e63d3fcd2209272484
+Author: Psasanka1729 <31107620+Psasanka1729@users.noreply.github.com>
+Date:   Tue Sep 20 11:22:06 2022 -0500
+
+    Add files via upload
+
+commit 72b0970e1a0cfbf557fb0a603cea161c913932ad
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 10:47:29 2022 -0500
+
+    Commit before run energy_noise_3
+
+commit c387d3e43f7dfdc6cae5c5d0b1a1772bc37c1482
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 10:47:15 2022 -0500
+
+    Commit before run energy_noise_3
+
+commit d68ebf25fbedabcc76be557c70ea44c75b85dd74
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 10:45:28 2022 -0500
+
+    Commit before run energy_noise_2
+
+commit 364810b93ca0e48832031ed9ca086a3147fd2c47
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 10:44:54 2022 -0500
+
+    Commit before run energy_noise_2
+
+commit 716d4157ba5cdec36a6034e4cdf78e4602c5f0a3
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 10:40:26 2022 -0500
+
+    Commit before run energy_noise_1
+
+commit 1d3a37aa2550ab320507e272b168948b1098108f
+Author: Psasanka1729 <31107620+Psasanka1729@users.noreply.github.com>
+Date:   Tue Sep 20 10:34:41 2022 -0500
+
+    noise is added to every single gates
+
+commit 5435813893286be1fdccf8e5ae21bf4bd0cea9b4
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Sep 19 22:30:20 2022 -0500
+
+    cluster backup
+
 commit fa7d383f6923bd6cb1cda32a0316d2ee989edf85
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Mon Sep 19 00:09:51 2022 -0500
