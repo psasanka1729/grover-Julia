@@ -42,3 +42,53 @@ Launcher: Task 9 running job 10 on compute-7-2-31 (bash energy_noise_7_9.qsub)
 Launcher: Task 7 running job 8 on compute-7-2-31 (bash energy_noise_7_7.qsub)
 Launcher: Task 5 running job 6 on compute-7-2-31 (bash energy_noise_7_5.qsub)
 Launcher: Task 10 running job 11 on compute-7-2-31 (bash energy_noise_7_10.qsub)
+Removing files
+Launcher: Job 11 completed in 141830 seconds.
+Launcher: Task 10 done. Exiting.
+Removing files
+Launcher: Job 3 completed in 144530 seconds.
+Launcher: Task 2 done. Exiting.
+Removing files
+Launcher: Job 1 completed in 144619 seconds.
+Launcher: Task 0 done. Exiting.
+Removing files
+Launcher: Job 9 completed in 144700 seconds.
+Launcher: Task 8 done. Exiting.
+Removing files
+Launcher: Job 15 completed in 145025 seconds.
+Launcher: Task 14 done. Exiting.
+Removing files
+Launcher: Job 7 completed in 145076 seconds.
+Launcher: Task 6 done. Exiting.
+Removing files
+Launcher: Job 8 completed in 145276 seconds.
+Launcher: Task 7 done. Exiting.
+Removing files
+Launcher: Job 14 completed in 145410 seconds.
+Launcher: Task 13 done. Exiting.
+Removing files
+Launcher: Job 10 completed in 145433 seconds.
+Launcher: Task 9 done. Exiting.
+Removing files
+Launcher: Job 4 completed in 145680 seconds.
+Launcher: Task 3 done. Exiting.
+Removing files
+Launcher: Job 16 completed in 145705 seconds.
+Launcher: Task 15 done. Exiting.
+Removing files
+Launcher: Job 13 completed in 145786 seconds.
+Launcher: Task 12 done. Exiting.
+Removing files
+Launcher: Job 6 completed in 146029 seconds.
+Launcher: Task 5 done. Exiting.
+Removing files
+Launcher: Job 2 completed in 146038 seconds.
+Launcher: Task 1 done. Exiting.
+Removing files
+Launcher: Job 12 completed in 146415 seconds.
+Launcher: Task 11 done. Exiting.
+Removing files
+Launcher: Job 5 completed in 146495 seconds.
+Launcher: Task 4 done. Exiting.
+Launcher: Done. Job exited without errors
+Job energy_noise_7 complete
