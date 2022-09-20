@@ -9,7 +9,7 @@ LOCAL_DIR=$HOME/$PROJECT_NAME/build
 
 mkdir -p $SCRATCH_DIR
 
-EXEC=linear.jl
+EXEC=linear_all_noise.jl
 HELPER=""
 
 cd $LOCAL_DIR/$RUN_NAME
