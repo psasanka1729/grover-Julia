@@ -1,11 +1,12 @@
 using SparseArrays
 using LinearAlgebra
 using Random
-using PyCall
 
-L = 14;
-SEED = 7000;
-Random.seed!(SEED)
+L = 12;
+Number_Of_Noise = 4*L^2-6*L+13;
+Random.seed!(7000)
+NOISE = 2*rand(Float64,Number_Of_Noise).-1;
+
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
 #Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
@@ -162,18 +163,12 @@ function MCU(c,t,U)
     return Identity(2^L) - PI_0_matrix + PI_1_matrix     
 end;             
 
+
 #=
 The number of noise is total number of gates in the linear decomposition plus
 the number of gates required to convert the MCX into a MCZ gate.
 =#
-Number_Of_Noise = 2*L^2-6*L+5 + 2*(L+1);
 
-
-
-#=
-Required number of random numbers between [-1,1] are generated.
-=#
-NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 A = ones(2^L,2^L);
 U_x = (2/2^L)*A-Identity(2^L);
@@ -272,7 +267,7 @@ function MCX_Reconstructed(DELTA)
 end    ;
 
 # Total number of gates.
-print("Total number of gates = ",2*L^2-6*L+5)
+#print("Total number of gates = ",2*L^2-6*L+5)
 
 #MCX[2^L,2^L-1],MCX[2^L-1,2^L]
 #length(C_1)+length(C_2)+length(C_3)+length(C_4)+length(C_5)+length(C_6)
@@ -304,6 +299,81 @@ Output: Matrix of U_0.
 
 function U0_reconstructed(DELTA)
     
+    Noise_Counter = 1
+
+    # Creating an empty matrix to store the MCX matrix.
+    MCX = Identity(2^L);
+    
+    #=
+    The following loops generates all the controlled Rx gates as
+    described in arXiv:1303.3557. It generates six layers of gates
+    as mentioned in the paper. The loops can be checked by running
+    each of them manually.
+    
+    =#
+    # C_1.
+    for i = 1:L-2
+        for j = 1:i
+            #push!(C_1,[j,L-i,L-i+j])
+            
+            epsilon = NOISE[Noise_Counter]
+            MCX = CU(Rx((pi/2^j)+DELTA*epsilon), L-i, L-i+j)*MCX
+            Noise_Counter += 1
+            
+        end
+    end
+
+    # C_2.
+    for i = 2:L
+        #push!(C_2,[i-2,1,i])
+        
+        epsilon = NOISE[Noise_Counter]
+        MCX = CU(Rx((pi/2^(i-2))+DELTA*epsilon), 1, i)*MCX
+        Noise_Counter += 1
+        
+    end
+
+    # C3 = - C1.
+    for i = L-2:-1:1
+        for j = i:-1:1
+            #push!(C_3,[j,L-i,L-i+j])        
+            epsilon = NOISE[Noise_Counter]
+            MCX = CU(Rx((-pi/2^j)+DELTA*epsilon), L-i, L-i+j)*MCX
+            Noise_Counter += 1
+        end
+    end
+
+    # C_4.
+    for i = 1:L-3
+        for j = 1:i
+            #push!(C_4,[j,L-i-1,L-i+j-1])          
+            epsilon = NOISE[Noise_Counter]
+            MCX = CU(Rx((pi/2^j)+DELTA*epsilon), L-i-1, L-i-1+j)*MCX
+            Noise_Counter += 1
+        end    
+    end
+
+    # C_5.
+    for i = 2:L-1
+        #push!(C_5,[i-2,1,i])       
+        epsilon = NOISE[Noise_Counter]
+        MCX = CU(Rx((-pi/2^(i-2))+DELTA*epsilon), 1, i)*MCX
+        Noise_Counter += 1
+        
+    end
+
+    # C6 = - C4.
+    for i = L-3:-1:1
+        for j = i:-1:1
+            #push!(C_6,[j,L-i-1,L-i-1+j])         
+            epsilon = NOISE[Noise_Counter]
+            MCX = CU(Rx((-pi/2^j)+DELTA*epsilon), L-i-1, L-i-1+j)*MCX
+            Noise_Counter += 1
+            
+        end    
+    end
+
+
     #=
     Noise counter starts at the total number of gates required for
     the construction of the MCX value. 
@@ -311,7 +381,142 @@ function U0_reconstructed(DELTA)
     Total number noise created = Number of gates for MCX + Number of gate on the left +
                                 Number of gate on right.
     =#
-    Noise_Counter = 2*L^2-6*L+5;
+    
+    XHL_Matrix = Identity(2^L)
+    for i in XHL_Gates
+        
+        if i[1] == "H"
+            
+            epsilon = NOISE[Noise_Counter]
+            XHL_Matrix = XHL_Matrix*Matrix_Gate(Hadamard(DELTA*epsilon), i[2]) 
+            Noise_Counter += 1 
+            
+        elseif i[1] == "X"
+            
+            epsilon = NOISE[Noise_Counter]
+            XHL_Matrix = XHL_Matrix*Matrix_Gate(1im*Rx(pi+DELTA*epsilon),i[2])
+            Noise_Counter += 1 
+            
+        end
+    end
+    
+
+    XHR_Matrix = Identity(2^L)
+    for j in XHR_Gates
+        if j[1] == "H"
+            
+            epsilon = NOISE[Noise_Counter]
+            XHR_Matrix = XHR_Matrix*Matrix_Gate(Hadamard(DELTA*epsilon), j[2]) 
+            Noise_Counter += 1 
+            
+        elseif j[1] == "X"
+            
+            epsilon = NOISE[Noise_Counter]
+            XHR_Matrix = XHR_Matrix*Matrix_Gate(1im*Rx(pi+DELTA*epsilon),j[2])
+            Noise_Counter += 1 
+        end
+    end
+    #= MCZ = X^(1) X^(2)...X^(L-1) H^(t) MCX X^(1) X^(2)...X^(L-1) H^(t) = MCZ. =#
+    return XHL_Matrix*MCX*XHR_Matrix
+end;
+
+
+
+function Ux_reconstructed(DELTA)
+
+    Noise_Counter = 2*L^2-4*L+7
+
+    # Creating an empty matrix to store the MCX matrix.
+    MCX = Identity(2^L);
+    
+    #=
+    The following loops generates all the controlled Rx gates as
+    described in arXiv:1303.3557. It generates six layers of gates
+    as mentioned in the paper. The loops can be checked by running
+    each of them manually.
+    
+    =#
+    # C_1.
+    for i = 1:L-2
+        for j = 1:i
+            #push!(C_1,[j,L-i,L-i+j])
+            
+            epsilon = NOISE[Noise_Counter]
+            MCX = CU(Rx((pi/2^j)+DELTA*epsilon), L-i, L-i+j)*MCX
+            Noise_Counter += 1
+            
+        end
+    end
+
+    # C_2.
+    for i = 2:L
+        #push!(C_2,[i-2,1,i])
+        
+        epsilon = NOISE[Noise_Counter]
+        MCX = CU(Rx((pi/2^(i-2))+DELTA*epsilon), 1, i)*MCX
+        Noise_Counter += 1
+        
+    end
+
+    # C3 = - C1.
+    for i = L-2:-1:1
+        for j = i:-1:1
+            #push!(C_3,[j,L-i,L-i+j])        
+            epsilon = NOISE[Noise_Counter]
+            MCX = CU(Rx((-pi/2^j)+DELTA*epsilon), L-i, L-i+j)*MCX
+            Noise_Counter += 1
+        end
+    end
+
+    # C_4.
+    for i = 1:L-3
+        for j = 1:i
+            #push!(C_4,[j,L-i-1,L-i+j-1])          
+            epsilon = NOISE[Noise_Counter]
+            MCX = CU(Rx((pi/2^j)+DELTA*epsilon), L-i-1, L-i-1+j)*MCX
+            Noise_Counter += 1
+        end    
+    end
+
+    # C_5.
+    for i = 2:L-1
+        #push!(C_5,[i-2,1,i])       
+        epsilon = NOISE[Noise_Counter]
+        MCX = CU(Rx((-pi/2^(i-2))+DELTA*epsilon), 1, i)*MCX
+        Noise_Counter += 1
+        
+    end
+
+    # C6 = - C4.
+    for i = L-3:-1:1
+        for j = i:-1:1
+            #push!(C_6,[j,L-i-1,L-i-1+j])         
+            epsilon = NOISE[Noise_Counter]
+            MCX = CU(Rx((-pi/2^j)+DELTA*epsilon), L-i-1, L-i-1+j)*MCX
+            Noise_Counter += 1
+            
+        end    
+    end
+
+
+
+
+    
+    #=
+    Noise counter starts at the total number of gates required for
+    the construction of the MCX value. 
+    
+    Total number noise created = Number of gates for MCX + Number of gate on the left +
+                                Number of gate on right.
+    =#
+    
+    
+    HL_Matrix = Identity(2^L)
+    for i in 1:L
+        epsilon = NOISE[Noise_Counter]
+        HL_Matrix = HL_Matrix*Matrix_Gate(Hadamard(DELTA*epsilon), i) 
+        Noise_Counter += 1         
+    end
     
     XHL_Matrix = Identity(2^L)
     for i in XHL_Gates
@@ -346,15 +551,21 @@ function U0_reconstructed(DELTA)
             Noise_Counter += 1 
         end
     end
+    
+    HR_Matrix = Identity(2^L)
+    for i in 1:L
+        epsilon = NOISE[Noise_Counter]
+        HR_Matrix = HR_Matrix*Matrix_Gate(Hadamard(DELTA*epsilon), i) 
+        Noise_Counter += 1         
+    end
+    
     #= MCZ = X^(1) X^(2)...X^(L-1) H^(t) MCX X^(1) X^(2)...X^(L-1) H^(t) = MCZ. =#
-    return XHL_Matrix*MCX_Reconstructed(DELTA)*XHR_Matrix
+    return HL_Matrix*XHL_Matrix*MCX*XHR_Matrix*HR_Matrix
 end;
 
-#mcx = round.(MCX_Reconstructed(0.0);digits = 3);
+Grover(DELTA) = Ux_reconstructed(DELTA) * U0_reconstructed(DELTA);
 
-#u0 = round.(U0_reconstructed(0.0); digits = 3);
 
-Grover(DELTA) = U_x * U0_reconstructed(DELTA);
 
 Normalized(Wavefunction) = Wavefunction/norm(Wavefunction);
 
