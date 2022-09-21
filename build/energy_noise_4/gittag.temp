@@ -1,3 +1,94 @@
+commit 45b73a3d7a696ba15d563c41a8c0069bee2f6583
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 23:05:16 2022 -0500
+
+    Commit before run energy_noise_4
+
+commit ac0dd44f545bb4e9d11dd28d9e02c84e0db3df3e
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 23:02:56 2022 -0500
+
+    Commit before run 1_probability_time
+
+commit 86fde09bae9ee3038228980e4358793966e32cae
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 23:02:01 2022 -0500
+
+    Commit before run 1_probability_time
+
+commit e8063923f76c8273463e215ba06c378e0024aab6
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 22:47:39 2022 -0500
+
+    Commit before run 3_energy_index
+
+commit f241494449fb92bbb03e0d087217179a623d9420
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 22:45:29 2022 -0500
+
+    Commit before run 2_energy_index
+
+commit 8f10490169cbb3610e1bb7b6c1728b4ea0e35721
+Author: Psasanka1729 <31107620+Psasanka1729@users.noreply.github.com>
+Date:   Tue Sep 20 22:43:40 2022 -0500
+
+    Update grover_energy_index.jl
+
+commit 0e06507fb3cac6dfc585a168be48ca22e602c1a3
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 22:42:38 2022 -0500
+
+    cluster backup
+
+commit 79fbd2624d698a086f2a117f244daca53a85e2ad
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 22:41:25 2022 -0500
+
+    Commit before run 1_energy_index
+
+commit e098a56daa34a09b047fe226b3dcf3055ad1c5ff
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 18:28:48 2022 -0500
+
+    Commit before run energy_noise_3
+
+commit 426f3001c9c0e6f6cbd83a2a68ecd7243c9c0947
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 18:28:24 2022 -0500
+
+    Commit before run energy_noise_2
+
+commit d6becc0161292c7189174da4a820427b05e1f995
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 18:28:01 2022 -0500
+
+    Commit before run energy_noise_1
+
+commit 404f2ea0849cd80a67d94ae249cd684ac6bae4cc
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 17:51:40 2022 -0500
+
+    Commit before run 1_energy_index
+
+commit 47d332343f22f601c4a0b7cece892b6d13d26f8a
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 16:25:00 2022 -0500
+
+    Commit before run 1_energy_index
+
+commit 7aa1b58629a003f91bbea314c5ab79cb44a15820
+Merge: cee3fe7 0522a20
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Sep 20 16:22:11 2022 -0500
+
+    Merge https://github.com/Psasanka1729/grover-Julia into main
+
+commit 0522a20403874d5f3189f5d4c2a199ef6dc4fb86
+Author: Psasanka1729 <31107620+Psasanka1729@users.noreply.github.com>
+Date:   Tue Sep 20 16:21:58 2022 -0500
+
+    Add files via upload
+
 commit cee3fe729b5b109f3a70b09d57ebca0021b70273
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Tue Sep 20 15:10:19 2022 -0500
