@@ -4,7 +4,8 @@ using Random
 using PyCall
 L = 12;
 Number_Of_Noise = 4*L^2-6*L+13;
-Random.seed!(7000)
+SEED = parse(Int64,ARGS[1]);
+Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 
@@ -911,7 +912,7 @@ def Write_file(Noise, Energy, Entropy):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
-
+delta = 0.2
 Op = Grover(delta)
 EIGU = py"eigu"(Op)
 X = string(delta)
