@@ -40,8 +40,8 @@ template_file='1_probability_time.template'
 template_contents=open(template_file,'r').read()
 
 vnum=0
-deltas = [0.0,0.05,0.1,0.17,0.2,0.25,0.27,0.3]
-for L in xrange(8):
+deltas = [0.0,0.05,0.1,0.17,0.2,0.25,0.27,0.3,0.35,0.4]
+for L in xrange(10):
 	qsub_file=template_file.replace('.template','_'+str(vnum)+'.qsub')
 	fout=open(qsub_file,'w')
 
