@@ -4,7 +4,7 @@ using Random
 
 L = 12;
 Number_Of_Noise = 4*L^2-6*L+13;
-Random.seed!(7000)
+Random.seed!(6000)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 
@@ -833,9 +833,9 @@ Delta_lst = [];
 Energy_lst = [];
 Entropy_lst = [];
 
-Num = 4;
+Num = 10;
 for i=0:Num
-    delta = (x/160.0)+(1/160.0)*(i/Num)+0.3
+    delta = (x/160.0)+(1/160.0)*(i/Num)
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
