@@ -9,9 +9,9 @@ LOCAL_DIR=$HOME/$PROJECT_NAME/build
 
 mkdir -p $SCRATCH_DIR
 
-EXEC=linear.jl
+EXEC=linear_all_noise.jl
 HELPER=""
-
+i
 cd $LOCAL_DIR/$RUN_NAME
 cp $EXEC $SCRATCH_DIR/
 if [ ! -z "$HELPER" ] # Check that HELPER isn't empty
