@@ -11,7 +11,7 @@ NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
 #Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
 
-round.(-exp(-1im*pi*([1 1;1 1]/2)); digits = 3)
+#round.(-exp(-1im*pi*([1 1;1 1]/2)); digits = 3)
 
 Ry(theta) = [cos(theta/2) -sin(theta/2) ; sin(theta/2) cos(theta/2)];
 
