@@ -3,7 +3,7 @@
 #SBATCH --job-name=energy_noise_2
 #
 # Partition:
-#SBATCH --partition=CMT
+#SBATCH --partition=normal
 #
 # Processors:
 #SBATCH --ntasks=16
