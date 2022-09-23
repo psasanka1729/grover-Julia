@@ -4,7 +4,7 @@ using Random
 using PyCall
 L = 12;
 Number_Of_Noise = 4*L^2-6*L+13;
-Random.seed!(10000)
+Random.seed!(6000)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 
@@ -592,7 +592,7 @@ Delta = parse(Float64,ARGS[1])
 
 U =Grover(Delta)
 
-for i=0:1000
+for i=0:2000
     if i == 0
         p1 = psi[1]*conj.(psi[1])
         p2 = Pxbar(psi)
