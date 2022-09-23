@@ -912,7 +912,7 @@ def Write_file(Noise, Energy, Entropy):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
-delta = 0.1
+delta = 0.22
 Op = Grover(delta)
 EIGU = py"eigu"(Op)
 X = string(delta)
