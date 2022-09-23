@@ -4,7 +4,7 @@ using Random
 
 L = 12;
 Number_Of_Noise = 4*L^2-6*L+13;
-Random.seed!(6000)
+Random.seed!(190113)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 
@@ -833,7 +833,7 @@ Delta_lst = [];
 Energy_lst = [];
 Entropy_lst = [];
 
-Num = 10;
+Num = 20;
 for i=0:Num
     delta = (x/160.0)+(1/160.0)*(i/Num)+0.1
     Op = Grover(delta)
