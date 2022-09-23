@@ -41,13 +41,13 @@ template_contents=open(template_file,'r').read()
 
 vnum=0
 
-for L in xrange(16):
+for L in xrange(32):
 	qsub_file=template_file.replace('.template','_'+str(vnum)+'.qsub')
 	fout=open(qsub_file,'w')
 
 	contents=template_contents.replace('###',str(vnum))
         contents=contents.replace('*project*',project_name)
-	contents=contents.replace('*111*',str(L))
+	contents=contents.replace('*111*',str(1000+L))
 	vmap_file.write(str(vnum)+'\t'+str(L)+'\n')
 	task_file.write('bash 1_energy_index_'+str(vnum)+'.qsub\n')
 	fout.write(contents)
