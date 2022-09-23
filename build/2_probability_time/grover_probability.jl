@@ -3,7 +3,7 @@ using LinearAlgebra
 using Random
 using PyCall
 
-L = 12;
+L = 14;
 Number_Of_Noise = 4*L^2-6*L+13;
 Random.seed!(1729)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
