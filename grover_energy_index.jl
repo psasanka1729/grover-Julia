@@ -5,7 +5,8 @@ using PyCall
 
 L = 12;
 Number_Of_Noise = 4*L^2-6*L+13;
-Random.seed!(7000)
+SEED = parse(Int64,ARGS[1]);
+Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 
@@ -171,8 +172,8 @@ the number of gates required to convert the MCX into a MCZ gate.
 =#
 
 
-A = ones(2^L,2^L);
-U_x = (2/2^L)*A-Identity(2^L);
+#A = ones(2^L,2^L);
+#U_x = (2/2^L)*A-Identity(2^L);
 
 #=
 The following function creates a multicontrolled X gate.
