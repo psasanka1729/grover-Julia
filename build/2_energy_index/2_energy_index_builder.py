@@ -47,7 +47,7 @@ for L in xrange(32):
 
 	contents=template_contents.replace('###',str(vnum))
         contents=contents.replace('*project*',project_name)
-	contents=contents.replace('*111*',str(1000+L))
+	contents=contents.replace('*111*',str(10000+L))
 	vmap_file.write(str(vnum)+'\t'+str(L)+'\n')
 	task_file.write('bash 2_energy_index_'+str(vnum)+'.qsub\n')
 	fout.write(contents)

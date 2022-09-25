@@ -2,6 +2,7 @@ using SparseArrays
 using LinearAlgebra
 using Random
 using PyCall
+
 L = 12;
 Number_Of_Noise = 4*L^2-6*L+13;
 SEED = parse(Int64,ARGS[1]);
@@ -171,8 +172,8 @@ the number of gates required to convert the MCX into a MCZ gate.
 =#
 
 
-A = ones(2^L,2^L);
-U_x = (2/2^L)*A-Identity(2^L);
+#A = ones(2^L,2^L);
+#U_x = (2/2^L)*A-Identity(2^L);
 
 #=
 The following function creates a multicontrolled X gate.
@@ -194,7 +195,7 @@ function MCX_Reconstructed(DELTA)
     #C_6 = [];
     
     # Creating an empty matrix to store the MCX matrix.
-    MCX = Identity(2^L);
+    MCX = sparse(Identity(2^L));
     
     #=
     The following loops generates all the controlled Rx gates as
@@ -264,7 +265,7 @@ function MCX_Reconstructed(DELTA)
             
         end    
     end
-    return MCX
+    return sparse(MCX)
 end    ;
 
 # Total number of gates.
@@ -303,7 +304,7 @@ function U0_reconstructed(DELTA)
     Noise_Counter = 1
 
     # Creating an empty matrix to store the MCX matrix.
-    MCX = Identity(2^L);
+    MCX = sparse(Identity(2^L));
     
     #=
     The following loops generates all the controlled Rx gates as
@@ -383,7 +384,7 @@ function U0_reconstructed(DELTA)
                                 Number of gate on right.
     =#
     
-    XHL_Matrix = Identity(2^L)
+    XHL_Matrix = sparse(Identity(2^L))
     for i in XHL_Gates
         
         if i[1] == "H"
@@ -402,7 +403,7 @@ function U0_reconstructed(DELTA)
     end
     
 
-    XHR_Matrix = Identity(2^L)
+    XHR_Matrix = sparse(Identity(2^L))
     for j in XHR_Gates
         if j[1] == "H"
             
@@ -418,7 +419,7 @@ function U0_reconstructed(DELTA)
         end
     end
     #= MCZ = X^(1) X^(2)...X^(L-1) H^(t) MCX X^(1) X^(2)...X^(L-1) H^(t) = MCZ. =#
-    return XHL_Matrix*MCX*XHR_Matrix
+    return sparse(XHL_Matrix*MCX*XHR_Matrix)
 end;
 
 
@@ -428,7 +429,7 @@ function Ux_reconstructed(DELTA)
     Noise_Counter = 2*L^2-4*L+7
 
     # Creating an empty matrix to store the MCX matrix.
-    MCX = Identity(2^L);
+    MCX = sparse(Identity(2^L));
     
     #=
     The following loops generates all the controlled Rx gates as
@@ -512,14 +513,14 @@ function Ux_reconstructed(DELTA)
     =#
     
     
-    HL_Matrix = Identity(2^L)
+    HL_Matrix = sparse(Identity(2^L))
     for i in 1:L
         epsilon = NOISE[Noise_Counter]
         HL_Matrix = HL_Matrix*Matrix_Gate(Hadamard(DELTA*epsilon), i) 
         Noise_Counter += 1         
     end
     
-    XHL_Matrix = Identity(2^L)
+    XHL_Matrix = sparse(Identity(2^L))
     for i in XHL_Gates
         
         if i[1] == "H"
@@ -537,7 +538,7 @@ function Ux_reconstructed(DELTA)
         end
     end
     
-    XHR_Matrix = Identity(2^L)
+    XHR_Matrix = sparse(Identity(2^L))
     for j in XHR_Gates
         if j[1] == "H"
             
@@ -553,7 +554,7 @@ function Ux_reconstructed(DELTA)
         end
     end
     
-    HR_Matrix = Identity(2^L)
+    HR_Matrix = sparse(Identity(2^L))
     for i in 1:L
         epsilon = NOISE[Noise_Counter]
         HR_Matrix = HR_Matrix*Matrix_Gate(Hadamard(DELTA*epsilon), i) 
@@ -561,10 +562,11 @@ function Ux_reconstructed(DELTA)
     end
     
     #= MCZ = X^(1) X^(2)...X^(L-1) H^(t) MCX X^(1) X^(2)...X^(L-1) H^(t) = MCZ. =#
-    return HL_Matrix*XHL_Matrix*MCX*XHR_Matrix*HR_Matrix
+    return sparse(HL_Matrix*XHL_Matrix*MCX*XHR_Matrix*HR_Matrix)
 end;
 
-Grover(DELTA) = Ux_reconstructed(DELTA) * U0_reconstructed(DELTA);
+Grover(DELTA) = collect(Ux_reconstructed(DELTA) * U0_reconstructed(DELTA));
+
 
 
 #Grover(0.1);
