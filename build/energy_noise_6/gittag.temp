@@ -1,3 +1,286 @@
+commit 6c92644af4e7553849985208e03a17309b30783b
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Sep 25 12:10:35 2022 -0500
+
+    Commit before run energy_noise_6
+
+commit 2b5ed1c44590b40a226bdee864b758a386264938
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Sep 25 12:10:04 2022 -0500
+
+    Commit before run energy_noise_5
+
+commit fe09f414a31c223c1cad8654da5a1c3dbc49b7a2
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Sep 25 12:09:26 2022 -0500
+
+    Commit before run energy_noise_4
+
+commit bad53ea01c70b90a5be1af1fe819f48871f5e268
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Sep 25 12:08:36 2022 -0500
+
+    Commit before run energy_noise_3
+
+commit cb63029cf6cbc66ce9023f019d4936a46d683c32
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Sep 25 12:07:59 2022 -0500
+
+    Commit before run energy_noise_2
+
+commit 1ee185e7b34eff1b125c66a6080e52d1f3b9f9fe
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Sep 24 21:40:06 2022 -0500
+
+    cluster backup
+
+commit 5e0fa262a3b8c8632911f94ba0c94220be1ba823
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Sep 24 14:35:15 2022 -0500
+
+    Commit before run 2_energy_index
+
+commit 80d3d015b0aa62ac16d08e56794429eeb2dbbc05
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Sep 24 12:46:51 2022 -0500
+
+    Commit before run 1_energy_index
+
+commit d1b74849fae4337f2eb65d6716508fef6e8145a5
+Merge: d62c06c 8bf81f8
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Sep 24 12:24:43 2022 -0500
+
+    Merge https://github.com/Psasanka1729/grover-Julia into main
+
+commit 8bf81f8f73183b79e0a41e164bb33a70573102a0
+Author: Psasanka1729 <31107620+Psasanka1729@users.noreply.github.com>
+Date:   Sat Sep 24 12:24:03 2022 -0500
+
+    using sparse matrices
+
+commit d62c06cb6d2df453991ecf352afba43abbba6779
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Sep 24 12:23:11 2022 -0500
+
+    Commit before run 2_probability_time
+
+commit c93f9f79c9716d46dd0851ede1579e756af1dfe7
+Author: Psasanka1729 <31107620+Psasanka1729@users.noreply.github.com>
+Date:   Sat Sep 24 12:22:30 2022 -0500
+
+    using sparse matrices
+
+commit fa5fc23cc081fdba070dfeebdadd24cf12a54b18
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Sep 24 12:03:16 2022 -0500
+
+    Commit before run 2_probability_time
+
+commit d2251101f0dcef5c6637ad84626853d282291068
+Author: Sasanka Dowarah <sasankadowarah@Sasankas-MacBook-Air.local>
+Date:   Sat Sep 24 11:59:38 2022 -0500
+
+    using sprase in groevr_probability.jl
+
+commit 761cfea839c10fbb1e09731ad67a6878fe3a1a6b
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Sep 24 10:43:55 2022 -0500
+
+    cluster backup
+
+commit f25e97f9c61be0d7a6b57d5bf6c467621fd95da3
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Sep 23 13:25:05 2022 -0500
+
+    Commit before run 1_probability_time
+
+commit 3a2c1f93513089c74097c2261545319183099b98
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Sep 23 13:24:54 2022 -0500
+
+    Commit before run 1_probability_time
+
+commit f54f8f71b5203f7ba86d1e6dbf35c53f19b69197
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Sep 23 13:24:05 2022 -0500
+
+    Commit before run 2_probability_time
+
+commit 2c830a2af2b71e1a7da7612a4e8b2719e01c5490
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 23:17:00 2022 -0500
+
+    Commit before run 2_probability_time
+
+commit 00472e2ac6fddb980d07b337f1fa4435db2af4ac
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 23:15:34 2022 -0500
+
+    Commit before run 1_probability_time
+
+commit 15d221a9134c9f841f24cc3f9a1e65c67df0e3eb
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 23:13:44 2022 -0500
+
+    Commit before run 3_energy_index
+
+commit 3774b4e73eab9561f775eb8563341062e3045fa6
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 23:12:23 2022 -0500
+
+    Commit before run 3_energy_index
+
+commit a31944a1c1e6e289672bfe61ddcd6f1c49613f50
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 23:09:23 2022 -0500
+
+    Commit before run energy_noise_5
+
+commit c7394e30cff0fbc5bd1d0d2e2678cefee62aceb4
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 23:08:09 2022 -0500
+
+    Commit before run energy_noise_4
+
+commit 3f683e75ff7ffb14e042be019e3095ead208c1e7
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 23:05:16 2022 -0500
+
+    Commit before run 2_energy_index
+
+commit fa170e0861839188e098a9a4fced8fa8ea1db474
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 23:04:22 2022 -0500
+
+    Commit before run energy_noise_1
+
+commit 67766026b0bf50cc43be5b9d55d4dd83b229e9e6
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 23:03:33 2022 -0500
+
+    Commit before run energy_noise_2
+
+commit 3fb4d6f42a3dd5e5788be81a3ac14ccd0136142d
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 23:02:39 2022 -0500
+
+    Commit before run energy_noise_3
+
+commit efb65f4f1492883d113e1ad56daf93accc544463
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 23:01:24 2022 -0500
+
+    Commit before run energy_noise_3
+
+commit fbd8e3b959a884f38bc15d5b2e654d2b3e0514e1
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 23:00:36 2022 -0500
+
+    Commit before run energy_noise_2
+
+commit 583be7c58d9fbe86f05b146c9ba075a8f24b888e
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 22:59:32 2022 -0500
+
+    Commit before run energy_noise_1
+
+commit db4fa554c957070d03bde9b4174c093d86503a1f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 22:52:08 2022 -0500
+
+    Commit before run 2_energy_index
+
+commit 52ba89812a3f60051c7e13df3648e406bde70063
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 22:50:27 2022 -0500
+
+    Commit before run 1_energy_index
+
+commit b82a2dc0f66577396b7b22bbb6cb34c4dd86207f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 22:07:43 2022 -0500
+
+    Commit before run 1_probability_time
+
+commit d0490ffd3bfc2aa5c65f617330bbcb63d9803b71
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 22:07:10 2022 -0500
+
+    Commit before run 1_probability_time
+
+commit a804092fa09c243f98ecac195ab2bae56227b10e
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 16:34:41 2022 -0500
+
+    Commit before run 2_energy_index
+
+commit dd4bfaa6f92fd43387fee583ab4e9cdbdf798cfa
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 16:33:53 2022 -0500
+
+    Commit before run 1_energy_index
+
+commit 642301b9e25e0f3eb7fccd1c688891b40143ad0e
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 11:59:25 2022 -0500
+
+    cluster backup
+
+commit 0f717f1f512274d129f00d7d1b6c937e6d906579
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 10:41:12 2022 -0500
+
+    Commit before run 1_energy_index
+
+commit f5b787f293828421b55778e75f2b25eee486e488
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Thu Sep 22 10:07:38 2022 -0500
+
+    Commit before run 1_probability_time
+
+commit 0f8b861b3258760664f9e63195ac4ac39d707605
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Sep 21 22:59:40 2022 -0500
+
+    Commit before run 1_probability_time
+
+commit b6eb4def0a108410f12446469af3a041ab7faa47
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Sep 21 22:32:38 2022 -0500
+
+    Commit before run 1_probability_time
+
+commit bf3faa043690d5c8a7b89a1e90984ff15b9ec029
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Sep 21 18:38:33 2022 -0500
+
+    cluster backup
+
+commit 46d0d175ef5960f5778ffe792230da1c5af7d5a2
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Sep 21 18:37:02 2022 -0500
+
+    Commit before run 1_probability_time
+
+commit 3044829464847c24eeafe95fbf3bf6e386dbc138
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Sep 21 18:33:40 2022 -0500
+
+    Commit before run 1_probability_time
+
+commit 6d734db4a91d0d6b0afec00ff258da1ea3692265
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Sep 21 18:33:10 2022 -0500
+
+    Commit before run 1_probability_time
+
+commit bbc8c75889480a867f5ac3c3b8b5dbded03753f9
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Sep 21 10:24:23 2022 -0500
+
+    Commit before run energy_noise_5
+
 commit ca59005bcbc3f5d94cdca000a07c32f14968e0f5
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Wed Sep 21 10:23:22 2022 -0500
