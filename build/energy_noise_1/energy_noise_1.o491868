@@ -1,0 +1,95 @@
+Starting job energy_noise_1
+WARNING (09/25/22 12:07:08): LAUNCHER_WORKDIR variable not set. Using current directory.
+Launcher: Setup complete.
+
+------------- SUMMARY ---------------
+   Number of hosts:    1
+   Working directory:  /home/sxd190113/grover-Julia/build/energy_noise_1
+   Processes per host: 16
+   Total processes:    16
+   Total jobs:         16
+   Scheduling method:  interleaved
+
+-------------------------------------
+Launcher: Starting parallel tasks...
+using /tmp/launcher.491868.hostlist.cT4iDTg0 to get hosts
+starting job on compute-7-2-22
+Warning: Permanently added 'compute-7-2-22,10.247.129.59' (ECDSA) to the list of known hosts.
+Lmod has detected the following error: The following module(s) are unknown:
+"git"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "git"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Launcher: Task 5 running job 6 on compute-7-2-22 (bash energy_noise_1_5.qsub)
+Launcher: Task 1 running job 2 on compute-7-2-22 (bash energy_noise_1_1.qsub)
+Launcher: Task 3 running job 4 on compute-7-2-22 (bash energy_noise_1_3.qsub)
+Launcher: Task 2 running job 3 on compute-7-2-22 (bash energy_noise_1_2.qsub)
+Launcher: Task 4 running job 5 on compute-7-2-22 (bash energy_noise_1_4.qsub)
+Launcher: Task 8 running job 9 on compute-7-2-22 (bash energy_noise_1_8.qsub)
+Launcher: Task 12 running job 13 on compute-7-2-22 (bash energy_noise_1_12.qsub)
+Launcher: Task 0 running job 1 on compute-7-2-22 (bash energy_noise_1_0.qsub)
+Launcher: Task 11 running job 12 on compute-7-2-22 (bash energy_noise_1_11.qsub)
+Launcher: Task 6 running job 7 on compute-7-2-22 (bash energy_noise_1_6.qsub)
+Launcher: Task 14 running job 15 on compute-7-2-22 (bash energy_noise_1_14.qsub)
+Launcher: Task 15 running job 16 on compute-7-2-22 (bash energy_noise_1_15.qsub)
+Launcher: Task 13 running job 14 on compute-7-2-22 (bash energy_noise_1_13.qsub)
+Launcher: Task 7 running job 8 on compute-7-2-22 (bash energy_noise_1_7.qsub)
+Launcher: Task 10 running job 11 on compute-7-2-22 (bash energy_noise_1_10.qsub)
+Launcher: Task 9 running job 10 on compute-7-2-22 (bash energy_noise_1_9.qsub)
+Removing files
+Launcher: Job 3 completed in 193854 seconds.
+Launcher: Task 2 done. Exiting.
+Removing files
+Launcher: Job 7 completed in 199054 seconds.
+Launcher: Task 6 done. Exiting.
+Removing files
+Launcher: Job 11 completed in 200237 seconds.
+Launcher: Task 10 done. Exiting.
+Removing files
+Launcher: Job 6 completed in 200695 seconds.
+Launcher: Task 5 done. Exiting.
+Removing files
+Launcher: Job 4 completed in 200700 seconds.
+Launcher: Task 3 done. Exiting.
+Removing files
+Launcher: Job 12 completed in 201040 seconds.
+Launcher: Task 11 done. Exiting.
+Removing files
+Launcher: Job 5 completed in 201118 seconds.
+Launcher: Task 4 done. Exiting.
+Removing files
+Launcher: Job 8 completed in 201324 seconds.
+Launcher: Task 7 done. Exiting.
+Removing files
+Launcher: Job 9 completed in 201598 seconds.
+Launcher: Task 8 done. Exiting.
+Removing files
+Launcher: Job 10 completed in 201690 seconds.
+Launcher: Task 9 done. Exiting.
+Removing files
+Launcher: Job 2 completed in 201954 seconds.
+Launcher: Task 1 done. Exiting.
+Removing files
+Launcher: Job 1 completed in 202198 seconds.
+Launcher: Task 0 done. Exiting.
+Removing files
+Launcher: Job 15 completed in 202287 seconds.
+Launcher: Task 14 done. Exiting.
+Removing files
+Launcher: Job 14 completed in 202408 seconds.
+Launcher: Task 13 done. Exiting.
+Removing files
+Launcher: Job 16 completed in 202497 seconds.
+Launcher: Task 15 done. Exiting.
+Removing files
+Launcher: Job 13 completed in 202647 seconds.
+Launcher: Task 12 done. Exiting.
+Launcher: Done. Job exited without errors
+Job energy_noise_1 complete
