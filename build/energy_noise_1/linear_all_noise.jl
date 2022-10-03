@@ -823,25 +823,14 @@ def Write_file(Noise, Energy, Entropy):
 x = parse(Float64,ARGS[1]);
 
 
-"""
-
-N and M should start from 0 to N-1 and 0 to M-1 respectively. Assuming this the
-analytical calculation is done. The plot data will be created starting with delta = a
-and ending with delta=b. The interval [a,b] is first divided into N equal parts.
-Each of these subintervals is further subdivided into M equal parts. Usual values
-of N is 8,16,32 etc. delta = i*(b-a)/((N-1)*(M-1))+x is the value of delta for
-the (i,x)-th point, where i is from 0 to N and x is from 0 to M.
-
-"""
 a = 0.0;
 b = 0.3;
 N = 32;
 M = 15;
 
 for i=0:M-1
-	"""  The following calculates the value of delta using the predefined formula. """
 
-	delta = a+(x*(b-a))/(N-1)+i*(b-a)/((N-1)*(M-1))
+	delta = a+(x*(b-a))/(N-1)+i*(b-a)/((N-1)*(M-1));
 
 	Op = Grover(delta) """ Creates the Grover operator for the value of delta. """
 	EIGU = py"eigu"(Op) """ Writes G = V^\dagger exp(-i*phi_F) V. """
