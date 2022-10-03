@@ -2,16 +2,23 @@ using SparseArrays
 using LinearAlgebra
 using Random
 
+""" Number of qubits. """
 L = 12;
+
+""" Seed for the julia random vector. """
+SEED = 2022;
+
+""" The number of noise = number of noise for X and H gates needed to write the matrix
+of U_0 and U_x + 2*(Number of gates needed to create MCX gate)."""
 Number_Of_Noise = 4*L^2-6*L+13;
-Random.seed!(2022)
+
+Random.seed!(SEED)
+
+""" Random noise is created in the interval [-1,1]. """
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
-#Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
-
-round.(-exp(-1im*pi*([1 1;1 1]/2)); digits = 3)
 
 Ry(theta) = [cos(theta/2) -sin(theta/2) ; sin(theta/2) cos(theta/2)];
 
@@ -19,6 +26,8 @@ Pauli_X = [0 1;1 0];
 Pauli_Y = [1 -1im;1im 0];
 Pauli_Z = [1 0;0 -1];
 
+
+""" Noise to H gate is added by writing H = Ry(pi/2)*Pauli_Z. """
 Hadamard(noise) = Ry(pi/2+noise)*Pauli_Z;
 
 X = [0 1;1 0];
@@ -36,8 +45,8 @@ tensor product.
 
 function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
     
-    ## The case Qubit=1 is treated differently because we need to
-    # initialize the matrix as U before starting the kronecker product.
+    """ The case Qubit=1 is treated differently because we need to
+     initialize the matrix as U before starting the kronecker product."""
     
     if Qubit == 1
         
@@ -61,8 +70,9 @@ function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
     return M
 end;
 
+
+""" The following creates identity matric for a gievn dimension. """
 Identity(dimension) = 1* Matrix(I, dimension, dimension);
-#Identity(3)
 
 """
 
@@ -164,44 +174,39 @@ function MCU(c,t,U)
 end;             
 
 
-#=
+"""
 The number of noise is total number of gates in the linear decomposition plus
-the number of gates required to convert the MCX into a MCZ gate.
-=#
+the number of gates required to convert the MCX into a MCZ gate. 
+"""
 
 
-A = ones(2^L,2^L);
-U_x = (2/2^L)*A-Identity(2^L);
+#A = ones(2^L,2^L);
+#U_x = (2/2^L)*A-Identity(2^L);
 
-#=
+"""
 The following function creates a multicontrolled X gate.
 
 Input: DELTA (noise).
 Output: Matrix of MCX.
-=#
+"""
 
 function MCX_Reconstructed(DELTA)
     
-    # Following iterates over the noise list.
+    "Following iterates over the noise list."
     Noise_Counter = 1
     
-    #C_1 = [];
-    #C_2 = [];
-    #C_3 = [];
-    #C_4 = [];
-    #C_5 = [];
-    #C_6 = [];
     
-    # Creating an empty matrix to store the MCX matrix.
+    " Creating an empty matrix to store the MCX matrix."
     MCX = Identity(2^L);
     
-    #=
+    """
     The following loops generates all the controlled Rx gates as
     described in arXiv:1303.3557. It generates six layers of gates
     as mentioned in the paper. The loops can be checked by running
     each of them manually.
     
-    =#
+    """
+
     # C_1.
     for i = 1:L-2
         for j = 1:i
@@ -266,36 +271,32 @@ function MCX_Reconstructed(DELTA)
     return MCX
 end    ;
 
-# Total number of gates.
-#print("Total number of gates = ",2*L^2-6*L+5)
 
-#MCX[2^L,2^L-1],MCX[2^L-1,2^L]
-#length(C_1)+length(C_2)+length(C_3)+length(C_4)+length(C_5)+length(C_6)
 
-#=
-
+"""
 MCZ = X^(1) X^(2)...X^(L-1) H^(t) MCX X^(1) X^(2)...X^(L-1) H^(t) = MCZ.
 Creating a list for the gates on the left hand side of MCX gate.
-=#
+"""
+
 XHL_Gates = []
 for i = 1:L-1
     push!(XHL_Gates,["X",i])
 end    
 push!(XHL_Gates,["H",L])
 
-#=
+"""
 Creating a list for the gates on the right hand side of MCX gate.
-=#
+"""
 XHR_Gates = [["H",L]]
 for i = 1:L-1
     push!(XHR_Gates,["X",i])
 end    
 
-#=
+"""
 The following function returns the matrix of U_0.
 Input: Noise control parameter DELTA.
 Output: Matrix of U_0.
-=#
+"""
 
 function U0_reconstructed(DELTA)
     
@@ -374,13 +375,13 @@ function U0_reconstructed(DELTA)
     end
 
 
-    #=
+    """
     Noise counter starts at the total number of gates required for
     the construction of the MCX value. 
     
     Total number noise created = Number of gates for MCX + Number of gate on the left +
                                 Number of gate on right.
-    =#
+    """
     
     XHL_Matrix = Identity(2^L)
     for i in XHL_Gates
@@ -681,15 +682,10 @@ function Entropy(Psi)
     The following loop calculates S = - sum \lamba_i * log(\lambda_i).
     =#
     
-    # Array to store the log of the eigenvalues.
-    DL = zeros(ComplexF64,2^LS)
-    for i=1:length(w)
-        if abs(w[i]) < 1.e-8 # Avoid zeros.
-            continue
-        else
-            DL[i] = log(w[i])
-        end
-    end
+    #= Array to store the log of the eigenvalues. A small quantity is added to the
+    quantity to avoid taking log of zero. =#
+    DL = log.(w+1.e-30)
+
     return real(-sum(w.*DL)) # S = -tr(rho *log(rho)).
 end;
 
@@ -816,9 +812,6 @@ function Average_Entropy(Initial_Psi)
     return sum(list_of_entropies)/length(list_of_entropies)
 end;
 
-#Average_Entropy([1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1])
-#List_Bin(List)
-#Psi_Roll([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16])
 
 py"""
 f = open('plot_data'+'.txt', 'w')
@@ -830,23 +823,40 @@ def Write_file(Noise, Energy, Entropy):
 x = parse(Float64,ARGS[1]);
 
 
+"""
+
+N and M should start from 0 to N-1 and 0 to M-1 respectively. Assuming this the
+analytical calculation is done. The plot data will be created starting with delta = a
+and ending with delta=b. The interval [a,b] is first divided into N equal parts.
+Each of these subintervals is further subdivided into M equal parts. Usual values
+of N is 8,16,32 etc. delta = i*(b-a)/((N-1)*(M-1))+x is the value of delta for
+the (i,x)-th point, where i is from 0 to N and x is from 0 to M.
+
+"""
 a = 0.0;
 b = 0.3;
 N = 32;
 M = 15;
 
 for i=0:M-1
-    delta = i*(b-a)/((N-1)*(M-1))+x
-    Op = Grover(delta)
-    EIGU = py"eigu"(Op)
-    X = string(delta)
-    Y = real(1im*log.(EIGU[1]))
-    V = EIGU[2]
+	"""  The following calculates the value of delta using the predefined formula. """
+
+	delta = a+(x*(b-a))/(N-1)+i*(b-a)/((N-1)*(M-1))
+
+	Op = Grover(delta) """ Creates the Grover operator for the value of delta. """
+	EIGU = py"eigu"(Op) """ Writes G = V^\dagger exp(-i*phi_F) V. """
+	X = string(delta)
+	Y = real(1im*log.(EIGU[1])) # Eigenvalue phi_F.
+	V = EIGU[2] # Matrix of eigenvectors.
     
-    for j=1:2^L
-        #push!(Delta_lst, delta)
-        #push!(Energy_lst, real(Y[j]))
-        #push!(Entropy_lst,Average_Entropy(V[1:2^L,j:j]))
-        py"Write_file"(delta, real(Y[j]), Average_Entropy(V[1:2^L,j:j]))
-    end
+	"""
+
+	The following loop calculates the average entanglement entropy of each column
+	of the matrix V, which contains the eigenvectors of Grover operator G.
+
+	"""
+
+	for j=1:2^L
+		py"Write_file"(delta, real(Y[j]), Average_Entropy(V[1:2^L,j:j]))
+	end
 end
