@@ -5,7 +5,8 @@ using PyCall
 
 L = 12;
 Number_Of_Noise = 4*L^2-6*L+13;
-Random.seed!(7000)
+SEED = parse(Int64,ARGS[1]);
+Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
@@ -543,15 +544,28 @@ Grover(DELTA) = collect(Ux_reconstructed(DELTA) * U0_reconstructed(DELTA));
 
 py"""
 f = open('matrix_data'+'.txt', 'w')
-def Write_file(row_index, column_index, element):
+def Write_matrix(row_index, column_index, element):
     f = open('matrix_data'+'.txt', 'a')
     f.write(str(row_index) +'\t'+ str(column_index)+ '\t' + str(element) +'\n')
 """
 
+py"""
+f = open('diff_data.txt','w')
+def Write_diff(row_index,column_index,element):
+	f = open('diff_data.txt','a')
+	f.write(str(row_index)+'\t'+str(column_index)+'\t'+str(element)+'\n')
+
+"""
+
 delta = 0.0;
+M0 = Grover(0.0);
 M = Grover(delta);
+
 for i = 1:2^L
     for j = 1:2^L
-        py"Write_file"(i, j, M[i,j])
+        py"Write_matrix"(i, j, M[i,j])
+	py"Write_diff"(i,j,M0-M[i,j])
     end
 end
+
+
