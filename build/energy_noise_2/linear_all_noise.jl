@@ -11,7 +11,6 @@ NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
 #Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
 
-round.(-exp(-1im*pi*([1 1;1 1]/2)); digits = 3)
 
 Ry(theta) = [cos(theta/2) -sin(theta/2) ; sin(theta/2) cos(theta/2)];
 
@@ -833,7 +832,7 @@ x = parse(Float64,ARGS[1]);
 a = 0.0
 b = 0.3
 N = 32
-M = 5
+M = 20
 
 for i=0:M-1
     delta = a+((b-a)/(N-1))*(x+i/(M-1))
