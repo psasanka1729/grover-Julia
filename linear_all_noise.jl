@@ -834,7 +834,7 @@ Delta_lst = [];
 Energy_lst = [];
 Entropy_lst = [];
 
-Num = 4;
+Num = 20;
 for i=0:Num
     delta = (x/160.0)+(1/160.0)*(i/Num)
     Op = Grover(delta)
