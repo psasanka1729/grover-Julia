@@ -1,3 +1,34 @@
+commit 1f2b77ecbf61c440a06adc0c99c4d42d0e792cc8
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Oct 7 12:38:05 2022 -0500
+
+    Commit before run energy_noise_2
+
+commit 54a3a9a2f2339464d8e73165e87f4c45317130c9
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Oct 4 16:29:24 2022 -0500
+
+    Commit before run matrix_element
+
+commit aa000c7a9913e5882ab551549ee86cee7274695f
+Merge: 03163f9 410c0e4
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Oct 4 15:04:45 2022 -0500
+
+    Merge https://github.com/Psasanka1729/grover-Julia into main
+
+commit 03163f95d4f1c3fae38486ad4d51219e563398a2
+Author: Psasanka1729 <31107620+Psasanka1729@users.noreply.github.com>
+Date:   Tue Oct 4 11:57:13 2022 -0500
+
+    Add files via upload
+
+commit ed938abeca0edfe724d17b1940f1f77efbf5ee17
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Oct 4 11:53:39 2022 -0500
+
+    cluster backup
+
 commit 1fdaad4f548175ef07aefb10681c5feab701c59a
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Sun Oct 2 19:15:34 2022 -0500
@@ -21,6 +52,20 @@ Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Sat Oct 1 12:56:49 2022 -0500
 
     Commit before run energy_noise_1
+
+commit 410c0e47fb40ee16071e32f5be9fbc8080661f87
+Merge: 5cf2281 1ee185e
+Author: Sasanka Dowarah <dowarahsasanka@gmail.com>
+Date:   Sun Sep 25 17:26:29 2022 -0500
+
+    Merge https://github.com/Psasanka1729/grover-Julia
+    copying from cluster.
+
+commit 5cf22818e7b74c77c3939d6b064f242c60591c6f
+Author: Sasanka Dowarah <dowarahsasanka@gmail.com>
+Date:   Sun Sep 25 17:25:49 2022 -0500
+
+    backup
 
 commit 6c92644af4e7553849985208e03a17309b30783b
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
