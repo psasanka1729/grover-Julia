@@ -3,14 +3,14 @@
 #SBATCH --job-name=energy_noise_3
 #
 # Partition:
-#SBATCH --partition=normal
+#SBATCH --partition=CMT
 #
 # Processors:
-#SBATCH --ntasks=16
-#SBATCH --nodes=1
+#SBATCH --ntasks=32
+#SBATCH --nodes=2
 #
 # Wall clock limit:
-#SBATCH --time=96:00:00
+#SBATCH --time=7-00:00:00
 #
 # Email at end:
 #SBATCH --mail-user=sxd190113@utdallas.edu
