@@ -1,0 +1,16 @@
+bash matrix_element_0.qsub
+bash matrix_element_1.qsub
+bash matrix_element_2.qsub
+bash matrix_element_3.qsub
+bash matrix_element_4.qsub
+bash matrix_element_5.qsub
+bash matrix_element_6.qsub
+bash matrix_element_7.qsub
+bash matrix_element_8.qsub
+bash matrix_element_9.qsub
+bash matrix_element_10.qsub
+bash matrix_element_11.qsub
+bash matrix_element_12.qsub
+bash matrix_element_13.qsub
+bash matrix_element_14.qsub
+bash matrix_element_15.qsub

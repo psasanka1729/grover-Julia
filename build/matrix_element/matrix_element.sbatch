@@ -1,13 +1,13 @@
 #!/bin/bash
 # Job name:
-#SBATCH --job-name=energy_noise_4
+#SBATCH --job-name=matrix_element
 #
 # Partition:
 #SBATCH --partition=CMT
 #
 # Processors:
-#SBATCH --ntasks=32
-#SBATCH --nodes=2
+#SBATCH --ntasks=16
+#SBATCH --nodes=1
 #
 # Wall clock limit:
 #SBATCH --time=7-00:00:00
@@ -17,18 +17,18 @@
 #SBATCH --mail-type=END
 #
 # Specify output files:
-#SBATCH -o energy_noise_4.o%j
+#SBATCH -o matrix_element.o%j
 #------------------------------------------------------
 
-echo "Starting job energy_noise_4"
+echo "Starting job matrix_element"
 
 module load launcher
 
 export LAUNCHER_PLUGIN_DIR=$LAUNCHER_DIR/plugins
 export LAUNCHER_RMI=SLURM
-export LAUNCHER_JOB_FILE=energy_noise_4.task
+export LAUNCHER_JOB_FILE=matrix_element.task
 export LAUNCHER_SCHED=interleaved
 
 $LAUNCHER_DIR/paramrun
 
-echo "Job energy_noise_4 complete"
+echo "Job matrix_element complete"
