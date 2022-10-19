@@ -71,3 +71,6 @@ Launcher: Task 16 running job 17 on compute-2-6-13 (bash energy_noise_2_16.qsub)
 Launcher: Task 29 running job 30 on compute-2-6-13 (bash energy_noise_2_29.qsub)
 Launcher: Task 26 running job 27 on compute-2-6-13 (bash energy_noise_2_26.qsub)
 Launcher: Task 31 running job 32 on compute-2-6-13 (bash energy_noise_2_31.qsub)
+slurmstepd: error: *** JOB 495129 ON compute-2-6-12 CANCELLED AT 2022-10-18T12:18:16 DUE TO TIME LIMIT ***
+Killed by signal 15.
+Killed by signal 15.
