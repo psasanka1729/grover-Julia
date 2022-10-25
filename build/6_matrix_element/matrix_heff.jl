@@ -5,8 +5,8 @@ using PyCall
 
 L = 8;
 Number_Of_Noise = 4*L^2-6*L+13-3;
-SEED = parse(Int64,ARGS[1])
-Random.seed!(SEED)
+#SEED = parse(Int64,ARGS[1])
+Random.seed!(6000)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 
@@ -658,7 +658,7 @@ end
 
 difference(DELTA) = Grover(0.0) - H_eff(DELTA);
 
-my_delta = 0.01
+my_delta = parse(Float64,ARGS[1])
 D = H_eff(my_delta);
 
 py"""
