@@ -42,3 +42,53 @@ Launcher: Task 15 running job 16 on compute-2-6-12 (bash matrix_element_15.qsub)
 Launcher: Task 9 running job 10 on compute-2-6-12 (bash matrix_element_9.qsub)
 Launcher: Task 10 running job 11 on compute-2-6-12 (bash matrix_element_10.qsub)
 Launcher: Task 3 running job 4 on compute-2-6-12 (bash matrix_element_3.qsub)
+Removing files
+Launcher: Job 15 completed in 303812 seconds.
+Launcher: Task 14 done. Exiting.
+Removing files
+Launcher: Job 9 completed in 303960 seconds.
+Launcher: Task 8 done. Exiting.
+Removing files
+Launcher: Job 11 completed in 303987 seconds.
+Launcher: Task 10 done. Exiting.
+Removing files
+Launcher: Job 16 completed in 304142 seconds.
+Launcher: Task 15 done. Exiting.
+Removing files
+Launcher: Job 10 completed in 304218 seconds.
+Launcher: Task 9 done. Exiting.
+Removing files
+Launcher: Job 4 completed in 304219 seconds.
+Launcher: Task 3 done. Exiting.
+Removing files
+Launcher: Job 6 completed in 304248 seconds.
+Launcher: Task 5 done. Exiting.
+Removing files
+Launcher: Job 1 completed in 304289 seconds.
+Launcher: Task 0 done. Exiting.
+Removing files
+Launcher: Job 13 completed in 304386 seconds.
+Launcher: Task 12 done. Exiting.
+Removing files
+Launcher: Job 8 completed in 304390 seconds.
+Launcher: Task 7 done. Exiting.
+Removing files
+Launcher: Job 7 completed in 304413 seconds.
+Launcher: Task 6 done. Exiting.
+Removing files
+Launcher: Job 14 completed in 304486 seconds.
+Launcher: Task 13 done. Exiting.
+Removing files
+Launcher: Job 12 completed in 304504 seconds.
+Launcher: Task 11 done. Exiting.
+Removing files
+Launcher: Job 5 completed in 304517 seconds.
+Launcher: Task 4 done. Exiting.
+Removing files
+Launcher: Job 2 completed in 304523 seconds.
+Launcher: Task 1 done. Exiting.
+Removing files
+Launcher: Job 3 completed in 304541 seconds.
+Launcher: Task 2 done. Exiting.
+Launcher: Done. Job exited without errors
+Job matrix_element complete
