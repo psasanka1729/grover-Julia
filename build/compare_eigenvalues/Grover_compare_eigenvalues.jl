@@ -4,7 +4,7 @@ using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
-file = raw"12_Grover_gates_data.txt" # Change for every L.
+file = raw"10_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
