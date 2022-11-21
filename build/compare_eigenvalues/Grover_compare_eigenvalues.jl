@@ -1,4 +1,4 @@
-L = 12;
+L = 10;
 
 using Random
 using LinearAlgebra
@@ -352,7 +352,7 @@ def Write_file2(delta, effective, exact):
     f = open('eigenvalues_data'+'.txt', 'a')
     f.write(str(delta) + '\t' + str(effective)+ '\t' + str(exact) +'\n')
 """
-Num = 300;
+Num = 50;
 for i = 1:Num
     delta = 0.3*(i/Num)
 
