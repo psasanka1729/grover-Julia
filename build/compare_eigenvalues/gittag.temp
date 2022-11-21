@@ -1,3 +1,9 @@
+commit 4445e3592cd05d29f47bd112237edc8acfcbf161
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Nov 20 22:53:34 2022 -0600
+
+    Commit before run compare_eigenvalues
+
 commit 599bb7001ef07c8afa84ee02f28b04b8078db83f
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Sun Nov 20 22:52:36 2022 -0600
