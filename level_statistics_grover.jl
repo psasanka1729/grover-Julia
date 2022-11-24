@@ -348,10 +348,17 @@ end;
 
 py"""
 f = open('level_statistics_data'+'.txt', 'w')
-def Write_file(energy_number,level_stat):
+def Write_file1(energy_number,energy):
     f = open('level_statistics_data'+'.txt', 'a')
-    f.write(str(energy_number) + '\t' + str(level_stat) +'\n')
+    f.write(str(energy_number) + '\t' + str(energy) +'\n')
 """
+        
+py"""
+f = open('energy_data'+'.txt', 'w')
+def Write_file2(energy_number,energy):
+    f = open('energy_data'+'.txt', 'a')
+    f.write(str(energy_number) + '\t' + str(energy) +'\n')
+"""        
 
 # input = n and (2^L-2) energies.
 # output = level statistics r_n.
@@ -359,12 +366,15 @@ function Level_Statistics(n,Es)
     return min(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n])) / max(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
 end;
 
-
-
+# Delta does not matter.
+Eff_asc = Eigenvalues(0.0)[2]
+            
 for i = 2:2^L-3
-    #push!(E_number,i)
-    #push!(r_n,Level_Statistics(i,Eff_asc))
-    py"Write_file"(i,Level_Statistics(i,Eff_asc))
+    py"Write_file1"(i,Level_Statistics(i,Eff_asc))
 end
 
+            # The index starts at 3 and ends in 2^L to signify that the two special states are neglected.            
+for i = 3:2^L
+    py"Write_file2"(i,Eff_asc[i-2])
+end                
 
