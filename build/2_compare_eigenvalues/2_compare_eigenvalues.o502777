@@ -42,3 +42,5 @@ Launcher: Task 14 running job 15 on compute-2-6-14 (bash 2_compare_eigenvalues_1
 Launcher: Task 7 running job 8 on compute-2-6-14 (bash 2_compare_eigenvalues_7.qsub)
 Launcher: Task 12 running job 13 on compute-2-6-14 (bash 2_compare_eigenvalues_12.qsub)
 Launcher: Task 0 running job 1 on compute-2-6-14 (bash 2_compare_eigenvalues_0.qsub)
+slurmstepd: error: *** JOB 502777 ON compute-2-6-14 CANCELLED AT 2022-11-23T11:29:30 DUE TO TIME LIMIT ***
+Killed by signal 15.
