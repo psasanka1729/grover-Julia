@@ -1,38 +1,20 @@
-<<<<<<< HEAD
-L = 10;
-=======
-L = 8;
->>>>>>> 94b32cdd5276aa03adb69c85456704fee9545b6d
+L = 6;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
-<<<<<<< HEAD
-file = raw"10_Grover_gates_data.txt" # Change for every L.
-=======
-file = raw"8_Grover_gates_data.txt" # Change for every L.
->>>>>>> 94b32cdd5276aa03adb69c85456704fee9545b6d
+using PyCall
+file = raw"6_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
 Gates_data_3 = M[:,3];
 
-#DELTA = 0.01
-
-#using DelimitedFiles
-#file = raw"Noise_data.txt"
-#M = readdlm(file)
-
 Number_of_Gates = 2*(2*L^2-6*L+5)+2*L+4*L-4;
-<<<<<<< HEAD
-SEED = parse(Int64,ARGS[1])
+SEED = parse(Int64,ARGS[1]);
 Random.seed!(SEED)
-=======
->>>>>>> 94b32cdd5276aa03adb69c85456704fee9545b6d
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
-
-#length(NOISE)
 
 I2 = [1 0; 0 1];
 Z = [1 0;0 -1];
@@ -42,8 +24,6 @@ Hadamard(noise) = exp(-1im*(pi/2+noise)*(I2-H)) #Ry(pi/2+noise)*Pauli_Z;
 CX(noise) = exp(-1im*((pi/2+noise))*[1 1;1 1]);
 Identity(dimension) = 1* Matrix(I, dimension, dimension);
 int(x) = floor(Int,x);
-
-#Hadamard(0.01)
 
 function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
     
@@ -173,10 +153,35 @@ U_0[1,1] = -1
 A = ones(2^L,2^L);
 U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
 G_exact = U_x*U_0
-V = py"eigu"(G_exact)[2];
+# V(Z basis) = (x_bar basis).
+V = py"eigu"(G_exact)[2]; 
+
+function x_bar(n)
+    k_n = (2*pi*n)/(2^L-2)
+    s = zeros(2^L-2,1)
+    for j = 1:2^L-2
+        sigma_z_basis = zeros(2^L-2,1);
+        sigma_z_basis[j] = 1
+        s += exp(1im*j*k_n) * sigma_z_basis
+    end
+    return s/sqrt(2^L-1)
+end;
+#= 
+The following function returns the basis transformation matrix U such that
+U (x bar basis) = (Z basis)
+=#
+function Basis_Change_Matrix()
+    local U = zeros(2^L,2^L)
+    for k = 1:2^L
+        sigma_z_basis = zeros(2^L,1);
+        sigma_z_basis[k] = 1
+        U += sigma_z_basis * (x_bar(k))'
+    end
+    return U
+end;
 
 #DELTA = 0.01
-function Eigenvalues(DELTA)
+function Eigenvectors(DELTA)
     
     U_list = [];
     U_noise_list = [];
@@ -335,9 +340,12 @@ function Eigenvalues(DELTA)
         return f_k*H_k*(f_k')
     end;        
     
+    #=
+    # Calculating the exact eigenvlues.
     EIGU = py"eigu"(collect(GROVER_DELTA))
     E_exact = real(1im*log.(EIGU[1])); # Eigenvalue.
     E_exact = E_exact[2:2^L-1]; #= Neglecting the two special states at 1 and 2^L. =#
+    =#
     
     #= The following loop sums over all epsilon to get H_eff. =#
     h_eff = zeros(2^L,2^L);
@@ -345,36 +353,71 @@ function Eigenvalues(DELTA)
         h_eff += NOISE_list[i]*kth_term(i)
     end        
 
-    h_eff = DELTA * h_eff # Matrix in Z basis.
-    h_eff_D = (V')*h_eff*(V) # Matrix in |0> and |xbar> basis.
-    h_eff_D = exp(-1im*h_eff_D[3:2^L,3:2^L]) # |0> and |xbar> basis states are deleted.
-    E_eff_D = py"eigu"(h_eff_D)[1] # Matrix is diagonalized.
-    E_eff_D = real(1im*log.(E_eff_D)) # Extracing phi_f from exp(-i*phi_F).
-    E_eff_D_sorted = sort(real(E_eff_D),rev = true); # Soring the eigenvalues in descending order.
-
+    # Converting matrix in Z basis to matrix in |0> and |xbar> basis.
+    h_eff_D = (V')*h_eff*(V)
     
-    return E_exact, E_eff_D_sorted
-    #return GROVER_DELTA
+    # |0> and |xbar> basis states are deleted.
+    h_eff_D = h_eff_D[3:2^L,3:2^L]
+    
+    # Diagonalizing h_eff matrix to obtain eigenvectors.
+    h_eff_D_diagonal = eigvecs(h_eff_D)
+    
+    # Adding zeros to increase the size of the matrix to 2^L x 2^L.
+    row_zeros = zeros(2^L-2,2)
+    h_eff_D_diagonal = hcat(row_zeros,h_eff_D_diagonal)
+    column_zeros = zeros(2,2^L)
+    h_eff_D_diagonal = vcat(column_zeros,h_eff_D_diagonal)
+    
+    # Changing the matrix to Z basis.
+    h_eff_Z = V*h_eff_D_diagonal*(V')
+    
+    return h_eff_Z
+end;
+
+#delta = 0.1
+V = Eigenvectors(0.0);
+
+function KLd(Eigenvectors_Matrix)
+    KL = []
+    for n = 1:2^L-1
+        #=
+        Here n is the index of the eigenstate e.g n = 3 denotes the
+        third eigenstate of the h_eff_Z matrix.
+        =#
+
+        #= Calculates the p(i) = |<i|n>|^2 for a given i. This is the moduli
+        squared of the i-th component of the n-th eigenstate. This is because
+        in the computational basis <i|n> = i-th component of |n>.
+        =#
+
+        # Initialize the sum.
+        KLd_sum = 0.0
+
+        # The sum goes from 1 to dim(H).
+        for i = 1:2^L-1
+            p = abs((Eigenvectors_Matrix[1:2^L,n:n])[i])^2
+            q = abs((Eigenvectors_Matrix[1:2^L,n+1:n+1])[i])^2
+            if p*q == 0
+                # To avoid singularities in log.
+                continue 
+            else    
+                KLd_sum += p*log(p/q)
+            end
+        end
+        
+        push!(KL,KLd_sum)
+        
+    end
+    return KL
 end;
 
 py"""
-f = open('eigenvalues_data'+'.txt', 'w')
-def Write_file2(delta, effective, exact):
-    f = open('eigenvalues_data'+'.txt', 'a')
-    f.write(str(delta) + '\t' + str(effective)+ '\t' + str(exact) +'\n')
+f = open('KL_data'+'.txt', 'w')
+def Write_file(Index, KL_div):
+    f = open('KL_data'+'.txt', 'a')
+    f.write(str(Index) +'\t'+ str(KL_div)+'\n')
 """
-Num = 300;
-for i = 1:Num
-    delta = 0.3*(i/Num)
 
-    EE = Eigenvalues(delta)
-    Exact = EE[1]
-    Effec = EE[2]
-    #println(Exact)
-    #println(Effec)    
-    for j = 1:2^L-2
-        py"Write_file2"(delta,Exact[j],Effec[j])
-
-        #println(delta);
-    end
+for i = 1:2^L-1
+    py"Write_file"(i,KLd(V)[i])
 end

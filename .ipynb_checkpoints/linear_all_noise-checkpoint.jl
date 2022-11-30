@@ -830,25 +830,14 @@ def Write_file(Noise, Energy, Entropy):
 
 x = parse(Float64,ARGS[1]);
 
-<<<<<<< HEAD
-a = 0.02;
-b = 0.03;
-N = 32;
-M = 30;
-
-=======
 a = 0.0;
 b = 0.0;
 N = 32;
 M = 20;
->>>>>>> 94b32cdd5276aa03adb69c85456704fee9545b6d
 
+Num = 20;
 for i=0:Num
-<<<<<<< HEAD
-    delta = a+((b-a)/(N-1))*(x+i/(M-1))
-=======
     delta = 
->>>>>>> 94b32cdd5276aa03adb69c85456704fee9545b6d
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)

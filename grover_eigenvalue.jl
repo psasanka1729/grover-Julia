@@ -3,7 +3,11 @@ using LinearAlgebra
 using Random
 using PyCall
 
+<<<<<<< HEAD
 L = 8;
+=======
+L = 6;
+>>>>>>> 94b32cdd5276aa03adb69c85456704fee9545b6d
 Number_Of_Noise = 4*L^2-6*L+13;
 Random.seed!(6000)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
@@ -12,7 +16,11 @@ NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
 #Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
 
+<<<<<<< HEAD
 round.(-exp(-1im*pi*([1 1;1 1]/2)); digits = 3)
+=======
+#round.(-exp(-1im*pi*([1 1;1 1]/2)); digits = 3)
+>>>>>>> 94b32cdd5276aa03adb69c85456704fee9545b6d
 
 Ry(theta) = [cos(theta/2) -sin(theta/2) ; sin(theta/2) cos(theta/2)];
 
@@ -627,4 +635,8 @@ Y = real(1im*log.(EIGU[1])) # Eigenvalue.
 V = EIGU[2] # Eigenvectors.
 for j=1:2^L
     py"Write_file"(real(Y[j]))
+<<<<<<< HEAD
 end
+=======
+end
+>>>>>>> 94b32cdd5276aa03adb69c85456704fee9545b6d

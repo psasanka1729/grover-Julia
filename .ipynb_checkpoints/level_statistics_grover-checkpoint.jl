@@ -1,18 +1,10 @@
-<<<<<<< HEAD
-L = 10;
-=======
 L = 8;
->>>>>>> 94b32cdd5276aa03adb69c85456704fee9545b6d
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
-<<<<<<< HEAD
-file = raw"10_Grover_gates_data.txt" # Change for every L.
-=======
 file = raw"8_Grover_gates_data.txt" # Change for every L.
->>>>>>> 94b32cdd5276aa03adb69c85456704fee9545b6d
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -25,11 +17,8 @@ Gates_data_3 = M[:,3];
 #M = readdlm(file)
 
 Number_of_Gates = 2*(2*L^2-6*L+5)+2*L+4*L-4;
-<<<<<<< HEAD
-SEED = parse(Int64,ARGS[1])
+SEED = parse(Int64,ARGS[1]);
 Random.seed!(SEED)
-=======
->>>>>>> 94b32cdd5276aa03adb69c85456704fee9545b6d
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
 #length(NOISE)
@@ -358,23 +347,24 @@ function Eigenvalues(DELTA)
 end;
 
 py"""
-f = open('eigenvalues_data'+'.txt', 'w')
-def Write_file2(delta, effective, exact):
-    f = open('eigenvalues_data'+'.txt', 'a')
-    f.write(str(delta) + '\t' + str(effective)+ '\t' + str(exact) +'\n')
+f = open('level_statistics_data'+'.txt', 'w')
+def Write_file(energy_number,level_stat):
+    f = open('level_statistics_data'+'.txt', 'a')
+    f.write(str(energy_number) + '\t' + str(level_stat) +'\n')
 """
-Num = 300;
-for i = 1:Num
-    delta = 0.3*(i/Num)
 
-    EE = Eigenvalues(delta)
-    Exact = EE[1]
-    Effec = EE[2]
-    #println(Exact)
-    #println(Effec)    
-    for j = 1:2^L-2
-        py"Write_file2"(delta,Exact[j],Effec[j])
+# input = n and (2^L-2) energies.
+# output = level statistics r_n.
+function Level_Statistics(n,Es)
+    return min(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n])) / max(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
+end;
 
-        #println(delta);
-    end
+
+
+for i = 2:2^L-3
+    #push!(E_number,i)
+    #push!(r_n,Level_Statistics(i,Eff_asc))
+    py"Write_file"(i,Level_Statistics(i,Eff_asc))
 end
+
+
