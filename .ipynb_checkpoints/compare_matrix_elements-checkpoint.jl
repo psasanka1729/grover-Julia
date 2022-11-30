@@ -1,13 +1,12 @@
-using SparseArrays
-using LinearAlgebra
 using Random
+using LinearAlgebra
+using SparseArrays
 using PyCall
 
 L = 12;
 Number_Of_Noise = 4*L^2-6*L+13;
 Random.seed!(7000)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
-
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
 #Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
@@ -63,7 +62,6 @@ function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
 end;
 
 Identity(dimension) = 1* Matrix(I, dimension, dimension);
-#Identity(3)
 
 """
 
@@ -110,7 +108,7 @@ function CU(U,c,t)
            
     #return p0,p1
     return PI_0_matrix + PI_1_matrix     
-end;               
+end;
 
 """
 
@@ -162,17 +160,7 @@ function MCU(c,t,U)
              
     # The identity in the following line needs to be replaced.
     return Identity(2^L) - PI_0_matrix + PI_1_matrix     
-end;             
-
-
-#=
-The number of noise is total number of gates in the linear decomposition plus
-the number of gates required to convert the MCX into a MCZ gate.
-=#
-
-
-A = ones(2^L,2^L);
-U_x = (2/2^L)*A-Identity(2^L);
+end;
 
 #=
 The following function creates a multicontrolled X gate.
@@ -267,17 +255,6 @@ function MCX_Reconstructed(DELTA)
     return sparse(MCX)
 end    ;
 
-# Total number of gates.
-#print("Total number of gates = ",2*L^2-6*L+5)
-
-#MCX[2^L,2^L-1],MCX[2^L-1,2^L]
-#length(C_1)+length(C_2)+length(C_3)+length(C_4)+length(C_5)+length(C_6)
-
-#=
-
-MCZ = X^(1) X^(2)...X^(L-1) H^(t) MCX X^(1) X^(2)...X^(L-1) H^(t) = MCZ.
-Creating a list for the gates on the left hand side of MCX gate.
-=#
 XHL_Gates = []
 for i = 1:L-1
     push!(XHL_Gates,["X",i])
@@ -420,8 +397,6 @@ function U0_reconstructed(DELTA)
     #= MCZ = X^(1) X^(2)...X^(L-1) H^(t) MCX X^(1) X^(2)...X^(L-1) H^(t) = MCZ. =#
     return sparse(XHL_Matrix*MCX*XHR_Matrix)
 end;
-
-
 
 function Ux_reconstructed(DELTA)
 
@@ -566,288 +541,27 @@ end;
 
 Grover(DELTA) = collect(Ux_reconstructed(DELTA) * U0_reconstructed(DELTA));
 
-
-
-
-using PyCall
 py"""
-import numpy
-import numpy.linalg
-def adjoint(psi):
-    return psi.conjugate().transpose()
-def psi_to_rho(psi):
-    return numpy.outer(psi,psi.conjugate())
-def exp_val(psi, op):
-    return numpy.real(numpy.dot(adjoint(psi),op.dot(psi)))
-def norm_sq(psi):
-    return numpy.real(numpy.dot(adjoint(psi),psi))
-def normalize(psi,tol=1e-9):
-    ns=norm_sq(psi)**0.5
-    if ns < tol:
-        raise ValueError
-    return psi/ns
-def is_herm(M,tol=1e-9):
-    if M.shape[0]!=M.shape[1]:
-        return False
-    diff=M-adjoint(M)
-    return max(numpy.abs(diff.flatten())) < tol
-def is_unitary(M,tol=1e-9):
-    if M.shape[0]!=M.shape[1]:
-        return False
-    diff=M.dot(adjoint(M))-numpy.identity((M.shape[0]))
-    return max(numpy.abs(diff.flatten())) < tol
-def eigu(U,tol=1e-9):
-    (E_1,V_1)=numpy.linalg.eigh(U+adjoint(U))
-    U_1=adjoint(V_1).dot(U).dot(V_1)
-    H_1=adjoint(V_1).dot(U+adjoint(U)).dot(V_1)
-    non_diag_lst=[]
-    j=0
-    while j < U_1.shape[0]:
-        k=0
-        while k < U_1.shape[0]:
-            if j!=k and abs(U_1[j,k]) > tol:
-                if j not in non_diag_lst:
-                    non_diag_lst.append(j)
-                if k not in non_diag_lst:
-                    non_diag_lst.append(k)
-            k+=1
-        j+=1
-    if len(non_diag_lst) > 0:
-        non_diag_lst=numpy.sort(numpy.array(non_diag_lst))
-        U_1_cut=U_1[non_diag_lst,:][:,non_diag_lst]
-        (E_2_cut,V_2_cut)=numpy.linalg.eigh(1.j*(U_1_cut-adjoint(U_1_cut)))
-        V_2=numpy.identity((U.shape[0]),dtype=V_2_cut.dtype)
-        for j in range(len(non_diag_lst)):
-            V_2[non_diag_lst[j],non_diag_lst]=V_2_cut[j,:]
-        V_1=V_1.dot(V_2)
-        U_1=adjoint(V_2).dot(U_1).dot(V_2)
-    # Sort by phase
-    U_1=numpy.diag(U_1)
-    inds=numpy.argsort(numpy.imag(numpy.log(U_1)))
-    return (U_1[inds],V_1[:,inds]) # = (U_d,V) s.t. U=V*U_d*V^\dagger
+f = open('matrix_data'+'.txt', 'w')
+def Write_matrix(row_index, column_index, element):
+    f = open('matrix_data'+'.txt', 'a')
+    f.write(str(row_index) +'\t'+ str(column_index)+ '\t' + str(element) +'\n')
 """
 
-
-function Entropy(Psi)   
-    
-    LS = Int64(L/2)
-
-    #Psi = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1im];
-    
-    # Normalizing Psi.
-    Psi = Psi/norm(Psi) 
-    
-    psi(s) = Psi[(2^LS)*(s-1)+1:(2^LS)*s]
-    
-    #=
-        psi(s_p) is a row matrix/vector. psi(s) is a column matrix/vector.      
-        Dimension of rhoA is N/2 x N/2. 
-        The element <s|rhoA|sp> is given by psi_sp^\dagger * psi_s.
-    =#
-    
-    
-    # psi(s_p)^\dagger * psi(s) is the element of (s,s_p) of rho_AB. 
-    rhoA(s,s_p) = psi(s_p)' * psi(s)
-    
-    
-    # Following function returns the reduced density matrix rho_A.
-    function rhoA_Matrix()
-        
-        LS = Int64(L/2)
-            
-        # Creates a zero matrix to store the density matrix.
-        M = zeros(ComplexF64,2^LS,2^LS)
-        
-        #=
-        rho is Hermitian, it is sufficient to calculate the elements above the diagonal.
-        The the elements below the diagonal can be replace by the complex cpnjugate of the
-        elements above the diagonal.
-        =#
-    
-        for i=1:2^LS
-            for j=1:2^LS
-                if i<=j
-                    M[i,j] = rhoA(i,j)
-                else
-                    # Elements below diagonals are replaced by the elements above the diagonal.
-                    M[i,j] = M[j,i]' 
-                end
-            end
-        end
-        return M
-    end;
-    
-    w = eigvals(rhoA_Matrix()) # Eigenvalues of the reduced density matrix.
-    #=
-    The following loop calculates S = - sum \lamba_i * log(\lambda_i).
-    =#
-    
-    # Array to store the log of the eigenvalues.
-    DL = zeros(ComplexF64,2^LS)
-    for i=1:length(w)
-        if abs(w[i]) < 1.e-8 # Avoid zeros.
-            continue
-        else
-            DL[i] = log(w[i])
-        end
-    end
-    return real(-sum(w.*DL)) # S = -tr(rho *log(rho)).
-end;
-
-Bin2Dec(BinaryNumber) = parse(Int, string(BinaryNumber); base=2);
-Dec2Bin(DecimalNumber) = string(DecimalNumber, base=2);
-
-List = [i for i=0:2^L-1]; # List with numbers from 0 to 2^L-1.
-
-#=
-The following function converts all numbers in decimals in the above list 
- from 0 to 2^L -1 to binary.
-=#
-
-function List_Bin(Lst)
-    
-    l = []
-    
-    for i in Lst
-        
-        i_Bin = Dec2Bin(i)
-        
-        #=
-        While converting numbers from decimal to binary, for example, 1
-        is mapped to 1, to make sure that
-        every numbers have N qubits in them, the following loop adds leading 
-        zeros to make the
-        length of the binary string equal to N. Now, 1 is mapped to 000.....1
-        (string of length N).
-        =#
-        
-        while length(i_Bin) < L
-            i_Bin = "0"*i_Bin
-        end
-            
-        # Puts the binary number in the list l after its length is L.
-        push!(l,i_Bin)
-    end
-    return l
-end;
-
-#=
-    The following function takes a binary string as input and rolls the qubits by one and
-    returns the rolled string.
-=#
-
-Roll_String(Binary_String) = last(Binary_String)*Binary_String[1:L-1];
-
-#=
-    The following function takes a wavefunction as input and performs one roll
-    on the qubits and returns the resultant wavefunction.
-=#
-
-function Psi_Roll(Initial_Psi)
-    
-    #=
-        The following list contains all possible 2^N qubits after one roll 
-        is performed on them.
-        For example, the first position 0001 is changed to 1000.
-    =#
-    
-    # Rolls every string in the list List by one qubit.
-    Rl = [ Roll_String(i) for i in List_Bin(List)]
-    
-    #=
-        The following list contains the previous list but in decimal numbers. For example,
-        for N =4, the first position 1 is changed to 8.
-    =#
-    
-    Rl_d = [Bin2Dec(i) for i in Rl]
-    
-    #=
-        The following loop rearranges the coefficients of Psi after rolling. 
-        For example, for N = 4, if the first coefficient 0001 is mapped to the
-        eighth coefficient 1000 after one rotation of the qubits. 
-        The coefficient of the rolled Psi in the i ^ th position is in the
-        Rl_d[i] ^ th positon of the initial Psi.
-    =#
-    
-    Psi_Rolled = []
-    
-    for i=1:2^L
-        
-        # Rearranging the coefficients according to the list l_d.
-        push!(Psi_Rolled,Initial_Psi[Rl_d[i]+1])
-        
-        #= The addition of 1 to the index is necessary because Julia counts from 1,
-           rather than 0. But we need to represent all the numbers from 1 to 16 using 
-           four binary digits. So we started with the List = [0 to 15], then after
-           rolling we just add 1 to each index to make it work for Julia.
-        =#
-    end
-    return Psi_Rolled
-end
-
-#=
-The following function performs specified number of rolls Num on the qubits.
-=#
-
-function N_Rolled(Num, Initial_Psi)
-    
-    if Num == 0 
-        return Initial_Psi
-    else
-        
-        s = Psi_Roll(Initial_Psi)
-        for i=1:Num-1
-            s = Psi_Roll(s)
-        end
-        return s
-    end
-end
-
-
-function Average_Entropy(Initial_Psi)
-    
-    list_of_entropies = []
-    #=
-    The loop calculates all the entropies and returns a list containing them.
-    =#
-    for i=1:L
-        S = Entropy(N_Rolled(i,Initial_Psi))
-        push!(list_of_entropies,S)
-    end
-    return sum(list_of_entropies)/length(list_of_entropies)
-end;
-
-#Average_Entropy([1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1])
-#List_Bin(List)
-#Psi_Roll([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16])
-
 py"""
-f = open('plot_data'+'.txt', 'w')
-def Write_file(Noise, Energy, Entropy):
-    f = open('plot_data'+'.txt', 'a')
-    f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
+f = open('difference_data'+'.txt', 'w')
+def Write_diff(row_index, column_index, element):
+    f = open('matrix_data'+'.txt', 'a')
+    f.write(str(row_index) +'\t'+ str(column_index)+ '\t' + str(element) +'\n')
 """
 
-x = parse(Float64,ARGS[1]);
+delta = 0.0;
+M = Grover(delta);
+M0 = Grover(0.0)
 
-a = 0.0;
-b = 0.0;
-N = 32;
-M = 20;
-
-Num = 20;
-for i=0:Num
-    delta = 
-    Op = Grover(delta)
-    EIGU = py"eigu"(Op)
-    X = string(delta)
-    Y = real(1im*log.(EIGU[1]))
-    V = EIGU[2]
-    
-    for j=1:2^L
-        #push!(Delta_lst, delta)
-        #push!(Energy_lst, real(Y[j]))
-        #push!(Entropy_lst,Average_Entropy(V[1:2^L,j:j]))
-        py"Write_file"(delta, real(Y[j]), Average_Entropy(V[1:2^L,j:j]))
+for i = 1:2^L
+    for j = 1:2^L
+        py"Write_matrix"(i, j, M[i,j])
+        py"Write_diff"(i, j, M0 - M[i,j])
     end
 end

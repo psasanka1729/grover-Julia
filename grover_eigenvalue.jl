@@ -3,16 +3,16 @@ using LinearAlgebra
 using Random
 using PyCall
 
-L = 12;
+L = 6;
 Number_Of_Noise = 4*L^2-6*L+13;
-Random.seed!(7000)
+Random.seed!(6000)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
 #Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
 
-round.(-exp(-1im*pi*([1 1;1 1]/2)); digits = 3)
+#round.(-exp(-1im*pi*([1 1;1 1]/2)); digits = 3)
 
 Ry(theta) = [cos(theta/2) -sin(theta/2) ; sin(theta/2) cos(theta/2)];
 
@@ -498,19 +498,6 @@ function Ux_reconstructed(DELTA)
             
         end    
     end
-
-
-
-
-    
-    #=
-    Noise counter starts at the total number of gates required for
-    the construction of the MCX value. 
-    
-    Total number noise created = Number of gates for MCX + Number of gate on the left +
-                                Number of gate on right.
-    =#
-    
     
     HL_Matrix = sparse(Identity(2^L))
     for i in 1:L
@@ -565,7 +552,6 @@ function Ux_reconstructed(DELTA)
 end;
 
 Grover(DELTA) = collect(Ux_reconstructed(DELTA) * U0_reconstructed(DELTA));
-
 
 
 
@@ -627,227 +613,18 @@ def eigu(U,tol=1e-9):
     return (U_1[inds],V_1[:,inds]) # = (U_d,V) s.t. U=V*U_d*V^\dagger
 """
 
-
-function Entropy(Psi)   
-    
-    LS = Int64(L/2)
-
-    #Psi = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1im];
-    
-    # Normalizing Psi.
-    Psi = Psi/norm(Psi) 
-    
-    psi(s) = Psi[(2^LS)*(s-1)+1:(2^LS)*s]
-    
-    #=
-        psi(s_p) is a row matrix/vector. psi(s) is a column matrix/vector.      
-        Dimension of rhoA is N/2 x N/2. 
-        The element <s|rhoA|sp> is given by psi_sp^\dagger * psi_s.
-    =#
-    
-    
-    # psi(s_p)^\dagger * psi(s) is the element of (s,s_p) of rho_AB. 
-    rhoA(s,s_p) = psi(s_p)' * psi(s)
-    
-    
-    # Following function returns the reduced density matrix rho_A.
-    function rhoA_Matrix()
-        
-        LS = Int64(L/2)
-            
-        # Creates a zero matrix to store the density matrix.
-        M = zeros(ComplexF64,2^LS,2^LS)
-        
-        #=
-        rho is Hermitian, it is sufficient to calculate the elements above the diagonal.
-        The the elements below the diagonal can be replace by the complex cpnjugate of the
-        elements above the diagonal.
-        =#
-    
-        for i=1:2^LS
-            for j=1:2^LS
-                if i<=j
-                    M[i,j] = rhoA(i,j)
-                else
-                    # Elements below diagonals are replaced by the elements above the diagonal.
-                    M[i,j] = M[j,i]' 
-                end
-            end
-        end
-        return M
-    end;
-    
-    w = eigvals(rhoA_Matrix()) # Eigenvalues of the reduced density matrix.
-    #=
-    The following loop calculates S = - sum \lamba_i * log(\lambda_i).
-    =#
-    
-    # Array to store the log of the eigenvalues.
-    DL = zeros(ComplexF64,2^LS)
-    for i=1:length(w)
-        if abs(w[i]) < 1.e-8 # Avoid zeros.
-            continue
-        else
-            DL[i] = log(w[i])
-        end
-    end
-    return real(-sum(w.*DL)) # S = -tr(rho *log(rho)).
-end;
-
-Bin2Dec(BinaryNumber) = parse(Int, string(BinaryNumber); base=2);
-Dec2Bin(DecimalNumber) = string(DecimalNumber, base=2);
-
-List = [i for i=0:2^L-1]; # List with numbers from 0 to 2^L-1.
-
-#=
-The following function converts all numbers in decimals in the above list 
- from 0 to 2^L -1 to binary.
-=#
-
-function List_Bin(Lst)
-    
-    l = []
-    
-    for i in Lst
-        
-        i_Bin = Dec2Bin(i)
-        
-        #=
-        While converting numbers from decimal to binary, for example, 1
-        is mapped to 1, to make sure that
-        every numbers have N qubits in them, the following loop adds leading 
-        zeros to make the
-        length of the binary string equal to N. Now, 1 is mapped to 000.....1
-        (string of length N).
-        =#
-        
-        while length(i_Bin) < L
-            i_Bin = "0"*i_Bin
-        end
-            
-        # Puts the binary number in the list l after its length is L.
-        push!(l,i_Bin)
-    end
-    return l
-end;
-
-#=
-    The following function takes a binary string as input and rolls the qubits by one and
-    returns the rolled string.
-=#
-
-Roll_String(Binary_String) = last(Binary_String)*Binary_String[1:L-1];
-
-#=
-    The following function takes a wavefunction as input and performs one roll
-    on the qubits and returns the resultant wavefunction.
-=#
-
-function Psi_Roll(Initial_Psi)
-    
-    #=
-        The following list contains all possible 2^N qubits after one roll 
-        is performed on them.
-        For example, the first position 0001 is changed to 1000.
-    =#
-    
-    # Rolls every string in the list List by one qubit.
-    Rl = [ Roll_String(i) for i in List_Bin(List)]
-    
-    #=
-        The following list contains the previous list but in decimal numbers. For example,
-        for N =4, the first position 1 is changed to 8.
-    =#
-    
-    Rl_d = [Bin2Dec(i) for i in Rl]
-    
-    #=
-        The following loop rearranges the coefficients of Psi after rolling. 
-        For example, for N = 4, if the first coefficient 0001 is mapped to the
-        eighth coefficient 1000 after one rotation of the qubits. 
-        The coefficient of the rolled Psi in the i ^ th position is in the
-        Rl_d[i] ^ th positon of the initial Psi.
-    =#
-    
-    Psi_Rolled = []
-    
-    for i=1:2^L
-        
-        # Rearranging the coefficients according to the list l_d.
-        push!(Psi_Rolled,Initial_Psi[Rl_d[i]+1])
-        
-        #= The addition of 1 to the index is necessary because Julia counts from 1,
-           rather than 0. But we need to represent all the numbers from 1 to 16 using 
-           four binary digits. So we started with the List = [0 to 15], then after
-           rolling we just add 1 to each index to make it work for Julia.
-        =#
-    end
-    return Psi_Rolled
-end
-
-#=
-The following function performs specified number of rolls Num on the qubits.
-=#
-
-function N_Rolled(Num, Initial_Psi)
-    
-    if Num == 0 
-        return Initial_Psi
-    else
-        
-        s = Psi_Roll(Initial_Psi)
-        for i=1:Num-1
-            s = Psi_Roll(s)
-        end
-        return s
-    end
-end
-
-
-function Average_Entropy(Initial_Psi)
-    
-    list_of_entropies = []
-    #=
-    The loop calculates all the entropies and returns a list containing them.
-    =#
-    for i=1:L
-        S = Entropy(N_Rolled(i,Initial_Psi))
-        push!(list_of_entropies,S)
-    end
-    return sum(list_of_entropies)/length(list_of_entropies)
-end;
-
-#Average_Entropy([1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1])
-#List_Bin(List)
-#Psi_Roll([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16])
-
 py"""
-f = open('plot_data'+'.txt', 'w')
-def Write_file(Noise, Energy, Entropy):
-    f = open('plot_data'+'.txt', 'a')
-    f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
+f = open('eigenvalue_data'+'.txt', 'w')
+def Write_file(Eigenvalue):
+    f = open('eigenvalue_data'+'.txt', 'a')
+    f.write(str(Eigenvalue) +'\n')
 """
 
-x = parse(Float64,ARGS[1]);
-
-a = 0.0;
-b = 0.0;
-N = 32;
-M = 20;
-
-Num = 20;
-for i=0:Num
-    delta = 
-    Op = Grover(delta)
-    EIGU = py"eigu"(Op)
-    X = string(delta)
-    Y = real(1im*log.(EIGU[1]))
-    V = EIGU[2]
-    
-    for j=1:2^L
-        #push!(Delta_lst, delta)
-        #push!(Energy_lst, real(Y[j]))
-        #push!(Entropy_lst,Average_Entropy(V[1:2^L,j:j]))
-        py"Write_file"(delta, real(Y[j]), Average_Entropy(V[1:2^L,j:j]))
-    end
+delta = parse(Float64,ARGS[1]);
+Op = Grover(delta)
+EIGU = py"eigu"(Op)
+Y = real(1im*log.(EIGU[1])) # Eigenvalue.
+V = EIGU[2] # Eigenvectors.
+for j=1:2^L
+    py"Write_file"(real(Y[j]))
 end

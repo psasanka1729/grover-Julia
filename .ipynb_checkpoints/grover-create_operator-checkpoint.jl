@@ -2,9 +2,9 @@ using SparseArrays
 using LinearAlgebra
 using Random
 
-L = 8
+L = 12
 
-Random.seed!(6000)
+Random.seed!(4000)
 
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
