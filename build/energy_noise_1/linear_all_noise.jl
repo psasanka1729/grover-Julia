@@ -6,7 +6,7 @@ using Random
 L = 12;
 
 """ Seed for the julia random vector. """
-SEED = 2022;
+SEED = 2023;
 
 """ The number of noise = number of noise for X and H gates needed to write the matrix
 of U_0 and U_x + 2*(Number of gates needed to create MCX gate)."""
@@ -824,9 +824,9 @@ x = parse(Float64,ARGS[1]);
 
 
 a = 0.0;
-b = 0.3;
+b = 0.05;
 N = 32;
-M = 15;
+M = 2;
 
 for i=0:M-1
 
