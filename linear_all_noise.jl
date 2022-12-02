@@ -3,9 +3,9 @@ using LinearAlgebra
 using Random
 using PyCall
 
-L = 12;
+L = 14;
 Number_Of_Noise = 4*L^2-6*L+13;
-Random.seed!(7000)
+Random.seed!(2023)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 
@@ -828,27 +828,15 @@ def Write_file(Noise, Energy, Entropy):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
-x = parse(Float64,ARGS[1]);
+k = parse(Float64,ARGS[1]);
 
-<<<<<<< HEAD
-a = 0.02;
-b = 0.03;
-N = 32;
-M = 30;
+a = 0.0
+b = 0.05
+N = 2
+M = 32
 
-=======
-a = 0.0;
-b = 0.0;
-N = 32;
-M = 20;
->>>>>>> 94b32cdd5276aa03adb69c85456704fee9545b6d
-
-for i=0:Num
-<<<<<<< HEAD
-    delta = a+((b-a)/(N-1))*(x+i/(M-1))
-=======
-    delta = 
->>>>>>> 94b32cdd5276aa03adb69c85456704fee9545b6d
+for i=0:N-1
+    delta = a+((b-a)/(N-1))*i+((b-a)/((N-1)*(M-1)))*k
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
@@ -856,9 +844,6 @@ for i=0:Num
     V = EIGU[2]
     
     for j=1:2^L
-        #push!(Delta_lst, delta)
-        #push!(Energy_lst, real(Y[j]))
-        #push!(Entropy_lst,Average_Entropy(V[1:2^L,j:j]))
         py"Write_file"(delta, real(Y[j]), Average_Entropy(V[1:2^L,j:j]))
     end
 end
