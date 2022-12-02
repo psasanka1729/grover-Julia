@@ -1,16 +1,18 @@
 using SparseArrays
 using LinearAlgebra
 using Random
+using PyCall
 
 L = 14;
 Number_Of_Noise = 4*L^2-6*L+13;
-Random.seed!(2022)
+Random.seed!(2023)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
 #Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
 
+round.(-exp(-1im*pi*([1 1;1 1]/2)); digits = 3)
 
 Ry(theta) = [cos(theta/2) -sin(theta/2) ; sin(theta/2) cos(theta/2)];
 
@@ -192,7 +194,7 @@ function MCX_Reconstructed(DELTA)
     #C_6 = [];
     
     # Creating an empty matrix to store the MCX matrix.
-    MCX = Identity(2^L);
+    MCX = sparse(Identity(2^L));
     
     #=
     The following loops generates all the controlled Rx gates as
@@ -262,7 +264,7 @@ function MCX_Reconstructed(DELTA)
             
         end    
     end
-    return MCX
+    return sparse(MCX)
 end    ;
 
 # Total number of gates.
@@ -301,7 +303,7 @@ function U0_reconstructed(DELTA)
     Noise_Counter = 1
 
     # Creating an empty matrix to store the MCX matrix.
-    MCX = Identity(2^L);
+    MCX = sparse(Identity(2^L));
     
     #=
     The following loops generates all the controlled Rx gates as
@@ -381,7 +383,7 @@ function U0_reconstructed(DELTA)
                                 Number of gate on right.
     =#
     
-    XHL_Matrix = Identity(2^L)
+    XHL_Matrix = sparse(Identity(2^L))
     for i in XHL_Gates
         
         if i[1] == "H"
@@ -400,7 +402,7 @@ function U0_reconstructed(DELTA)
     end
     
 
-    XHR_Matrix = Identity(2^L)
+    XHR_Matrix = sparse(Identity(2^L))
     for j in XHR_Gates
         if j[1] == "H"
             
@@ -416,7 +418,7 @@ function U0_reconstructed(DELTA)
         end
     end
     #= MCZ = X^(1) X^(2)...X^(L-1) H^(t) MCX X^(1) X^(2)...X^(L-1) H^(t) = MCZ. =#
-    return XHL_Matrix*MCX*XHR_Matrix
+    return sparse(XHL_Matrix*MCX*XHR_Matrix)
 end;
 
 
@@ -426,7 +428,7 @@ function Ux_reconstructed(DELTA)
     Noise_Counter = 2*L^2-4*L+7
 
     # Creating an empty matrix to store the MCX matrix.
-    MCX = Identity(2^L);
+    MCX = sparse(Identity(2^L));
     
     #=
     The following loops generates all the controlled Rx gates as
@@ -510,14 +512,14 @@ function Ux_reconstructed(DELTA)
     =#
     
     
-    HL_Matrix = Identity(2^L)
+    HL_Matrix = sparse(Identity(2^L))
     for i in 1:L
         epsilon = NOISE[Noise_Counter]
         HL_Matrix = HL_Matrix*Matrix_Gate(Hadamard(DELTA*epsilon), i) 
         Noise_Counter += 1         
     end
     
-    XHL_Matrix = Identity(2^L)
+    XHL_Matrix = sparse(Identity(2^L))
     for i in XHL_Gates
         
         if i[1] == "H"
@@ -535,7 +537,7 @@ function Ux_reconstructed(DELTA)
         end
     end
     
-    XHR_Matrix = Identity(2^L)
+    XHR_Matrix = sparse(Identity(2^L))
     for j in XHR_Gates
         if j[1] == "H"
             
@@ -551,7 +553,7 @@ function Ux_reconstructed(DELTA)
         end
     end
     
-    HR_Matrix = Identity(2^L)
+    HR_Matrix = sparse(Identity(2^L))
     for i in 1:L
         epsilon = NOISE[Noise_Counter]
         HR_Matrix = HR_Matrix*Matrix_Gate(Hadamard(DELTA*epsilon), i) 
@@ -559,10 +561,10 @@ function Ux_reconstructed(DELTA)
     end
     
     #= MCZ = X^(1) X^(2)...X^(L-1) H^(t) MCX X^(1) X^(2)...X^(L-1) H^(t) = MCZ. =#
-    return HL_Matrix*XHL_Matrix*MCX*XHR_Matrix*HR_Matrix
+    return sparse(HL_Matrix*XHL_Matrix*MCX*XHR_Matrix*HR_Matrix)
 end;
 
-Grover(DELTA) = Ux_reconstructed(DELTA) * U0_reconstructed(DELTA);
+Grover(DELTA) = collect(Ux_reconstructed(DELTA) * U0_reconstructed(DELTA));
 
 
 
@@ -826,16 +828,15 @@ def Write_file(Noise, Energy, Entropy):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
-x = parse(Float64,ARGS[1]);
+k = parse(Float64,ARGS[1]);
 
+a = 0.0
+b = 0.05
+N = 2
+M = 32
 
-a = 0.00;
-b = 0.01;
-N = 32;
-M = 30;
-
-for i=0:M-1
-    delta = a+((b-a)/(N-1))*(x+i/(M-1))
+for i=0:N-1
+    delta = a+((b-a)/(N-1))*i+((b-a)/((N-1)*(M-1)))*k
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
@@ -843,9 +844,6 @@ for i=0:M-1
     V = EIGU[2]
     
     for j=1:2^L
-        #push!(Delta_lst, delta)
-        #push!(Energy_lst, real(Y[j]))
-        #push!(Entropy_lst,Average_Entropy(V[1:2^L,j:j]))
         py"Write_file"(delta, real(Y[j]), Average_Entropy(V[1:2^L,j:j]))
     end
 end

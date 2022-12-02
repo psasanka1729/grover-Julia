@@ -41,8 +41,8 @@ template_contents=open(template_file,'r').read()
 
 vnum=0
 
-N = 32
-for L in xrange(N):
+M = 32
+for L in xrange(M):
 	qsub_file=template_file.replace('.template','_'+str(vnum)+'.qsub')
 	fout=open(qsub_file,'w')
 
