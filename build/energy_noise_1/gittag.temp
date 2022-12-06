@@ -1,3 +1,21 @@
+commit bf54fade43bafdb9d27ebe28daa84912c2be9c05
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Dec 4 23:17:17 2022 -0600
+
+    Commit before run energy_noise_1
+
+commit b31df184d39f9b9146907573400ac82ce54f151c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Dec 2 13:18:29 2022 -0600
+
+    Commit before run energy_noise_2
+
+commit 1916e8790ebdaa30cf5fc98f9008dde05d6562a9
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Dec 2 13:17:23 2022 -0600
+
+    linear all noise corrected
+
 commit 87424272a4b2d6f69b9f63a6348239691c9fc032
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Fri Dec 2 13:15:18 2022 -0600
