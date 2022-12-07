@@ -1,3 +1,27 @@
+commit ec78fe15f4c58a0372205103dbc576a59b7d33aa
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Dec 7 11:47:26 2022 -0600
+
+    Commit before run avg_energy
+
+commit ebbc838eede183725fc38c54425893e7c698b72f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Dec 7 11:08:19 2022 -0600
+
+    cluster backup
+
+commit 0ddc9351a5a7141a076ea4ecd86f02e2785cf574
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Dec 6 19:23:36 2022 -0600
+
+    Commit before run avg_energy_2
+
+commit f5e9889880b2258531b599c126531e92c918689c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Dec 6 18:44:17 2022 -0600
+
+    Commit before run energy_noise_2
+
 commit d37f46d950fc84e6a0193ed2d11cdc757e2fb89b
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Tue Dec 6 11:27:08 2022 -0600
