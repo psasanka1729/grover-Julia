@@ -1,3 +1,22 @@
+commit eac42fdd865c2551c6b76516cb1d40b09bb6cbeb
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Dec 7 12:02:32 2022 -0600
+
+    Commit before run avg_energy
+
+commit 4cf1b955af7f8585d43b16deaadc349e0591a94f
+Merge: ec78fe1 f92335c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Dec 7 11:59:25 2022 -0600
+
+    Merge https://github.com/psasanka1729/grover-Julia into main
+
+commit f92335c5d3956602dac0e63ec91bc2cce76b463d
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Wed Dec 7 11:58:18 2022 -0600
+
+    to calculate average energy
+
 commit ec78fe15f4c58a0372205103dbc576a59b7d33aa
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Wed Dec 7 11:47:26 2022 -0600
