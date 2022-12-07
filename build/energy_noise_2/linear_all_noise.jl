@@ -836,7 +836,7 @@ N = 2
 M = 32
 
 for i=0:N-1
-    delta = a+((b-a)/(N-1))*i+((b-a)/((N-1)*(M-1)))*k
+    delta = a+((b-a)/(N-1))*k+((b-a)/((N-1)*(M-1)))*i
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
