@@ -332,8 +332,11 @@ function Eigenvalues(DELTA)
     h_eff = DELTA * h_eff # Matrix in Z basis.
     h_eff_D = (V')*h_eff*(V) # Matrix in |0> and |xbar> basis.
     h_eff_D = exp(-1im*h_eff_D[3:2^L,3:2^L]) # |0> and |xbar> basis states are deleted.
-    E_eff_D = py"eigu"(h_eff_D)[1] # Matrix is diagonalized.
-    E_eff_D = real(1im*log.(E_eff_D)) # Extracing phi_f from exp(-i*phi_F).
+    E_eff_D = eigvals(h_eff_D)
+
+    #E_eff_D = py"eigu"(h_eff_D)[1] # Matrix is diagonalized.
+    #E_eff_D = real(1im*log.(E_eff_D)) # Extracing phi_f from exp(-i*phi_F).
+
     E_eff_D_sorted = sort(real(E_eff_D),rev = true); # Soring the eigenvalues in descending order.
 
     
@@ -368,8 +371,9 @@ for i = 2:2^L-3
     py"Write_file1"(i,Level_Statistics(i,Eff_asc))
 end
 
-# The index starts at 3 and ends in 2^L to signify that the two special states are neglected.            
-for i = 3:2^L
-    py"Write_file2"(i,Eff_asc[i-2])
+# All the energies are written to the text file.
+
+for i = 1:2^L
+    py"Write_file2"(i,Eff_asc[i])
 end                
 
