@@ -838,7 +838,7 @@ def Write_file(Noise, Energy, Entropy):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
-k = parse(Float64,ARGS[1]);
+k = parse(Int64,ARGS[1]);
 
 a = 0.0
 b = 0.05
