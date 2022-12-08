@@ -843,7 +843,7 @@ k = parse(Int64,ARGS[1]);
 a = 0.0
 b = 0.05
 N = 2
-M = 64
+M = 256
 
 for i=0:N-1
     delta = a+((b-a)/(N-1))*i+((b-a)/((N-1)*(M-1)))*k
