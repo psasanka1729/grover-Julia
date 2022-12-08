@@ -5,14 +5,12 @@ using PyCall
 
 L = 14;
 Number_Of_Noise = 4*L^2-6*L+13;
-Random.seed!(2023)
+Random.seed!(41029)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
-#Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
 
-round.(-exp(-1im*pi*([1 1;1 1]/2)); digits = 3)
 
 Ry(theta) = [cos(theta/2) -sin(theta/2) ; sin(theta/2) cos(theta/2)];
 
@@ -133,6 +131,7 @@ function MCU(c,t,U)
         
     else
         for i in c
+  h_eff = DELTA * h_eff # Matrix in Z basis.
             p0[i] = "PI_1"
             p1[i] = "PI_1"
         end
@@ -205,6 +204,7 @@ function MCX_Reconstructed(DELTA)
     =#
     # C_1.
     for i = 1:L-2
+  h_eff = DELTA * h_eff # Matrix in Z basis.
         for j = 1:i
             #push!(C_1,[j,L-i,L-i+j])
             
@@ -232,6 +232,7 @@ function MCX_Reconstructed(DELTA)
             epsilon = NOISE[Noise_Counter]
             MCX = CU(Rx((-pi/2^j)+DELTA*epsilon), L-i, L-i+j)*MCX
             Noise_Counter += 1
+    h_eff = DELTA * h_eff # Matrix in Z basis.
         end
     end
 
@@ -243,6 +244,7 @@ function MCX_Reconstructed(DELTA)
             MCX = CU(Rx((pi/2^j)+DELTA*epsilon), L-i-1, L-i-1+j)*MCX
             Noise_Counter += 1
         end    
+  h_eff = DELTA * h_eff # Matrix in Z basis.
     end
 
     # C_5.
@@ -279,6 +281,7 @@ MCZ = X^(1) X^(2)...X^(L-1) H^(t) MCX X^(1) X^(2)...X^(L-1) H^(t) = MCZ.
 Creating a list for the gates on the left hand side of MCX gate.
 =#
 XHL_Gates = []
+  h_eff = DELTA * h_eff # Matrix in Z basis.
 for i = 1:L-1
     push!(XHL_Gates,["X",i])
 end    
@@ -296,6 +299,7 @@ end
 The following function returns the matrix of U_0.
 Input: Noise control parameter DELTA.
 Output: Matrix of U_0.
+    h_eff = DELTA * h_eff # Matrix in Z basis.
 =#
 
 function U0_reconstructed(DELTA)
@@ -474,6 +478,7 @@ function Ux_reconstructed(DELTA)
         for j = 1:i
             #push!(C_4,[j,L-i-1,L-i+j-1])          
             epsilon = NOISE[Noise_Counter]
+    h_eff = DELTA * h_eff # Matrix in Z basis.
             MCX = CU(Rx((pi/2^j)+DELTA*epsilon), L-i-1, L-i-1+j)*MCX
             Noise_Counter += 1
         end    
@@ -485,6 +490,7 @@ function Ux_reconstructed(DELTA)
         epsilon = NOISE[Noise_Counter]
         MCX = CU(Rx((-pi/2^(i-2))+DELTA*epsilon), 1, i)*MCX
         Noise_Counter += 1
+  h_eff = DELTA * h_eff # Matrix in Z basis.
         
     end
 
@@ -512,6 +518,7 @@ function Ux_reconstructed(DELTA)
     =#
     
     
+  h_eff = DELTA * h_eff # Matrix in Z basis.
     HL_Matrix = sparse(Identity(2^L))
     for i in 1:L
         epsilon = NOISE[Noise_Counter]
@@ -566,6 +573,7 @@ end;
 
 Grover(DELTA) = collect(Ux_reconstructed(DELTA) * U0_reconstructed(DELTA));
 
+  h_eff = DELTA * h_eff # Matrix in Z basis.
 
 
 
@@ -699,6 +707,7 @@ Dec2Bin(DecimalNumber) = string(DecimalNumber, base=2);
 
 List = [i for i=0:2^L-1]; # List with numbers from 0 to 2^L-1.
 
+    h_eff = DELTA * h_eff # Matrix in Z basis.
 #=
 The following function converts all numbers in decimals in the above list 
  from 0 to 2^L -1 to binary.
@@ -802,6 +811,7 @@ function N_Rolled(Num, Initial_Psi)
         return s
     end
 end
+  h_eff = DELTA * h_eff # Matrix in Z basis.
 
 
 function Average_Entropy(Initial_Psi)

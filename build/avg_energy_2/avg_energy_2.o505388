@@ -707,3 +707,53 @@ Launcher: Task 61 running job 62 on compute-2-6-21 (bash avg_energy_2_61.qsub)
 Launcher: Task 56 running job 57 on compute-2-6-21 (bash avg_energy_2_56.qsub)
 Launcher: Task 60 running job 61 on compute-2-6-21 (bash avg_energy_2_60.qsub)
 Launcher: Task 53 running job 54 on compute-2-6-21 (bash avg_energy_2_53.qsub)
+Removing files
+Launcher: Job 64 completed in 48974 seconds.
+Launcher: Task 63 done. Exiting.
+Removing files
+Launcher: Job 55 completed in 48987 seconds.
+Launcher: Task 54 done. Exiting.
+Removing files
+Launcher: Job 56 completed in 48988 seconds.
+Launcher: Task 55 done. Exiting.
+Removing files
+Removing files
+Launcher: Job 58 completed in 48993 seconds.
+Launcher: Task 57 done. Exiting.
+Launcher: Job 54 completed in 48993 seconds.
+Launcher: Task 53 done. Exiting.
+Removing files
+Launcher: Job 50 completed in 48994 seconds.
+Launcher: Task 49 done. Exiting.
+Removing files
+Launcher: Job 63 completed in 49015 seconds.
+Launcher: Task 62 done. Exiting.
+Removing files
+Launcher: Job 61 completed in 49035 seconds.
+Launcher: Task 60 done. Exiting.
+Removing files
+Launcher: Job 60 completed in 49035 seconds.
+Launcher: Task 59 done. Exiting.
+Removing files
+Launcher: Job 59 completed in 49059 seconds.
+Launcher: Task 58 done. Exiting.
+Removing files
+Launcher: Job 53 completed in 49059 seconds.
+Launcher: Task 52 done. Exiting.
+Removing files
+Launcher: Job 52 completed in 49060 seconds.
+Launcher: Task 51 done. Exiting.
+Removing files
+Launcher: Job 51 completed in 49061 seconds.
+Launcher: Task 50 done. Exiting.
+Removing files
+Launcher: Job 57 completed in 49068 seconds.
+Launcher: Task 56 done. Exiting.
+Removing files
+Launcher: Job 62 completed in 49073 seconds.
+Launcher: Task 61 done. Exiting.
+Removing files
+Launcher: Job 49 completed in 49075 seconds.
+Launcher: Task 48 done. Exiting.
+Launcher: Done. Job exited without errors
+Job avg_energy_2 complete
