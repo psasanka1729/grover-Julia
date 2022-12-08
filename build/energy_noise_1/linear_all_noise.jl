@@ -841,7 +841,7 @@ def Write_file(Noise, Energy, Entropy):
 k = parse(Int64,ARGS[1]);
 
 a = 0.0
-b = 0.05
+b = 0.1
 N = 2
 M = 256
 
