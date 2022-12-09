@@ -838,22 +838,19 @@ def Write_file(Noise, Energy, Entropy):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
-k = parse(Int64,ARGS[1]);
+i1 = parse(Int64,ARGS[1]);
 
 a = 0.0
-b = 0.1
-N = 2
-M = 256
+b = 0.05
+N = 256
 
-for i=0:N-1
-    delta = a+((b-a)/(N-1))*i+((b-a)/((N-1)*(M-1)))*k
-    Op = Grover(delta)
-    EIGU = py"eigu"(Op)
-    X = string(delta)
-    Y = real(1im*log.(EIGU[1]))
-    V = EIGU[2]
+delta = a+((b-a)/(N-1))*i1
+Op = Grover(delta)
+EIGU = py"eigu"(Op)
+X = string(delta)
+Y = real(1im*log.(EIGU[1]))
+V = EIGU[2]
     
-    for j=1:2^L
-        py"Write_file"(delta, real(Y[j]), Average_Entropy(V[1:2^L,j:j]))
-    end
+for j=1:2^L
+    py"Write_file"(delta, real(Y[j]), Average_Entropy(V[1:2^L,j:j]))
 end
