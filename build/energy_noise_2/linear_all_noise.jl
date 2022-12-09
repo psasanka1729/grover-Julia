@@ -5,7 +5,8 @@ using PyCall
 
 L = 14;
 Number_Of_Noise = 4*L^2-6*L+13;
-Random.seed!(2023)
+SEED = parse(Int64,ARGS[1])
+Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 
@@ -693,6 +694,7 @@ function Entropy(Psi)
     end
     return real(-sum(w.*DL)) # S = -tr(rho *log(rho)).
 end;
+N = 2
 
 Bin2Dec(BinaryNumber) = parse(Int, string(BinaryNumber); base=2);
 Dec2Bin(DecimalNumber) = string(DecimalNumber, base=2);
@@ -828,15 +830,11 @@ def Write_file(Noise, Energy, Entropy):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
-k = parse(Float64,ARGS[1]);
 
-a = 0.0
-b = 0.05
-N = 2
-M = 32
+Num = 100
 
-for i=0:N-1
-    delta = a+((b-a)/(N-1))*k+((b-a)/((N-1)*(M-1)))*i
+for i=0:Num
+    delta = 0.02*(i/Num)
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
