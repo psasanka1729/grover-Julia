@@ -5,7 +5,8 @@ using PyCall
 
 L = 14;
 Number_Of_Noise = 4*L^2-6*L+13;
-Random.seed!(41029)
+SEED = parse(Float64,ARGS[1])
+Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 
@@ -30,6 +31,7 @@ returns the resultant matrix.
 For example, the matrix for the gate U acting on the 3-rd qubit for N=5
 qubit system is given by   I (x) I (x) U (x) I (x) I; where (x) is the
 tensor product.
+end
 
 """
 
@@ -69,6 +71,7 @@ The following function returns a controlled U gate matrix.
 
 Input  : c (integer), t(integer), U (unitary operator).
 Output : Matrix of the multicontrolled U gate with control qubit c and target qubit t.
+end
 
 """
 
@@ -93,6 +96,7 @@ function CU(U,c,t)
     
     p0[c] = "PI_0"
     p1[c] = "PI_1"
+end
     p1[t] = "U"
 
     
@@ -126,6 +130,7 @@ function MCU(c,t,U)
 
     
     if typeof(c) == Int64
+end
         p0[c] = "PI_1"
         p1[t] = "PI_1"
         
@@ -371,6 +376,7 @@ function U0_reconstructed(DELTA)
     for i = L-3:-1:1
         for j = i:-1:1
             #push!(C_6,[j,L-i-1,L-i-1+j])         
+#Avera
             epsilon = NOISE[Noise_Counter]
             MCX = CU(Rx((-pi/2^j)+DELTA*epsilon), L-i-1, L-i-1+j)*MCX
             Noise_Counter += 1
@@ -406,6 +412,7 @@ function U0_reconstructed(DELTA)
     end
     
 
+end
     XHR_Matrix = sparse(Identity(2^L))
     for j in XHR_Gates
         if j[1] == "H"
@@ -480,6 +487,7 @@ function Ux_reconstructed(DELTA)
             epsilon = NOISE[Noise_Counter]
     h_eff = DELTA * h_eff # Matrix in Z basis.
             MCX = CU(Rx((pi/2^j)+DELTA*epsilon), L-i-1, L-i-1+j)*MCX
+end
             Noise_Counter += 1
         end    
     end
@@ -591,6 +599,7 @@ def norm_sq(psi):
     return numpy.real(numpy.dot(adjoint(psi),psi))
 def normalize(psi,tol=1e-9):
     ns=norm_sq(psi)**0.5
+#Avera
     if ns < tol:
         raise ValueError
     return psi/ns
@@ -600,6 +609,7 @@ def is_herm(M,tol=1e-9):
     diff=M-adjoint(M)
     return max(numpy.abs(diff.flatten())) < tol
 def is_unitary(M,tol=1e-9):
+end
     if M.shape[0]!=M.shape[1]:
         return False
     diff=M.dot(adjoint(M))-numpy.identity((M.shape[0]))
@@ -717,6 +727,7 @@ function List_Bin(Lst)
     
     l = []
     
+end
     for i in Lst
         
         i_Bin = Dec2Bin(i)
@@ -735,6 +746,7 @@ function List_Bin(Lst)
         end
             
         # Puts the binary number in the list l after its length is L.
+end
         push!(l,i_Bin)
     end
     return l
@@ -827,9 +839,6 @@ function Average_Entropy(Initial_Psi)
     return sum(list_of_entropies)/length(list_of_entropies)
 end;
 
-#Average_Entropy([1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1])
-#List_Bin(List)
-#Psi_Roll([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16])
 
 py"""
 f = open('plot_data'+'.txt', 'w')
@@ -838,19 +847,18 @@ def Write_file(Noise, Energy, Entropy):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
-i1 = parse(Int64,ARGS[1]);
 
-a = 0.0
-b = 0.05
-N = 256
+Num = 100
 
-delta = a+((b-a)/(N-1))*i1
-Op = Grover(delta)
-EIGU = py"eigu"(Op)
-X = string(delta)
-Y = real(1im*log.(EIGU[1]))
-V = EIGU[2]
+for i = 1:Num
+	delta = 0.05*(i/Num)
+	Op = Grover(delta)
+	EIGU = py"eigu"(Op)
+	X = string(delta)
+	Y = real(1im*log.(EIGU[1]))
+	V = EIGU[2]
     
-for j=1:2^L
-    py"Write_file"(delta, real(Y[j]), Average_Entropy(V[1:2^L,j:j]))
-end
+	for j=1:2^L
+    		py"Write_file"(delta, real(Y[j]), Average_Entropy(V[1:2^L,j:j]))
+	end
+end	
