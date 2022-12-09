@@ -376,7 +376,6 @@ function U0_reconstructed(DELTA)
     for i = L-3:-1:1
         for j = i:-1:1
             #push!(C_6,[j,L-i-1,L-i-1+j])         
-#Avera
             epsilon = NOISE[Noise_Counter]
             MCX = CU(Rx((-pi/2^j)+DELTA*epsilon), L-i-1, L-i-1+j)*MCX
             Noise_Counter += 1
@@ -433,6 +432,7 @@ end
 end;
 
 
+i1 = parse(Int64,ARGS[1]);
 
 function Ux_reconstructed(DELTA)
 
@@ -599,7 +599,6 @@ def norm_sq(psi):
     return numpy.real(numpy.dot(adjoint(psi),psi))
 def normalize(psi,tol=1e-9):
     ns=norm_sq(psi)**0.5
-#Avera
     if ns < tol:
         raise ValueError
     return psi/ns
@@ -839,6 +838,9 @@ function Average_Entropy(Initial_Psi)
     return sum(list_of_entropies)/length(list_of_entropies)
 end;
 
+#Average_Entropy([1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1])
+#List_Bin(List)
+#Psi_Roll([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16])
 
 py"""
 f = open('plot_data'+'.txt', 'w')
@@ -850,7 +852,7 @@ def Write_file(Noise, Energy, Entropy):
 
 Num = 100
 
-for i = 1:Num
+for i = 0:Num
 	delta = 0.05*(i/Num)
 	Op = Grover(delta)
 	EIGU = py"eigu"(Op)
