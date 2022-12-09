@@ -5,7 +5,7 @@ using PyCall
 
 L = 14;
 Number_Of_Noise = 4*L^2-6*L+13;
-SEED = parse(Float64,ARGS[1])
+SEED = parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
