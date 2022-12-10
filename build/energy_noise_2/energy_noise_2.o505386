@@ -89,3 +89,7 @@ Launcher: Task 3 done. Exiting.
 Removing files
 Launcher: Job 28 completed in 169381 seconds.
 Launcher: Task 27 done. Exiting.
+energy_noise_2_15.qsub: line 24: rr: command not found
+Removing files
+Launcher: Job 16 completed in 259531 seconds.
+Launcher: Task 15 done. Exiting.
