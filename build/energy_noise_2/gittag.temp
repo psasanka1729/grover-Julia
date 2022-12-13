@@ -1,3 +1,64 @@
+commit 94f248838b5e4d8654e3f23128b990f7fcc4d42c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Dec 12 21:15:19 2022 -0600
+
+    Commit before run energy_noise_2
+
+commit 33556d252f7ba1833e0242a9bb03c2d256e3787f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Dec 12 21:11:00 2022 -0600
+
+    Commit before run energy_noise_1
+
+commit 24caf9fc1e98790295150779029ed7c7319e2a96
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Dec 12 21:10:47 2022 -0600
+
+    Commit before run energy_noise_1
+
+commit 68d615be2e6a793a0d1200ae2950bf251ba8aff2
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Dec 12 21:06:03 2022 -0600
+
+    Commit before run energy_noise_1
+
+commit c714d9db982a7e816bfb11db56ee63aa3a7e18d8
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Dec 12 21:03:03 2022 -0600
+
+    Commit before run energy_noise_1
+
+commit 1d3afe30579d1425995dcb4d88a065254fb3bc84
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Dec 9 19:00:05 2022 -0600
+
+    Commit before run create_gates_list
+
+commit 31ca6dc38bd6a246d6dc3f75a43cf93e2f59a502
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Dec 9 18:23:46 2022 -0600
+
+    cluster backup
+
+commit d644ff45c4ea60e3e903a8520a7adca352e65704
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Dec 9 18:15:37 2022 -0600
+
+    Commit before run create_gates_list
+
+commit 07d009d9811efb053b25c56cac032874367f9eef
+Merge: 1ea8cc2 3518de8
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Fri Dec 9 18:11:27 2022 -0600
+
+    Merge https://github.com/psasanka1729/grover-Julia into main
+
+commit 3518de862df590e5418db32a153614deac305a3f
+Author: Psasanka1729 <dowarahsasanka@gmail.com>
+Date:   Fri Dec 9 18:10:34 2022 -0600
+
+    creates gates list
+
 commit 1ea8cc270084c3243bd819a755721707640c94f8
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Fri Dec 9 17:57:43 2022 -0600
@@ -130,6 +191,12 @@ Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Sun Dec 4 23:17:17 2022 -0600
 
     Commit before run energy_noise_1
+
+commit e69c9f855f1c0e842aa613e96ad3e3f55a5a2a96
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Fri Dec 2 22:51:03 2022 -0600
+
+    Delete matrix_heff.jl
 
 commit b31df184d39f9b9146907573400ac82ce54f151c
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>

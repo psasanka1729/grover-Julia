@@ -830,7 +830,7 @@ def Write_file(Noise, Energy, Entropy):
 
 I = parse(Int64,ARGS[1]);
 
-
+Num = 5
 for i=1:Num
     delta = Intrerval_Division[I]+(Intrerval_Division[I+1]-Intrerval_Division[I])*(i/Num)
     Op = Grover(delta)
