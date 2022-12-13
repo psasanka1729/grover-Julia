@@ -5,8 +5,7 @@ using PyCall
 
 L = 14;
 Number_Of_Noise = 4*L^2-6*L+13;
-SEED = parse(Int64,ARGS[1])
-Random.seed!(SEED)
+Random.seed!(2030)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 
@@ -838,9 +837,6 @@ function Average_Entropy(Initial_Psi)
     return sum(list_of_entropies)/length(list_of_entropies)
 end;
 
-#Average_Entropy([1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1])
-#List_Bin(List)
-#Psi_Roll([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16])
 
 py"""
 f = open('plot_data'+'.txt', 'w')
@@ -850,10 +846,12 @@ def Write_file(Noise, Energy, Entropy):
 """
 
 
-Num = 100
+Interval_Division = LinRange(0.0,0.3,32)
 
-for i = 0:Num
-	delta = 0.05*(i/Num)
+Num = 5
+I = parse(Int64,ARGS[1])
+for i = 1:Num
+	delta = Intrerval_Division[I]+(Intrerval_Division[I+1]-Intrerval_Division[I])*(i/Num)
 	Op = Grover(delta)
 	EIGU = py"eigu"(Op)
 	X = string(delta)
@@ -863,4 +861,4 @@ for i = 0:Num
 	for j=1:2^L
     		py"Write_file"(delta, real(Y[j]), Average_Entropy(V[1:2^L,j:j]))
 	end
-end	
+end

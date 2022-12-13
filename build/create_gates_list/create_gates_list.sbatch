@@ -3,7 +3,7 @@
 #SBATCH --job-name=create_gates_list
 #
 # Partition:
-#SBATCH --partition=normal
+#SBATCH --partition=CMT
 #
 # Processors:
 #SBATCH --ntasks=16
