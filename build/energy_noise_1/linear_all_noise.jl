@@ -828,11 +828,13 @@ def Write_file(Noise, Energy, Entropy):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
+Interval_Division = LinRange(0.0,0.3,32)
+
 I = parse(Int64,ARGS[1]);
 
-Num = 5
+Num = 20
 for i=1:Num
-    delta = Intrerval_Division[I]+(Intrerval_Division[I+1]-Intrerval_Division[I])*(i/Num)
+    delta = Interval_Division[I]+(Interval_Division[I+1]-Inrerval_Division[I])*(i/Num)
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
