@@ -10,7 +10,9 @@ NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 
 Rx(theta) = exp(-1im*theta*[1 1;1 1]/2);
+#Rx(theta) = [cos(theta/2) -1im*sin(theta/2) ; -1im*sin(theta/2)  cos(theta/2)];#
 
+round.(-exp(-1im*pi*([1 1;1 1]/2)); digits = 3)
 
 Ry(theta) = [cos(theta/2) -sin(theta/2) ; sin(theta/2) cos(theta/2)];
 
@@ -30,7 +32,6 @@ returns the resultant matrix.
 For example, the matrix for the gate U acting on the 3-rd qubit for N=5
 qubit system is given by   I (x) I (x) U (x) I (x) I; where (x) is the
 tensor product.
-end
 
 """
 
@@ -70,7 +71,6 @@ The following function returns a controlled U gate matrix.
 
 Input  : c (integer), t(integer), U (unitary operator).
 Output : Matrix of the multicontrolled U gate with control qubit c and target qubit t.
-end
 
 """
 
@@ -128,13 +128,11 @@ function MCU(c,t,U)
 
     
     if typeof(c) == Int64
-end
         p0[c] = "PI_1"
         p1[t] = "PI_1"
         
     else
         for i in c
-  h_eff = DELTA * h_eff # Matrix in Z basis.
             p0[i] = "PI_1"
             p1[i] = "PI_1"
         end
@@ -207,7 +205,6 @@ function MCX_Reconstructed(DELTA)
     =#
     # C_1.
     for i = 1:L-2
-  h_eff = DELTA * h_eff # Matrix in Z basis.
         for j = 1:i
             #push!(C_1,[j,L-i,L-i+j])
             
@@ -235,7 +232,6 @@ function MCX_Reconstructed(DELTA)
             epsilon = NOISE[Noise_Counter]
             MCX = CU(Rx((-pi/2^j)+DELTA*epsilon), L-i, L-i+j)*MCX
             Noise_Counter += 1
-    h_eff = DELTA * h_eff # Matrix in Z basis.
         end
     end
 
@@ -247,7 +243,6 @@ function MCX_Reconstructed(DELTA)
             MCX = CU(Rx((pi/2^j)+DELTA*epsilon), L-i-1, L-i-1+j)*MCX
             Noise_Counter += 1
         end    
-  h_eff = DELTA * h_eff # Matrix in Z basis.
     end
 
     # C_5.
@@ -284,7 +279,6 @@ MCZ = X^(1) X^(2)...X^(L-1) H^(t) MCX X^(1) X^(2)...X^(L-1) H^(t) = MCZ.
 Creating a list for the gates on the left hand side of MCX gate.
 =#
 XHL_Gates = []
-  h_eff = DELTA * h_eff # Matrix in Z basis.
 for i = 1:L-1
     push!(XHL_Gates,["X",i])
 end    
@@ -302,7 +296,6 @@ end
 The following function returns the matrix of U_0.
 Input: Noise control parameter DELTA.
 Output: Matrix of U_0.
-    h_eff = DELTA * h_eff # Matrix in Z basis.
 =#
 
 function U0_reconstructed(DELTA)
@@ -409,7 +402,6 @@ function U0_reconstructed(DELTA)
     end
     
 
-end
     XHR_Matrix = sparse(Identity(2^L))
     for j in XHR_Gates
         if j[1] == "H"
@@ -430,7 +422,6 @@ end
 end;
 
 
-i1 = parse(Int64,ARGS[1]);
 
 function Ux_reconstructed(DELTA)
 
@@ -483,9 +474,7 @@ function Ux_reconstructed(DELTA)
         for j = 1:i
             #push!(C_4,[j,L-i-1,L-i+j-1])          
             epsilon = NOISE[Noise_Counter]
-    h_eff = DELTA * h_eff # Matrix in Z basis.
             MCX = CU(Rx((pi/2^j)+DELTA*epsilon), L-i-1, L-i-1+j)*MCX
-end
             Noise_Counter += 1
         end    
     end
@@ -496,7 +485,6 @@ end
         epsilon = NOISE[Noise_Counter]
         MCX = CU(Rx((-pi/2^(i-2))+DELTA*epsilon), 1, i)*MCX
         Noise_Counter += 1
-  h_eff = DELTA * h_eff # Matrix in Z basis.
         
     end
 
@@ -524,7 +512,6 @@ end
     =#
     
     
-  h_eff = DELTA * h_eff # Matrix in Z basis.
     HL_Matrix = sparse(Identity(2^L))
     for i in 1:L
         epsilon = NOISE[Noise_Counter]
@@ -579,7 +566,6 @@ end;
 
 Grover(DELTA) = collect(Ux_reconstructed(DELTA) * U0_reconstructed(DELTA));
 
-  h_eff = DELTA * h_eff # Matrix in Z basis.
 
 
 
@@ -606,7 +592,6 @@ def is_herm(M,tol=1e-9):
     diff=M-adjoint(M)
     return max(numpy.abs(diff.flatten())) < tol
 def is_unitary(M,tol=1e-9):
-end
     if M.shape[0]!=M.shape[1]:
         return False
     diff=M.dot(adjoint(M))-numpy.identity((M.shape[0]))
@@ -714,7 +699,6 @@ Dec2Bin(DecimalNumber) = string(DecimalNumber, base=2);
 
 List = [i for i=0:2^L-1]; # List with numbers from 0 to 2^L-1.
 
-    h_eff = DELTA * h_eff # Matrix in Z basis.
 #=
 The following function converts all numbers in decimals in the above list 
  from 0 to 2^L -1 to binary.
@@ -724,7 +708,6 @@ function List_Bin(Lst)
     
     l = []
     
-end
     for i in Lst
         
         i_Bin = Dec2Bin(i)
@@ -743,7 +726,6 @@ end
         end
             
         # Puts the binary number in the list l after its length is L.
-end
         push!(l,i_Bin)
     end
     return l
@@ -820,7 +802,6 @@ function N_Rolled(Num, Initial_Psi)
         return s
     end
 end
-  h_eff = DELTA * h_eff # Matrix in Z basis.
 
 
 function Average_Entropy(Initial_Psi)
@@ -836,6 +817,9 @@ function Average_Entropy(Initial_Psi)
     return sum(list_of_entropies)/length(list_of_entropies)
 end;
 
+#Average_Entropy([1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1])
+#List_Bin(List)
+#Psi_Roll([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16])
 
 py"""
 f = open('plot_data'+'.txt', 'w')
@@ -844,20 +828,17 @@ def Write_file(Noise, Energy, Entropy):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
+I = parse(Int64,ARGS[1]);
 
-Interval_Division = LinRange(0.0,0.3,32)
 
-Num = 5
-I = parse(Int64,ARGS[1])
-for i = 1:Num
-	delta = Intrerval_Division[I]+(Intrerval_Division[I+1]-Intrerval_Division[I])*(i/Num)
-	Op = Grover(delta)
-	EIGU = py"eigu"(Op)
-	X = string(delta)
-	Y = real(1im*log.(EIGU[1]))
-	V = EIGU[2]
-    
-	for j=1:2^L
-    		py"Write_file"(delta, real(Y[j]), Average_Entropy(V[1:2^L,j:j]))
-	end
+for i=1:Num
+    delta = Intrerval_Division[I]+(Intrerval_Division[I+1]-Intrerval_Division[I])*(i/Num)
+    Op = Grover(delta)
+    EIGU = py"eigu"(Op)
+    X = string(delta)
+    Y = real(1im*log.(EIGU[1]))
+    V = EIGU[2] 
+    for j=1:2^L
+        py"Write_file"(delta, real(Y[j]), Average_Entropy(V[1:2^L,j:j]))
+    end
 end
