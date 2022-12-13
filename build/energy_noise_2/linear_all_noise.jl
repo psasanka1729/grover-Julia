@@ -5,8 +5,7 @@ using PyCall
 
 L = 14;
 Number_Of_Noise = 4*L^2-6*L+13;
-SEED = parse(Int64,ARGS[1])
-Random.seed!(SEED)
+Random.seed!(1859)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
 
 
@@ -78,7 +77,6 @@ Output : Matrix of the multicontrolled U gate with control qubit c and target qu
 function CU(U,c,t)
     
     I2 = sparse([1 0;0 1])
-N = 2
     Z = sparse([1 0;0 -1])
 
     PI_0 = (I2+Z)/2
@@ -241,7 +239,6 @@ function MCX_Reconstructed(DELTA)
     for i = 1:L-3
         for j = 1:i
             #push!(C_4,[j,L-i-1,L-i+j-1])          
-N = 2
             epsilon = NOISE[Noise_Counter]
             MCX = CU(Rx((pi/2^j)+DELTA*epsilon), L-i-1, L-i-1+j)*MCX
             Noise_Counter += 1
@@ -328,7 +325,6 @@ function U0_reconstructed(DELTA)
     end
 
     # C_2.
-N = 2
     for i = 2:L
         #push!(C_2,[i-2,1,i])
         
@@ -380,7 +376,6 @@ N = 2
 
 
     #=
-N = 2
     Noise counter starts at the total number of gates required for
     the construction of the MCX value. 
     
@@ -602,11 +597,9 @@ def is_unitary(M,tol=1e-9):
     diff=M.dot(adjoint(M))-numpy.identity((M.shape[0]))
     return max(numpy.abs(diff.flatten())) < tol
 def eigu(U,tol=1e-9):
-N = 2
     (E_1,V_1)=numpy.linalg.eigh(U+adjoint(U))
     U_1=adjoint(V_1).dot(U).dot(V_1)
     H_1=adjoint(V_1).dot(U+adjoint(U)).dot(V_1)
-N = 2
     non_diag_lst=[]
     j=0
     while j < U_1.shape[0]:
@@ -700,7 +693,6 @@ function Entropy(Psi)
     end
     return real(-sum(w.*DL)) # S = -tr(rho *log(rho)).
 end;
-N = 2
 
 Bin2Dec(BinaryNumber) = parse(Int, string(BinaryNumber); base=2);
 Dec2Bin(DecimalNumber) = string(DecimalNumber, base=2);
@@ -808,7 +800,6 @@ function N_Rolled(Num, Initial_Psi)
             s = Psi_Roll(s)
         end
         return s
-N = 2
     end
 end
 
@@ -817,7 +808,6 @@ function Average_Entropy(Initial_Psi)
     
     list_of_entropies = []
     #=
-N = 2
     The loop calculates all the entropies and returns a list containing them.
     =#
     for i=1:L
@@ -838,11 +828,11 @@ def Write_file(Noise, Energy, Entropy):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
+I = parse(Float64,ARGS[1]);
 
-Num = 100
-
+Num = 10
 for i=0:Num
-    delta = 0.02*(i/Num)
+    delta = Intrerval_Division[I]+(Intrerval_Division[I+1]-Intrerval_Division[I])*(i/Num)
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
