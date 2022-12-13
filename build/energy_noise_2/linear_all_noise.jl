@@ -817,9 +817,6 @@ function Average_Entropy(Initial_Psi)
     return sum(list_of_entropies)/length(list_of_entropies)
 end;
 
-#Average_Entropy([1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1])
-#List_Bin(List)
-#Psi_Roll([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16])
 
 py"""
 f = open('plot_data'+'.txt', 'w')
@@ -828,11 +825,12 @@ def Write_file(Noise, Energy, Entropy):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
+Interval_Division = LinRange(0.0,0.3,32)
 I = parse(Float64,ARGS[1]);
 
-Num = 10
+Num = 20
 for i=0:Num
-    delta = Intrerval_Division[I]+(Intrerval_Division[I+1]-Intrerval_Division[I])*(i/Num)
+    delta = Interval_Division[I]+(Interval_Division[I+1]-Interval_Division[I])*(i/Num)
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
     X = string(delta)
