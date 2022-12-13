@@ -95,7 +95,6 @@ function CU(U,c,t)
     
     p0[c] = "PI_0"
     p1[c] = "PI_1"
-end
     p1[t] = "U"
 
     
