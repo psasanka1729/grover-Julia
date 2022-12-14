@@ -3,7 +3,7 @@
 #SBATCH --job-name=level_stat_1
 #
 # Partition:
-#SBATCH --partition=128s
+#SBATCH --partition=normal
 #
 # Processors:
 #SBATCH --ntasks=32
