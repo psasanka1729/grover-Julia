@@ -42,3 +42,5 @@ Launcher: Task 14 running job 15 on compute-7-2-31 (bash 2_level_stat_14.qsub)
 Launcher: Task 9 running job 10 on compute-7-2-31 (bash 2_level_stat_9.qsub)
 Launcher: Task 11 running job 12 on compute-7-2-31 (bash 2_level_stat_11.qsub)
 Launcher: Task 15 running job 16 on compute-7-2-31 (bash 2_level_stat_15.qsub)
+slurmstepd: error: *** JOB 506101 ON compute-7-2-31 CANCELLED AT 2022-12-14T00:43:33 ***
+Killed by signal 15.
