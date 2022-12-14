@@ -826,7 +826,7 @@ def Write_file(Noise, Energy, Entropy):
 """
 
 Interval_Division = LinRange(0.0,0.3,32)
-I_index = parse(Float64,ARGS[1]);
+I_index = parse(Int64,ARGS[1]);
 
 Num = 5
 for i=1:Num
