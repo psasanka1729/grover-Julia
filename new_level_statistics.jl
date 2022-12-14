@@ -385,8 +385,23 @@ function Level_Statistics(n,Es)
     return min(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n])) / max(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
 end;
 
+#= 
+At this point I am going to define two kind of indices for the eigenvalues for convenience.
+The eigenvalue of H_eff has length 2^L. Indexing is from 1 to 2^L. After we neglect the
+two special states (the first and the last) the eigenvalue vector has length 2^L-2.
+We can index these numbers using their original index that was in G; that way we have to
+start at 2 and end at 2^L-1. Alternatively we can index them from 1 to 2^L-2. The first
+one is absolute index and the second one is relative index.
+=#    
+#=
+There are N-2 level statistics for an array of length N. Start with 2
+index (necessary so that E[n-1] can be evaluated) and end at N-1
+(necessary so that E[n+1] can be evaluated).
+=#
 
-            
-for i = 3:2^L-3
+#= 
+The length of the eigenvector array is 2^-2. Start with 2 and end with 2^L-3.
+=#
+for i = 2:2^L-3 # relative index i.e length of the eigenvector array.
     py"Write_file"(i,Level_Statistics(i,Eff))
 end
