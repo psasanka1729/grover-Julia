@@ -4,7 +4,7 @@ import subprocess
 import numpy
 import os
 
-partition_info=['128s',16] # = [partition,ncores]
+partition_info=['normal',16] # = [partition,ncores]
 # partition_info=['debug',16] # = [partition,ncores]
 time_str='4-00:00:00'
 project_name=os.getcwd().split('/')[-3]
@@ -47,7 +47,7 @@ for L in xrange(32):
 
 	contents=template_contents.replace('###',str(vnum))
         contents=contents.replace('*project*',project_name)
-	contents=contents.replace('*111*',str(3000+L))
+	contents=contents.replace('*111*',str(1800+L))
 	vmap_file.write(str(vnum)+'\t'+str(L)+'\n')
 	task_file.write('bash level_stat_1_'+str(vnum)+'.qsub\n')
 	fout.write(contents)
