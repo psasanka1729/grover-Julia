@@ -3,7 +3,7 @@ using LinearAlgebra
 using Random
 using PyCall
 
-L = 12;
+L = 14;
 Number_Of_Noise = 4*L^2-6*L+13;
 Random.seed!(1859)
 NOISE = 2*rand(Float64,Number_Of_Noise).-1;
@@ -825,11 +825,12 @@ def Write_file(Noise, Energy, Entropy):
     f.write(str(Noise) +'\t'+ str(Energy)+ '\t' + str(Entropy) +'\n')
 """
 
-Interval_Division = LinRange(0.0,0.3,32)
+Interval_Division = LinRange(0.0,0.05,16)
 I_index = parse(Int64,ARGS[1]);
+# I_index runs from 1 to 15.
 
 Num = 5
-for i=1:Num
+for i=0:Num
     delta = Interval_Division[I_index]+(Interval_Division[I_index+1]-Interval_Division[I_index])*(i/Num)
     Op = Grover(delta)
     EIGU = py"eigu"(Op)
