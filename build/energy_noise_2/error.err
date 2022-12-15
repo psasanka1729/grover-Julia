@@ -1,22 +1,7 @@
 WARNING: failed to select UTF-8 encoding, using ASCII
-ERROR: LoadError: PyError ($(Expr(:escape, :(ccall(#= /home/sxd190113/.julia/packages/PyCall/ygXW2/src/pyeval.jl:34 =# @pysym(:Py_CompileString), PyPtr, (Cstring, Cstring, Cint), s, fname, input_type))))) <type 'exceptions.IndentationError'>
-IndentationError('expected an indented block', ('/home/sxd190113/.julia/packages/PyCall/ygXW2/src/pyeval.jl', 27, 1, 'N = 2\n'))
+energy_noise_2_4.qsub: line 23:  3525 Killed                  julia ./$EXEC 5
 
-Stacktrace:
- [1] pyerr_check
-   @ ~/.julia/packages/PyCall/ygXW2/src/exception.jl:62 [inlined]
- [2] pyerr_check
-   @ ~/.julia/packages/PyCall/ygXW2/src/exception.jl:66 [inlined]
- [3] _handle_error(msg::String)
-   @ PyCall ~/.julia/packages/PyCall/ygXW2/src/exception.jl:83
- [4] macro expansion
-   @ ~/.julia/packages/PyCall/ygXW2/src/exception.jl:97 [inlined]
- [5] pyeval_(s::String, globals::PyDict{String, PyObject, true}, locals::PyDict{String, PyObject, true}, input_type::Int64, fname::String)
-   @ PyCall ~/.julia/packages/PyCall/ygXW2/src/pyeval.jl:34
- [6] top-level scope
-   @ ~/.julia/packages/PyCall/ygXW2/src/pyeval.jl:230
-in expression starting at /home/sxd190113/grover-Julia/build/energy_noise_2/linear_all_noise.jl:578
-
-real	300m23.520s
-user	0m15.653s
-sys	0m37.884s
+real	123m17.044s
+user	0m9.246s
+sys	0m19.627s
+s
