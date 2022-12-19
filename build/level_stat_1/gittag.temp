@@ -1,3 +1,82 @@
+commit 44f911f361b5c15265d392febdf90eb2b9950593
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Dec 19 12:33:09 2022 -0600
+
+    Commit before run level_stat_1
+
+commit 6ef6e129c1bc9bcbd061efb84cda5eabdb453be4
+Merge: 892ab6d db6a415
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Dec 19 12:27:14 2022 -0600
+
+    Merge https://github.com/psasanka1729/grover-Julia into main
+
+commit db6a415f7e7d5a9e9169d54b3537966cf0cbe17f
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Mon Dec 19 12:23:58 2022 -0600
+
+    level statistics corrected
+
+commit 942545d0009c7b5f9d635288bf1619b623032ec9
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Thu Dec 15 15:51:09 2022 -0600
+
+    compares h_eff and exact energies
+
+commit fbb486f4b6a391c7ded989a7161d1f69c8199a97
+Author: Sasanka Dowarah <dowarahsasanka@gmail.com>
+Date:   Thu Dec 15 11:04:27 2022 -0600
+
+    KL divergence
+
+commit 892ab6d233dea0ecf3387d9467393a5eb860b88f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Dec 14 23:55:45 2022 -0600
+
+    Commit before run 2_level_stat
+
+commit 2dd0c4e156a568b890b62e1297296f2ad21b465f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Dec 14 23:52:44 2022 -0600
+
+    Commit before run 2_level_stat
+
+commit e89582901c81666cc921f6fe3690ff98efb2b52c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Dec 14 21:26:52 2022 -0600
+
+    Commit before run energy_noise_2
+
+commit ba19faa456137a43af832966e60550117d8fcacc
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Dec 14 00:48:36 2022 -0600
+
+    Commit before run 2_level_stat
+
+commit b341048d5e74b60cb778ab11801e081c973d6847
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Dec 14 00:44:52 2022 -0600
+
+    Commit before run 3_level_stat
+
+commit 0c8dcc7c5defdff25dbc5d95a12b921a5e0422d6
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Wed Dec 14 00:43:05 2022 -0600
+
+    corrected
+
+commit 3f64249efa43727b83be9cba577c6b709dbb192c
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Wed Dec 14 00:07:00 2022 -0600
+
+    cluster backup
+
+commit 2da2c06b7b0978b6de35c199b2d197141c3cebca
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Tue Dec 13 23:55:32 2022 -0600
+
+    Commit before run 2_level_stat
+
 commit 96e14ecfc4ba69d71335a870ec9dc531b523b303
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Tue Dec 13 23:36:32 2022 -0600
