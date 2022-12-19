@@ -1,3 +1,58 @@
+commit 5333b9edd47c2f8794327be84683bf50b924b956
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Dec 19 12:59:57 2022 -0600
+
+    Commit before run 2_level_stat
+
+commit 0de14ab7f9f13e8fbd84974a749b1dd434a7f9e5
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Dec 19 12:47:01 2022 -0600
+
+    Commit before run level_stat_1
+
+commit e9bcce16838e19885a066affb5628b70e6686b7d
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Dec 19 12:35:27 2022 -0600
+
+    Commit before run level_stat_1
+
+commit 4df3491bc3030a89577f7608e58bde02a6c34eb3
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Dec 19 12:34:37 2022 -0600
+
+    Commit before run level_stat_1
+
+commit 44f911f361b5c15265d392febdf90eb2b9950593
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Dec 19 12:33:09 2022 -0600
+
+    Commit before run level_stat_1
+
+commit 6ef6e129c1bc9bcbd061efb84cda5eabdb453be4
+Merge: 892ab6d db6a415
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Mon Dec 19 12:27:14 2022 -0600
+
+    Merge https://github.com/psasanka1729/grover-Julia into main
+
+commit db6a415f7e7d5a9e9169d54b3537966cf0cbe17f
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Mon Dec 19 12:23:58 2022 -0600
+
+    level statistics corrected
+
+commit 942545d0009c7b5f9d635288bf1619b623032ec9
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Thu Dec 15 15:51:09 2022 -0600
+
+    compares h_eff and exact energies
+
+commit fbb486f4b6a391c7ded989a7161d1f69c8199a97
+Author: Sasanka Dowarah <dowarahsasanka@gmail.com>
+Date:   Thu Dec 15 11:04:27 2022 -0600
+
+    KL divergence
+
 commit 892ab6d233dea0ecf3387d9467393a5eb860b88f
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Wed Dec 14 23:55:45 2022 -0600
