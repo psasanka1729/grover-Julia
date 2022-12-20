@@ -178,9 +178,8 @@ function Basis_Change_Matrix()
     return U
 end;
 
-#DELTA = 0.01
-function Eigenvalues(DELTA)
-    
+function Eigenvalues()
+    DELTA = 0.0
     U_list = [];
     U_noise_list = [];
     U_x_delta = sparse(Identity(2^L));
@@ -337,35 +336,30 @@ function Eigenvalues(DELTA)
     
         return f_k*H_k*(f_k')
     end;        
-    
-    EIGU = py"eigu"(collect(GROVER_DELTA))
-    E_exact = real(1im*log.(EIGU[1])); # Eigenvalue.
-    E_exact = E_exact[2:2^L-1]; #= Neglecting the two special states at 1 and 2^L. =#
+
     
     #= The following loop sums over all epsilon to get H_eff. =#
     h_eff = zeros(2^L,2^L);
     for i = 1:length(U_list)
         h_eff += NOISE_list[i]*kth_term(i)
     end        
+
     
-    h_eff_D = (V')*h_eff*(V) # Matrix in |0> and |xbar> basis. Matrix size = 2^L x 2^L.
-    h_eff_D = exp(-1im*h_eff_D[3:2^L,3:2^L]) # |0> and |xbar> basis states are deleted. Matrix size = 2^(L-2)x(2^L-2)
+    h_eff_D = (V')*h_eff*(V) # Matrix in |0> and |xbar> basis.
+
     
-    #=
-    E_eff_D = py"eigu"(h_eff_D)[1] # Matrix is diagonalized.
-    E_eff_D = real(1im*log.(E_eff_D)) # Extracing phi_f from exp(-i*phi_F).
+    h_eff_D = h_eff_D[3:2^L,3:2^L];
+    E_eff_D = eigvals(h_eff_D) # Use eigvals(Hermitian(h_eff_D))
+    
+    
     E_eff_D_sorted = sort(real(E_eff_D),rev = true); # Soring the eigenvalues in descending order.
-    =#
+
     
-    
-    E_eff_D = eigvals(h_eff_D)
-    E_eff_D_sorted = sort(real(E_eff_D),rev = true); # Soring the eigenvalues in descending order.
-    
-    return E_exact, E_eff_D_sorted # Size 2^L-2.
+    return E_eff_D_sorted
 end;
 
 #delta = 0.1
-Eff = Eigenvalues(0.0)[2];
+Eff = Eigenvalues();
 
 py"""
 f = open('energy_data'+'.txt', 'w')
@@ -381,29 +375,4 @@ The following will write index vs corresponding energy levels of H_eff. The |0> 
 
 for i = 1:2^L-2
     py"Write_file2"(i+2,Eff[i])
-end
-
-# input = n and (2^L-2) energies.
-# output = level statistics r_n.
-function Level_Statistics(n,Es)
-    return min(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n])) / max(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
-end;
-
-py"""
-f = open('level_statistics_data'+'.txt', 'w')
-def Write_file1(energy_number,energy):
-    f = open('level_statistics_data'+'.txt', 'a')
-    f.write(str(energy_number) + '\t' + str(energy) +'\n')
-"""
-
-#=
-The levels statistics will start at index 4 since the energy index starts at 3, so 
-to calculate E[n-1] we need to start at index 4 and finish at index 63 in order to
-calculate E[n+1]. Note that index 4 is actually index 2 in the E_eff array as we have
-already deleted the |0> and |xbar> states from the spectrum. The index in the data file
-is the absolute index of the energy eigenvalue in the spectrum of H_eff. That is why we added 2.
-=#
-
-for i = 2:2^L-3
-    py"Write_file1"(i+2,Level_Statistics(i,Eff))
 end
