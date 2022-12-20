@@ -1,10 +1,10 @@
-L = 8;
+L = 6;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
-file = raw"8_Grover_gates_data.txt" # Change for every L.
+file = raw"6_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
@@ -17,7 +17,7 @@ Gates_data_3 = M[:,3];
 #M = readdlm(file)
 
 Number_of_Gates = 2*(2*L^2-6*L+5)+2*L+4*L-4;
-SEED = parse(Int64,ARGS[1]);
+SEED = 8000
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -164,9 +164,32 @@ U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
 G_exact = U_x*U_0
 V = py"eigu"(G_exact)[2];
 
-#DELTA = 0.01
-function Eigenvalues(DELTA)
-    
+function x_bar(n)
+    k_n = (2*pi*n)/(2^L-2)
+    s = zeros(2^L-2,1)
+    for j = 1:2^L-2
+        sigma_z_basis = zeros(2^L-2,1);
+        sigma_z_basis[j] = 1
+        s += exp(1im*j*k_n) * sigma_z_basis
+    end
+    return s/sqrt(2^L-1)
+end;
+#= 
+The following function returns the basis transformation matrix U such that
+U\x_bar_k> = \k> for k = 1 2 ... 2^L-2. The two special states are neglected. 
+=#
+function Basis_Change_Matrix()
+    local U = zeros((2^L)-2,(2^L)-2)
+    for k = 1:2^L-2
+        sigma_z_basis = zeros(2^L-2,1);
+        sigma_z_basis[k] = 1
+        U += sigma_z_basis * (x_bar(k))'
+    end
+    return U
+end;
+
+function Eigenvalues()
+    DELTA = 0.0
     U_list = [];
     U_noise_list = [];
     U_x_delta = sparse(Identity(2^L));
@@ -334,37 +357,58 @@ function Eigenvalues(DELTA)
         h_eff += NOISE_list[i]*kth_term(i)
     end        
 
-    h_eff = DELTA * h_eff # Matrix in Z basis.
+    #h_eff = Identity(2^L)-1im*DELTA*h_eff
+
     h_eff_D = (V')*h_eff*(V) # Matrix in |0> and |xbar> basis.
-    h_eff_D = exp(-1im*h_eff_D[3:2^L,3:2^L]) # |0> and |xbar> basis states are deleted.
-    E_eff_D = py"eigu"(h_eff_D)[1] # Matrix is diagonalized.
-    E_eff_D = real(1im*log.(E_eff_D)) # Extracing phi_f from exp(-i*phi_F).
+
+    #h_eff_D = exp(-1im*DELTA*h_eff_D[3:2^L,3:2^L]) # |0> and |xbar> basis states are deleted.
+    
+    h_eff_D = h_eff_D[3:2^L,3:2^L];
+    E_eff_D = eigvals(h_eff_D)
+    
+    #E_eff_D = py"eigu"(h_eff_D)[1] # Matrix is diagonalized.
+    #E_eff_D = real(1im*log.(E_eff_D)) # Extracing phi_f from exp(-i*phi_F).
+    
     E_eff_D_sorted = sort(real(E_eff_D),rev = true); # Soring the eigenvalues in descending order.
 
     
     return E_exact, E_eff_D_sorted
-    #return GROVER_DELTA
+    #return h_eff_D
 end;
+
+Eff = Eigenvalues()[2];
+
 
 py"""
 f = open('level_statistics_data'+'.txt', 'w')
-def Write_file(energy_number,level_stat):
+def Write_file(index, level_stat):
     f = open('level_statistics_data'+'.txt', 'a')
-    f.write(str(energy_number) + '\t' + str(level_stat) +'\n')
+    f.write(str(index) + '\t'+ str(level_stat) +'\n')
 """
+     
 
-# input = n and (2^L-2) energies.
 # output = level statistics r_n.
 function Level_Statistics(n,Es)
     return min(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n])) / max(abs(Es[n]-Es[n-1]),abs(Es[n+1]-Es[n]))
 end;
 
+#= 
+At this point I am going to define two kind of indices for the eigenvalues for convenience.
+The eigenvalue of H_eff has length 2^L. Indexing is from 1 to 2^L. After we neglect the
+two special states (the first and the last) the eigenvalue vector has length 2^L-2.
+We can index these numbers using their original index that was in G; that way we have to
+start at 2 and end at 2^L-1. Alternatively we can index them from 1 to 2^L-2. The first
+one is absolute index and the second one is relative index.
+=#    
+#=
+There are N-2 level statistics for an array of length N. Start with 2
+index (necessary so that E[n-1] can be evaluated) and end at N-1
+(necessary so that E[n+1] can be evaluated).
+=#
 
-
-for i = 2:2^L-3
-    #push!(E_number,i)
-    #push!(r_n,Level_Statistics(i,Eff_asc))
-    py"Write_file"(i,Level_Statistics(i,Eff_asc))
+#= 
+The length of the eigenvector array is 2^-2. Start with 2 and end with 2^L-3.
+=#
+for i = 2:2^L-3 # relative index i.e length of the eigenvector array.
+    py"Write_file"(i,Level_Statistics(i,Eff))
 end
-
-
