@@ -17,7 +17,7 @@ Gates_data_3 = M[:,3];
 #M = readdlm(file)
 
 Number_of_Gates = 2*(2*L^2-6*L+5)+2*L+4*L-4;
-SEED = 20000#parse(Int64,ARGS[1]);
+SEED = 8000
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -188,8 +188,8 @@ function Basis_Change_Matrix()
     return U
 end;
 
-function Eigenvalues(DELTA)
-    
+function Eigenvalues()
+    DELTA = 0.0
     U_list = [];
     U_noise_list = [];
     U_x_delta = sparse(Identity(2^L));
@@ -357,19 +357,26 @@ function Eigenvalues(DELTA)
         h_eff += NOISE_list[i]*kth_term(i)
     end        
 
+    #h_eff = Identity(2^L)-1im*DELTA*h_eff
+
     h_eff_D = (V')*h_eff*(V) # Matrix in |0> and |xbar> basis.
-    h_eff_D = exp(-1im*h_eff_D[3:2^L,3:2^L]) # |0> and |xbar> basis states are deleted.
-    E_eff_D = py"eigu"(h_eff_D)[1] # Matrix is diagonalized.
-    E_eff_D = real(1im*log.(E_eff_D)) # Extracing phi_f from exp(-i*phi_F).
+
+    #h_eff_D = exp(-1im*DELTA*h_eff_D[3:2^L,3:2^L]) # |0> and |xbar> basis states are deleted.
+    
+    h_eff_D = h_eff_D[3:2^L,3:2^L];
+    E_eff_D = eigvals(h_eff_D)
+    
+    #E_eff_D = py"eigu"(h_eff_D)[1] # Matrix is diagonalized.
+    #E_eff_D = real(1im*log.(E_eff_D)) # Extracing phi_f from exp(-i*phi_F).
+    
     E_eff_D_sorted = sort(real(E_eff_D),rev = true); # Soring the eigenvalues in descending order.
 
     
     return E_exact, E_eff_D_sorted
-    #return GROVER_DELTA
+    #return h_eff_D
 end;
 
-delta = 0.1
-Eff = Eigenvalues(delta)[2];
+Eff = Eigenvalues()[2];
 
 
 py"""
