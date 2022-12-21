@@ -1,19 +1,27 @@
-L = 6;
+L = 10;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
-file = raw"6_Grover_gates_data.txt" # Change for every L.
+file = raw"10_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
 Gates_data_3 = M[:,3];
 
+#DELTA = 0.01
+
+#using DelimitedFiles
+#file = raw"Noise_data.txt"
+#M = readdlm(file)
+
 Number_of_Gates = 2*(2*L^2-6*L+5)+2*L+4*L-4;
-SEED = 20000#parse(Int64,ARGS[1]);
+SEED = parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
+
+#length(NOISE)
 
 I2 = [1 0; 0 1];
 Z = [1 0;0 -1];
@@ -23,6 +31,8 @@ Hadamard(noise) = exp(-1im*(pi/2+noise)*(I2-H)) #Ry(pi/2+noise)*Pauli_Z;
 CX(noise) = exp(-1im*((pi/2+noise))*[1 1;1 1]);
 Identity(dimension) = 1* Matrix(I, dimension, dimension);
 int(x) = floor(Int,x);
+
+#Hadamard(0.01)
 
 function Matrix_Gate(Gate, Qubit) # Previously known as multi qubit gate.
     
@@ -154,32 +164,8 @@ U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
 G_exact = U_x*U_0
 V = py"eigu"(G_exact)[2];
 
-function x_bar(n)
-    k_n = (2*pi*n)/(2^L-2)
-    s = zeros(2^L-2,1)
-    for j = 1:2^L-2
-        sigma_z_basis = zeros(2^L-2,1);
-        sigma_z_basis[j] = 1
-        s += exp(1im*j*k_n) * sigma_z_basis
-    end
-    return s/sqrt(2^L-1)
-end;
-#= 
-The following function returns the basis transformation matrix U such that
-U\x_bar_k> = \k> for k = 1 2 ... 2^L-2. The two special states are neglected. 
-=#
-function Basis_Change_Matrix()
-    local U = zeros((2^L)-2,(2^L)-2)
-    for k = 1:2^L-2
-        sigma_z_basis = zeros(2^L-2,1);
-        sigma_z_basis[k] = 1
-        U += sigma_z_basis * (x_bar(k))'
-    end
-    return U
-end;
-
-function Eigenvalues()
-    DELTA = 0.0
+function Eigenvalues(DELTA)
+    
     U_list = [];
     U_noise_list = [];
     U_x_delta = sparse(Identity(2^L));
@@ -336,7 +322,10 @@ function Eigenvalues()
     
         return f_k*H_k*(f_k')
     end;        
-
+    
+    EIGU = py"eigu"(collect(GROVER_DELTA))
+    E_exact = real(1im*log.(EIGU[1])); # Eigenvalue.
+    E_exact = E_exact[2:2^L-1]; #= Neglecting the two special states at 1 and 2^L. =#
     
     #= The following loop sums over all epsilon to get H_eff. =#
     h_eff = zeros(2^L,2^L);
@@ -344,35 +333,126 @@ function Eigenvalues()
         h_eff += NOISE_list[i]*kth_term(i)
     end        
 
-    
+
     h_eff_D = (V')*h_eff*(V) # Matrix in |0> and |xbar> basis.
 
     
-    h_eff_D = h_eff_D[3:2^L,3:2^L];
-    E_eff_D = eigvals(h_eff_D) # Use eigvals(Hermitian(h_eff_D))
+    h_eff_D = DELTA*h_eff_D[3:2^L,3:2^L];
+    E_eff_D = eigvals(h_eff_D)
     
     
     E_eff_D_sorted = sort(real(E_eff_D),rev = true); # Soring the eigenvalues in descending order.
 
     
-    return E_eff_D_sorted
+    return E_exact, E_eff_D_sorted
 end;
 
-#delta = 0.1
-Eff = Eigenvalues();
-
 py"""
-f = open('energy_data'+'.txt', 'w')
-def Write_file2(energy_number,energy):
-    f = open('energy_data'+'.txt', 'a')
-    f.write(str(energy_number) + '\t' + str(energy) +'\n')
-""" 
+f = open('eigenvalues_data'+'.txt', 'w')
+def Write_file2(delta, effective, exact):
+    f = open('eigenvalues_data'+'.txt', 'a')
+    f.write(str(delta) + '\t' + str(effective)+ '\t' + str(exact) +'\n')
+"""
 
-#= 
-The following will write index vs corresponding energy levels of H_eff. The |0> and
-\xbar> states are deleted and the vector is of size 2^L-2 with energy index goes from 3 to 2^L.
-=#
+#Eigenvalues(20)
 
-for i = 1:2^L-2
-    py"Write_file2"(i+2,Eff[i])
+Exact_list = []
+Effec_list = []
+delta_list = []
+Num = 100;
+for i = 1:Num
+    delta = 0.25*(i/Num)
+
+    EE = Eigenvalues(delta)
+    Exact = EE[1]
+    Effec = EE[2]
+    #println(Exact)
+    #println(Effec)    
+    for j = 1:2^L-2
+        py"Write_file2"(delta,Exact[j],Effec[j])
+        push!(delta_list,delta)
+        push!(Exact_list, Exact[j])
+        push!(Effec_list, Effec[j])
+        #println(delta);
+    end
 end
+
+using Plots
+using DelimitedFiles
+using ColorSchemes
+using LaTeXStrings
+
+
+delta = delta_list
+exact = Exact_list # exact energy.
+effec = Effec_list # effective energy.
+
+gr()
+S_Page = 0.5*L*log(2)-0.5
+MyTitle = "L = 4 ";
+p = plot(delta,exact,
+    seriestype = :scatter,
+    markercolor = "firebrick1 ",#"red2",
+    markerstrokewidth=0.0,
+    markersize=3.2,
+    thickness_scaling = 1.4,
+    xlims=(0,0.25), 
+    ylims=(-3.14,3.14),
+    #title = MyTitle,
+    label = "Exact energy",
+    legend = :bottomleft,
+    dpi=500,
+    #zcolor = entropy,
+    grid = false,
+    #colorbar_title = "Average entanglement entropy",
+    font="CMU Serif",
+    color = :jet1,
+    #:linear_bmy_10_95_c78_n256,#:diverging_rainbow_bgymr_45_85_c67_n256,#:linear_bmy_10_95_c78_n256,#:rainbow1,
+    right_margin = 5Plots.mm,
+    left_margin = Plots.mm,
+    titlefontsize=10,
+    guidefontsize=13,
+    tickfontsize=13,
+    legendfontsize=15,
+    framestyle = :box
+    )
+
+p = plot!(delta,effec,
+    seriestype = :scatter,
+    markercolor = "blue2",
+    markershape=:pentagon,#:diamond,
+    markerstrokewidth=0.0,
+    markersize=2.2,
+    thickness_scaling = 1.4,
+    xlims=(0,0.25), 
+    ylims=(-3.14,3.14),
+    #title = MyTitle,
+    label = "Effective energy",
+    legend = :bottomleft,
+    dpi=500,
+    #zcolor = entropy,
+    grid = false,
+    #colorbar_title = "Average entanglement entropy",
+    font="CMU Serif",
+    #color = :jet1,
+    #:linear_bmy_10_95_c78_n256,#:diverging_rainbow_bgymr_45_85_c67_n256,#:linear_bmy_10_95_c78_n256,#:rainbow1,
+    right_margin = 5Plots.mm,
+    left_margin = Plots.mm,
+    titlefontsize=10,
+    guidefontsize=13,
+    tickfontsize=13,
+    legendfontsize=15,
+    framestyle = :box
+    )
+
+plot!(size=(830,700))
+#=
+plot!(yticks = ([(-pi) : (-pi/2): (-pi/4): 0: (pi/4) : (pi/2) : pi;],
+["-\\pi", "-\\pi/2", "-\\pi/4","0","\\pi/4","\\pi/2","\\pi"]))
+#hline!([[-3.11034138188]],lc=:magenta,linestyle= :dashdotdot,legend=false)
+#hline!([ [0]],lc=:magenta,linestyle= :dashdotdot,legend=false)
+#hline!([ [3.11034138188]],lc=:magenta,linestyle= :dashdotdot,legend=false)
+=#
+xlabel!("Noise \$\\delta\$")
+ylabel!("Energy of the bulk states")
+savefig("exact_effec_comparision.png")
