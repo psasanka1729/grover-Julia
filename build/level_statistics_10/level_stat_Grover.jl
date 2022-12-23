@@ -13,7 +13,7 @@ Gates_data_3 = M[:,3];
 
 
 Number_of_Gates = 2*(2*L^2-6*L+5)+2*L+4*L-4;
-SEED = 8000+parse(Int64,ARGS[1])
+SEED = 15000+parse(Int64,ARGS[1])
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
