@@ -47,8 +47,8 @@ for L in xrange(32):
 
 	contents=template_contents.replace('###',str(vnum))
         contents=contents.replace('*project*',project_name)
-	contents=contents.replace('*111*',str(1000+L))
-	out_file_base='data_'+str(1000+L)+'_*lll*.out'
+	contents=contents.replace('*111*',str(L))
+	out_file_base='data_'+str(L)+'_*lll*.out'
 	contents=contents.replace('*111*',out_file_base.replace('*lll*','julia'))
 	vmap_file.write(str(vnum)+'\t'+str(L)+'\n')
 	task_file.write('bash level_statistics_8_'+str(vnum)+'.qsub\n')
