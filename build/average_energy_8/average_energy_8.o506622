@@ -1,0 +1,94 @@
+Starting job average_energy_8
+WARNING (12/22/22 22:46:11): LAUNCHER_WORKDIR variable not set. Using current directory.
+Launcher: Setup complete.
+
+------------- SUMMARY ---------------
+   Number of hosts:    1
+   Working directory:  /home/sxd190113/grover-Julia/build/average_energy_8
+   Processes per host: 16
+   Total processes:    16
+   Total jobs:         16
+   Scheduling method:  interleaved
+
+-------------------------------------
+Launcher: Starting parallel tasks...
+using /tmp/launcher.506622.hostlist.mGF2OMFy to get hosts
+starting job on compute-7-2-21
+Lmod has detected the following error: The following module(s) are unknown:
+"git"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore-cache load "git"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Launcher: Task 8 running job 9 on compute-7-2-21 (bash average_energy_8_8.qsub)
+Launcher: Task 6 running job 7 on compute-7-2-21 (bash average_energy_8_6.qsub)
+Launcher: Task 14 running job 15 on compute-7-2-21 (bash average_energy_8_14.qsub)
+Launcher: Task 10 running job 11 on compute-7-2-21 (bash average_energy_8_10.qsub)
+Launcher: Task 11 running job 12 on compute-7-2-21 (bash average_energy_8_11.qsub)
+Launcher: Task 12 running job 13 on compute-7-2-21 (bash average_energy_8_12.qsub)
+Launcher: Task 0 running job 1 on compute-7-2-21 (bash average_energy_8_0.qsub)
+Launcher: Task 5 running job 6 on compute-7-2-21 (bash average_energy_8_5.qsub)
+Launcher: Task 4 running job 5 on compute-7-2-21 (bash average_energy_8_4.qsub)
+Launcher: Task 9 running job 10 on compute-7-2-21 (bash average_energy_8_9.qsub)
+Launcher: Task 3 running job 4 on compute-7-2-21 (bash average_energy_8_3.qsub)
+Launcher: Task 1 running job 2 on compute-7-2-21 (bash average_energy_8_1.qsub)
+Launcher: Task 7 running job 8 on compute-7-2-21 (bash average_energy_8_7.qsub)
+Launcher: Task 15 running job 16 on compute-7-2-21 (bash average_energy_8_15.qsub)
+Launcher: Task 13 running job 14 on compute-7-2-21 (bash average_energy_8_13.qsub)
+Launcher: Task 2 running job 3 on compute-7-2-21 (bash average_energy_8_2.qsub)
+Removing files
+Launcher: Job 15 completed in 455 seconds.
+Launcher: Task 14 done. Exiting.
+Removing files
+Launcher: Job 14 completed in 455 seconds.
+Launcher: Task 13 done. Exiting.
+Removing files
+Launcher: Job 5 completed in 457 seconds.
+Launcher: Task 4 done. Exiting.
+Removing files
+Launcher: Job 8 completed in 457 seconds.
+Launcher: Task 7 done. Exiting.
+Removing files
+Launcher: Job 7 completed in 458 seconds.
+Launcher: Task 6 done. Exiting.
+Removing files
+Launcher: Job 12 completed in 458 seconds.
+Launcher: Task 11 done. Exiting.
+Removing files
+Launcher: Job 2 completed in 458 seconds.
+Launcher: Task 1 done. Exiting.
+Removing files
+Launcher: Job 3 completed in 458 seconds.
+Launcher: Task 2 done. Exiting.
+Removing files
+Launcher: Job 9 completed in 460 seconds.
+Launcher: Task 8 done. Exiting.
+Removing files
+Launcher: Job 6 completed in 460 seconds.
+Launcher: Task 5 done. Exiting.
+Removing files
+Launcher: Job 4 completed in 460 seconds.
+Launcher: Task 3 done. Exiting.
+Removing files
+Launcher: Job 1 completed in 461 seconds.
+Launcher: Task 0 done. Exiting.
+Removing files
+Launcher: Job 11 completed in 463 seconds.
+Launcher: Task 10 done. Exiting.
+Removing files
+Launcher: Job 10 completed in 463 seconds.
+Launcher: Task 9 done. Exiting.
+Removing files
+Launcher: Job 16 completed in 465 seconds.
+Launcher: Task 15 done. Exiting.
+Removing files
+Launcher: Job 13 completed in 466 seconds.
+Launcher: Task 12 done. Exiting.
+Launcher: Done. Job exited without errors
+Job average_energy_8 complete
