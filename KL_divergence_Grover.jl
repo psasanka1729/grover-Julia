@@ -12,7 +12,7 @@ Gates_data_2 = M[:,2];
 Gates_data_3 = M[:,3];
 
 Number_of_Gates = 2*(2*L^2-6*L+5)+2*L+4*L-4;
-SEED = parse(Int64,ARGS[1]);
+SEED = 1859#parse(Int64,ARGS[1]);
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -153,8 +153,8 @@ U_0[1,1] = -1
 A = ones(2^L,2^L);
 U_x = (2/2^L)*A-Identity(2^L); # 2\s><s|-I
 G_exact = U_x*U_0
-# V(Z basis) = (x_bar basis).
-V = py"eigu"(G_exact)[2]; 
+# V(x_bar basis) = (Z basis).
+V = py"eigu"(G_exact)[2];
 
 function x_bar(n)
     k_n = (2*pi*n)/(2^L-2)
@@ -170,6 +170,7 @@ end;
 The following function returns the basis transformation matrix U such that
 U (x bar basis) = (Z basis)
 =#
+#=
 function Basis_Change_Matrix()
     local U = zeros(2^L,2^L)
     for k = 1:2^L
@@ -179,10 +180,218 @@ function Basis_Change_Matrix()
     end
     return U
 end;
+=#
 
-#DELTA = 0.01
+#=
+The following function converts a matrix from a given basis to Z basis.
+The matrix VM has the old bases as its column vectors.
+=#
+function Basis_Change_Matrix(VM)
+    local U = zeros(2^L,2^L)
+    for k = 1:2^L
+        sigma_z_basis = zeros(2^L,1);
+        sigma_z_basis[k] = 1
+        U += sigma_z_basis * (VM[:,k])'
+    end
+    return U #  Matrix_Z = U*Matrix_old_basis.
+end;
+
 function Eigenvectors(DELTA)
     
+    U_list = [];
+    U_noise_list = [];
+    U_x_delta = sparse(Identity(2^L));
+    #ux_list = []
+    NOISE_list = []
+
+    Gates_data_new_1 = []
+    Gates_data_new_2 = []
+    Gates_data_new_3 = []
+    
+    # U_x
+    for i = (2*L^2-4*L+5)+1 : 2*(2*L^2-6*L+5)+2*L+4*L-4
+        
+        if Gates_data_1[i] == "H"
+            
+            
+            epsilon = NOISE[i]
+            push!(NOISE_list,epsilon)
+            h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
+            U_x_delta *= h_matrix
+        
+            push!(Gates_data_new_1,"H")
+            push!(Gates_data_new_2,0.0)
+            push!(Gates_data_new_3,Gates_data_3[i])
+        
+            push!(U_noise_list,h_matrix) # Noise.
+        
+            push!(U_list,Matrix_Gate(Hadamard(0.0), Gates_data_3[i])) # Noiseless.
+            
+        elseif Gates_data_1[i] == "X"
+        
+            epsilon = NOISE[i]
+            push!(NOISE_list,epsilon)        
+            x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
+            U_x_delta *= x_matrix
+        
+            push!(Gates_data_new_1,"X")
+            push!(Gates_data_new_2,0.0)
+            push!(Gates_data_new_3,Gates_data_3[i]) 
+        
+            push!(U_noise_list,x_matrix) # Noise.
+        
+            push!(U_list,Matrix_Gate(CX(0.0),Gates_data_3[i])) # Noiseless.
+            
+        else
+            #push!(ux_list,"CRX")
+        
+            epsilon = NOISE[i]
+            push!(NOISE_list,epsilon)        
+            rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
+            U_x_delta *= rx_matrix
+        
+            push!(Gates_data_new_1,Gates_data_1[i])
+            push!(Gates_data_new_2,Gates_data_2[i])
+            push!(Gates_data_new_3,Gates_data_3[i])
+        
+            push!(U_noise_list,rx_matrix) # Noise.
+        
+            push!(U_list,CU(Rx(Gates_data_1[i]), Gates_data_2[i], Gates_data_3[i])) # Noiselss.
+            
+        end
+    end
+    
+    U_0_delta = sparse(Identity(2^L));
+    
+    #u0_list = []
+    # U_0
+    for i = 1 : 2*L^2-4*L+5
+        if Gates_data_1[i] == "H"
+        
+            epsilon = NOISE[i]
+            push!(NOISE_list,epsilon)        
+            h_matrix = Matrix_Gate(Hadamard(DELTA*epsilon), Gates_data_3[i])
+            U_0_delta *= h_matrix
+        
+            push!(Gates_data_new_1,"H")
+            push!(Gates_data_new_2,0.0)
+            push!(Gates_data_new_3,Gates_data_3[i])
+        
+            push!(U_noise_list,h_matrix) # Noise.
+        
+            push!(U_list,Matrix_Gate(Hadamard(0.0), Gates_data_3[i])) # Noiseless.
+            
+        elseif Gates_data_1[i] == "X"
+
+        
+            epsilon = NOISE[i]
+            push!(NOISE_list,epsilon)        
+            x_matrix = Matrix_Gate(CX(DELTA*epsilon),Gates_data_3[i])
+            U_0_delta *= x_matrix
+        
+            push!(Gates_data_new_1,"X")
+            push!(Gates_data_new_2,0.0)
+            push!(Gates_data_new_3,Gates_data_3[i]) 
+        
+            push!(U_noise_list,x_matrix) # Noise.
+        
+            push!(U_list,Matrix_Gate(CX(0.0),Gates_data_3[i])) # Noiseless.
+            
+        else
+            #push!(u0_list,"CRX")
+        
+            epsilon = NOISE[i]
+            push!(NOISE_list,epsilon)        
+            rx_matrix = CU(Rx(Gates_data_1[i]+DELTA*epsilon), Gates_data_2[i], Gates_data_3[i])
+            U_0_delta *= rx_matrix
+        
+            push!(Gates_data_new_1,Gates_data_1[i])
+            push!(Gates_data_new_2,Gates_data_2[i])
+            push!(Gates_data_new_3,Gates_data_3[i])
+        
+            push!(U_noise_list,rx_matrix) # Noise.
+        
+            push!(U_list,CU(Rx(Gates_data_1[i]), Gates_data_2[i], Gates_data_3[i])) # Noiseless.
+            
+        end
+    end
+        
+    GROVER_DELTA = U_x_delta*U_0_delta
+    
+    function kth_term(k)
+
+            f_k = Identity(2^L);
+    
+            for i = k:length(U_list)-1
+                f_k = f_k*collect(U_list[length(U_list)-i+k])
+            end     
+            #= Corresponding H for the kth term. =#
+            if Gates_data_new_1[k] == "H"
+
+                Qubit = Gates_data_new_3[k] # qubit.
+                H_k = Matrix_Gate(I2-H,Qubit) #= H_had = I2-Had. =#
+
+            elseif Gates_data_new_1[k] == "X"
+
+                Qubit = Gates_data_new_3[k] # qubit.
+                H_k = Matrix_Gate([1 1;1 1],Qubit) #= H_X = X+I2. =#
+
+            else
+        
+                Angle = Gates_data_new_1[k]
+                Control_Qubit = int(Gates_data_new_2[k])
+                Target_Qubit = int(Gates_data_new_3[k])
+                #= H = ((I-Z)/2)_c \otimes ((I+X)/2)_t.=#
+                Matrices = Dict("I" => [1 0;0 1],"U" => [1 1;1 1]/2, "PI_1" => (I2-Z)/2)
+                p1 = fill("I", L)
+                p1[Control_Qubit] = "PI_1"
+                p1[Target_Qubit] = "U"
+                H_k = Matrices[p1[1]]
+                for i = 2:L
+                    H_k = kron(H_k,Matrices[p1[i]])
+                end                                 
+            end
+    
+    
+        return f_k*H_k*(f_k')
+    end;        
+    
+    EIGU = py"eigu"(collect(GROVER_DELTA))
+    E_exact = real(1im*log.(EIGU[1])); # Eigenvalue.
+    E_exact = E_exact[2:2^L-1]; #= Neglecting the two special states at 1 and 2^L. =#
+    
+    #= The following loop sums over all epsilon to get H_eff. =#
+    h_eff = zeros(2^L,2^L);
+    for i = 1:length(U_list)
+        h_eff += NOISE_list[i]*kth_term(i)
+    end        
+
+    
+    # In the bulk G(delta) = delta*h_eff (see notes).
+    #h_eff = DELTA * h_eff # Matrix in Z basis.
+    
+    h_eff_D = (V')*h_eff*(V) # Matrix in |0> and |xbar> basis.
+    h_eff_D = exp(-1im*h_eff_D[3:2^L,3:2^L]) # |0> and |xbar> basis states are deleted.
+    
+    #h_eff_eigenvectors = eigvecs(h_eff_D) # Matrix is diagonalized.
+    h_eff_eigenvectors = py"eigu"(h_eff_D)[2] # Matrix is diagonalized.
+    
+    #= Adding zeros to increase the size of the matrix to 2^L x 2^L.=#
+    row_zeros = zeros(2^L-2,2)
+    h_eff_eigenvectors = hcat(row_zeros,h_eff_eigenvectors)
+    column_zeros = zeros(2,2^L)
+    h_eff_eigenvectors = vcat(column_zeros,h_eff_eigenvectors)
+    
+    # Changing the matrix to Z basis.
+    #h_eff_Z = V*h_eff_D_eigenvectors*(V') # U_z = V * U_xbar * V^dagger.
+    #h_eff_Z = Basis_Change_Matrix(h_eff_D_eigenvectors')*h_eff_D_eigenvectors'
+    
+    return h_eff_eigenvectors
+    #return GROVER_DELTA
+end;
+
+function Eigenvectors()
+    DELTA = 0.0
     U_list = [];
     U_noise_list = [];
     U_x_delta = sparse(Identity(2^L));
@@ -340,12 +549,6 @@ function Eigenvectors(DELTA)
         return f_k*H_k*(f_k')
     end;        
     
-    #=
-    # Calculating the exact eigenvlues.
-    EIGU = py"eigu"(collect(GROVER_DELTA))
-    E_exact = real(1im*log.(EIGU[1])); # Eigenvalue.
-    E_exact = E_exact[2:2^L-1]; #= Neglecting the two special states at 1 and 2^L. =#
-    =#
     
     #= The following loop sums over all epsilon to get H_eff. =#
     h_eff = zeros(2^L,2^L);
@@ -353,33 +556,26 @@ function Eigenvectors(DELTA)
         h_eff += NOISE_list[i]*kth_term(i)
     end        
 
-    # Converting matrix in Z basis to matrix in |0> and |xbar> basis.
-    h_eff_D = (V')*h_eff*(V)
-    
-    # |0> and |xbar> basis states are deleted.
-    h_eff_D = h_eff_D[3:2^L,3:2^L]
-    
-    # Diagonalizing h_eff matrix to obtain eigenvectors.
-    h_eff_D_diagonal = eigvecs(h_eff_D)
-    
-    # Adding zeros to increase the size of the matrix to 2^L x 2^L.
-    row_zeros = zeros(2^L-2,2)
-    h_eff_D_diagonal = hcat(row_zeros,h_eff_D_diagonal)
-    column_zeros = zeros(2,2^L)
-    h_eff_D_diagonal = vcat(column_zeros,h_eff_D_diagonal)
-    
-    # Changing the matrix to Z basis.
-    h_eff_Z = V*h_eff_D_diagonal*(V')
-    
-    return h_eff_Z
-end;
 
-#delta = 0.1
-V = Eigenvectors(0.0);
+    h_eff_D = (V')*h_eff*(V) # Matrix in |xbar> basis.
+
+    
+    h_eff_D = h_eff_D[3:2^L,3:2^L]; # Deleting the |0> and |xbar> basis.
+    h_eff_eigenvectors = eigvecs(h_eff_D)
+    
+    #= Adding zeros to increase the size of the matrix to 2^L x 2^L.=#
+    row_zeros = zeros(2^L-2,2)
+    h_eff_eigenvectors = hcat(row_zeros,h_eff_eigenvectors)
+    column_zeros = zeros(2,2^L)
+    h_eff_eigenvectors = vcat(column_zeros,h_eff_eigenvectors)
+    
+    
+    return h_eff_eigenvectors
+end;
 
 function KLd(Eigenvectors_Matrix)
     KL = []
-    for n = 1:2^L-1
+    for n = 1:2^L-1 # Eigenvector index goes from 1 to dim(H)-1.
         #=
         Here n is the index of the eigenstate e.g n = 3 denotes the
         third eigenstate of the h_eff_Z matrix.
@@ -390,34 +586,30 @@ function KLd(Eigenvectors_Matrix)
         in the computational basis <i|n> = i-th component of |n>.
         =#
 
+        #Psi_Z = V*H_eff_D[:,n]
         # Initialize the sum.
         KLd_sum = 0.0
 
-        # The sum goes from 1 to dim(H).
-        for i = 1:2^L-1
-            p = abs((Eigenvectors_Matrix[1:2^L,n:n])[i])^2
-            q = abs((Eigenvectors_Matrix[1:2^L,n+1:n+1])[i])^2
-            if p*q == 0
-                # To avoid singularities in log.
-                continue 
-            else    
-                KLd_sum += p*log(p/q)
-            end
+        # The sum goes from 1 to dim(H) i.e length of an eigenvector.
+        for i = 1:2^L
+            p = abs((V*(Eigenvectors_Matrix[:,n]))[i])^2 + 1.e-9 # To avoid singularity in log.
+            q = abs((V*(Eigenvectors_Matrix[:,n+1]))[i])^2 + 1.e-9           
+
+            KLd_sum += p*log(p/q)
         end
-        
-        push!(KL,KLd_sum)
-        
+        #println(KLd_sum)
+        push!(KL,KLd_sum)  
     end
     return KL
 end;
 
+H_eff_D = Eigenvectors()
 py"""
 f = open('KL_data'+'.txt', 'w')
 def Write_file(Index, KL_div):
     f = open('KL_data'+'.txt', 'a')
     f.write(str(Index) +'\t'+ str(KL_div)+'\n')
 """
-
-for i = 1:2^L-1
-    py"Write_file"(i,KLd(V)[i])
+for k = 1:2^L-1
+    py"Write_file"(k,KLd(H_eff_D)[k])
 end
