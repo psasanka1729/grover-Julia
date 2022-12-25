@@ -11,7 +11,7 @@ Gates_data_2 = M[:,2];
 Gates_data_3 = M[:,3];
 
 Number_of_Gates = 2*(2*L^2-6*L+5)+2*L+4*L-4;
-SEED = 16000+parse(Int64,ARGS[1]);
+SEED = parse(Int64,ARGS[1]);
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
@@ -297,7 +297,7 @@ function Eigenvalues()
         end
     end
         
-    GROVER_DELTA = U_x_delta*U_0_delta
+    #GROVER_DELTA = U_x_delta*U_0_delta
     
     function kth_term(k)
 
