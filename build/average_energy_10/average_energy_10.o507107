@@ -245,3 +245,12 @@ Launcher: Task 55 running job 56 on compute-7-3-29 (bash average_energy_10_55.qs
 Launcher: Task 58 running job 59 on compute-7-3-29 (bash average_energy_10_58.qsub)
 Launcher: Task 50 running job 51 on compute-7-3-29 (bash average_energy_10_50.qsub)
 Launcher: Task 54 running job 55 on compute-7-3-29 (bash average_energy_10_54.qsub)
+slurmstepd: error: *** JOB 507107 ON compute-7-3-8 CANCELLED AT 2022-12-24T22:41:36 ***
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.
+Killed by signal 15.

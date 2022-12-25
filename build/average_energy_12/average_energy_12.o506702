@@ -42,3 +42,5 @@ Launcher: Task 11 running job 12 on compute-7-2-21 (bash average_energy_12_11.qs
 Launcher: Task 14 running job 15 on compute-7-2-21 (bash average_energy_12_14.qsub)
 Launcher: Task 15 running job 16 on compute-7-2-21 (bash average_energy_12_15.qsub)
 Launcher: Task 12 running job 13 on compute-7-2-21 (bash average_energy_12_12.qsub)
+slurmstepd: error: *** JOB 506702 ON compute-7-2-21 CANCELLED AT 2022-12-24T22:42:19 ***
+Killed by signal 15.
