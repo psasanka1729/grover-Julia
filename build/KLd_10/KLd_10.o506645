@@ -42,3 +42,5 @@ Launcher: Task 8 running job 9 on compute-2-6-14 (bash KLd_10_8.qsub)
 Launcher: Task 10 running job 11 on compute-2-6-14 (bash KLd_10_10.qsub)
 Launcher: Task 1 running job 2 on compute-2-6-14 (bash KLd_10_1.qsub)
 Launcher: Task 6 running job 7 on compute-2-6-14 (bash KLd_10_6.qsub)
+slurmstepd: error: *** JOB 506645 ON compute-2-6-14 CANCELLED AT 2022-12-24T19:44:30 ***
+Killed by signal 15.

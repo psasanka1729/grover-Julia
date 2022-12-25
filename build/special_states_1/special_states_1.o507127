@@ -1197,3 +1197,53 @@ Launcher: Task 224 running job 225 on compute-7-6-28 (bash special_states_1_224.
 Launcher: Task 231 running job 232 on compute-7-6-28 (bash special_states_1_231.qsub)
 Launcher: Task 228 running job 229 on compute-7-6-28 (bash special_states_1_228.qsub)
 Launcher: Task 229 running job 230 on compute-7-6-28 (bash special_states_1_229.qsub)
+Removing files
+Removing files
+Removing files
+Removing files
+Removing files
+Removing files
+Removing files
+Removing files
+Removing files
+Removing files
+Removing files
+Removing files
+Removing files
+Removing files
+Removing files
+Removing files
+Launcher: Job 225 completed in 324 seconds.
+Launcher: Job 229 completed in 324 seconds.
+Launcher: Job 228 completed in 324 seconds.
+Launcher: Job 240 completed in 324 seconds.
+Launcher: Job 230 completed in 324 seconds.
+Launcher: Job 235 completed in 324 seconds.
+Launcher: Job 237 completed in 324 seconds.
+Launcher: Job 226 completed in 324 seconds.
+Launcher: Job 239 completed in 324 seconds.
+Launcher: Job 232 completed in 324 seconds.
+Launcher: Job 234 completed in 324 seconds.
+Launcher: Job 238 completed in 324 seconds.
+Launcher: Job 236 completed in 324 seconds.
+Launcher: Job 231 completed in 324 seconds.
+Launcher: Job 233 completed in 324 seconds.
+Launcher: Job 227 completed in 324 seconds.
+Launcher: Task 224 done. Exiting.
+Launcher: Task 231 done. Exiting.
+Launcher: Task 233 done. Exiting.
+Launcher: Task 237 done. Exiting.
+Launcher: Task 227 done. Exiting.
+Launcher: Task 235 done. Exiting.
+Launcher: Task 230 done. Exiting.
+Launcher: Task 228 done. Exiting.
+Launcher: Task 229 done. Exiting.
+Launcher: Task 239 done. Exiting.
+Launcher: Task 234 done. Exiting.
+Launcher: Task 232 done. Exiting.
+Launcher: Task 236 done. Exiting.
+Launcher: Task 226 done. Exiting.
+Launcher: Task 225 done. Exiting.
+Launcher: Task 238 done. Exiting.
+Launcher: Done. Job exited without errors
+Job special_states_1 complete
