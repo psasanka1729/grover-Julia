@@ -1,3 +1,106 @@
+commit 567d3e71d07ecb3314ee94101076e96598b08ea2
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Dec 25 11:37:38 2022 -0600
+
+    Commit before run new_KLd_10
+
+commit eea1461140fdccaeeef9640469e3fc352a6593de
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Dec 25 11:31:59 2022 -0600
+
+    Commit before run KLd_10
+
+commit 59fbd10d6cff54579ee44473b7962ce0fb272deb
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sun Dec 25 11:31:50 2022 -0600
+
+    Commit before run KLd_10
+
+commit c5a78dca1c5467d2051db59a449a7032ccf8a324
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Dec 24 23:56:48 2022 -0600
+
+    Commit before run special_states_1
+
+commit 4af124297a55d7133b67fc8520403985a2f7783e
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Dec 24 23:55:06 2022 -0600
+
+    Commit before run average_energy_10
+
+commit 968f28a9d3596cf8b51fac472fdb9e74b587e44f
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Dec 24 23:04:38 2022 -0600
+
+    Commit before run special_states_1
+
+commit 9e7046ce0349a82e61d4bb1a9df71c626b5e3ac8
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Dec 24 22:40:50 2022 -0600
+
+    Commit before run average_energy_8
+
+commit 730a8083cbdb3d350a0cebbd2c73f9f9ad5a6290
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Dec 24 22:26:49 2022 -0600
+
+    Commit before run special_states_1
+
+commit 379b0d3c1044dd267c5c02772119f239278daaf5
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Dec 24 22:13:29 2022 -0600
+
+    Commit before run delta_E_n
+
+commit dab03c82f3deb8709dc069d67748d422da1651d7
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Dec 24 21:47:40 2022 -0600
+
+    Commit before run special_states_1
+
+commit 7ab795e46701d4a21eca494f3005415014d2d170
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Dec 24 21:34:17 2022 -0600
+
+    Commit before run delta_E_n
+
+commit 80d9669bba8237991c35bd85e97bd4b6411bbd51
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Dec 24 19:48:42 2022 -0600
+
+    Commit before run special_states_1
+
+commit 2ebfd2f3ae378de417d30a185eada0fd395c6bbe
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Dec 24 19:43:14 2022 -0600
+
+    cluster backup
+
+commit 2e51aed99ac7b61a6b30c7ea71b1b9c55ca82a90
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Dec 24 14:01:41 2022 -0600
+
+    Commit before run special_states_1
+
+commit 0d30921b95082bcd8ccae11b40cf12df59cd1838
+Merge: 8aacf1a 2dd03ca
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Dec 24 13:59:29 2022 -0600
+
+    Merge https://github.com/psasanka1729/grover-Julia into main
+
+commit 2dd03cad07f38cd249e82e8fd0f0d29d9820a970
+Author: Sasanka <31107620+psasanka1729@users.noreply.github.com>
+Date:   Sat Dec 24 13:59:15 2022 -0600
+
+    statistics of two special states
+
+commit 8aacf1a8466933d9f73a459f018697bcd0c86a57
+Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
+Date:   Sat Dec 24 12:07:13 2022 -0600
+
+    Commit before run average_energy_10
+
 commit e6123315ab898c8ad087193f488198d6497b43c7
 Author: Sasanka Dowarah <sxd190113@ganymede.utdallas.edu>
 Date:   Sat Dec 24 11:21:01 2022 -0600
