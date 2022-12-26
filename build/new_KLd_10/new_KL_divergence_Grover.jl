@@ -1,18 +1,18 @@
-L = 10;
+L = 12;
 
 using Random
 using LinearAlgebra
 using SparseArrays
 using DelimitedFiles
 using PyCall
-file = raw"10_Grover_gates_data.txt" # Change for every L.
+file = raw"12_Grover_gates_data.txt" # Change for every L.
 M = readdlm(file)
 Gates_data_1 = M[:,1];
 Gates_data_2 = M[:,2];
 Gates_data_3 = M[:,3];
 
 Number_of_Gates = 2*(2*L^2-6*L+5)+2*L+4*L-4;
-SEED = 2000+parse(Int64,ARGS[1]);
+SEED = parse(Int64,ARGS[1]);
 Random.seed!(SEED)
 NOISE = 2*rand(Float64,Number_of_Gates).-1;
 
